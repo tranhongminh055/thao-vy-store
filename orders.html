@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lịch sử đơn hàng - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="orders.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script>
+    if (!localStorage.getItem('loggedUser') && !localStorage.getItem('loggedInUser')) {
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+
+<body>
+  <header id="header">
+    <div class="header-top">
+      <div class="container flex-between">
+        <div class="logo"><a href="index.html"><img src="Logo/màu kem hồng minh họa thức ăn Sticker tròn.png"
+              alt="Logo bánh" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"></a></div>
+        <div class="header-search"><input id="search-input" placeholder="Tìm bánh..."><button id="search-btn"><i
+              class="fas fa-search"></i></button>
+          <ul id="search-suggestions" class="suggestions-list"></ul>
+        </div>
+        <div class="header-hotline"><i class="fas fa-phone-volume"></i> Hotline: 1800 2097</div>
+        <div class="header-account"><a href="account.html"><i class="fas fa-user"></i> <span id="userEmail">Đăng
+              nhập</span></a></div>
+        <!-- Thông báo -->
+        <div id="notification-icon" class="notification-icon" onclick="toggleNotificationDropdown()">
+          <i class="fas fa-bell"></i>
+          <span id="notification-badge" class="notification-badge" style="display: none;">0</span>
+        </div>
+        <div id="notification-dropdown" class="notification-dropdown" style="display: none;">
+          <div class="notification-header">
+            <h3>Thông báo</h3>
+            <div class="notification-actions">
+              <button onclick="markAllAsRead()" title="Đánh dấu tất cả là đã đọc" class="btn-mark-all">
+                <i class="fas fa-check-double"></i>
+              </button>
+              <button onclick="clearAllNotifications()" title="Xóa tất cả" class="btn-clear-all">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div id="notificationsList" class="notifications-list"></div>
+        </div>
+        <div class="header-cart"><a href="cart.html"><i class="fas fa-shopping-cart"></i><span
+              id="cart-count">0</span></a></div>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <div class="container">~
+        <ul class="nav-list">
+          <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+          <li><a href="orders.html" class="active"><i class="fas fa-history"></i> Lịch sử đơn hàng</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container orders-main">
+    <section class="panel">
+      <h1>Lịch sử đơn hàng</h1>
+      <p id="ordersSubtitle">Danh sách đơn hàng đã lưu .</p>
+    </section>
+
+    <!-- Search results (appear when user searches) -->
+    <div id="search-results" class="search-results hidden container">
+      <h2>Kết quả tìm kiếm</h2>
+      <div id="searchProducts" class="product-list"></div>
+    </div>
+
+    <section class="panel orders-list">
+      <div id="ordersContainer"></div>
+    </section>
+    <div class="back-home"><a href="index.html" class="btn back-home-btn">Về trang chủ</a></div>
+  </main>
+
+  <footer>
+    <div class="container footer-top">
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="about.html">Giới thiệu</a></li>
+          <li><a href="stores.html">Hệ thống cửa hàng</a></li>
+          <li><a href="recruitment.html">Tuyển dụng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Chính sách</h4>
+        <ul>
+          <li><a href="warranty.html">Bảo hành đổi trả</a></li>
+          <li><a href="checkout.html">Thanh toán & giao hàng</a></li>
+          <li><a href="privacy.html">Bảo mật thông tin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ khách hàng</h4>
+        <ul>
+          <li><a href="#">Liên hệ</a></li>
+          <li><a href="faq.html">Câu hỏi thường gặp</a></li>
+          <li><a href="huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/be.la.minh.739188/"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@endermantv6933"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@shibichi2005"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/_____t.hm____/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Thảo Vy Shop - .Shoe Store-. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="about-search.js"></script>
+  <script src="cart-count.js"></script>
+
+  <!-- Firebase SDK (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+  <!-- Initialize Firebase -->
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLE1v4CecJzwXu7Ost4cQAispy-tU0bOs",
+      authDomain: "thao-vy-store.firebaseapp.com",
+      projectId: "thao-vy-store",
+      storageBucket: "thao-vy-store.firebasestorage.app",
+      messagingSenderId: "286529155045",
+      appId: "1:286529155045:web:76fabec55bdcfbe614090c",
+      measurementId: "G-SQH3EQEE08"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    window.__FIREBASE_INITIALIZED__ = true;
+    console.log('✅ Firebase initialized on orders.html');
+  </script>
+
+  <script src="notification.js"></script>
+  <script src="notification-helper.js"></script>
+
+  <script>
+
+    // chuyen doi gia sang VND
+    (async function () {
+      function formatVND(n) { return Number(n || 0).toLocaleString('vi-VN') + ' VND'; }
+
+
+      // show logged user
+      let userEmail = null;
+      try { const u = JSON.parse(localStorage.getItem('loggedUser')) || JSON.parse(localStorage.getItem('loggedInUser')) || null; if (u && u.email) userEmail = (u.email || u.user).toString().trim().toLowerCase(); if (userEmail) document.getElementById('userEmail').innerText = userEmail; } catch (e) { }
+
+      console.log('=== Orders.html initialized ===');
+      console.log('userEmail:', userEmail);
+      console.log('firebase available:', !!window.firebase);
+      console.log('__FIREBASE_INITIALIZED__:', !!window.__FIREBASE_INITIALIZED__);
+
+      // Auto-sync orders to Firestore on page load
+      async function autoSyncOrdersToFirestore() {
+        if (!userEmail) {
+          console.log('⚠️ No userEmail, skipping auto-sync');
+          return;
+        }
+        if (!window.firebase) {
+          console.log('⚠️ Firebase not available, skipping auto-sync');
+          return;
+        }
+        if (!window.__FIREBASE_INITIALIZED__) {
+          console.log('⚠️ Firebase not initialized, skipping auto-sync');
+          return;
+        }
+
+        try {
+          const db = firebase.firestore();
+          const localOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+          console.log('📋 localStorage has ' + localOrders.length + ' total orders');
+
+          const userOrders = localOrders.filter(o => o.userEmail && o.userEmail.toString().toLowerCase() === userEmail);
+          console.log('📋 Filtered ' + userOrders.length + ' orders for user: ' + userEmail);
+
+          if (userOrders.length === 0) {
+            console.log('✓ No new orders to sync');
+            return;
+          }
+
+          console.log('🔄 STARTING AUTO-SYNC of ' + userOrders.length + ' orders...');
+
+          let syncedCount = 0;
+          for (const order of userOrders) {
+            if (!order.orderId) {
+              console.warn('⚠️ Order missing orderId, skipping');
+              continue;
+            }
+            try {
+              const docRef = db.collection('orders').doc(order.orderId);
+              const existing = await docRef.get();
+
+              if (!existing.exists) {
+                console.log('💾 Syncing order: ' + order.orderId);
+
+                // Sync to orders collection
+                await docRef.set(Object.assign({}, order, {
+                  userEmail: userEmail,
+                  createdAt: order.confirmedAt || order.orderDate || firebase.firestore.FieldValue.serverTimestamp()
+                }));
+
+                // Sync to users/{email}/orders - store FULL order object with all details
+                await db.collection('users').doc(userEmail).collection('orders').doc(order.orderId).set(Object.assign({}, order, {
+                  userEmail: userEmail,
+                  createdAt: order.confirmedAt || order.orderDate || firebase.firestore.FieldValue.serverTimestamp()
+                }));
+
+                console.log('✅ Successfully synced: ' + order.orderId);
+                syncedCount++;
+              } else {
+                console.log('ℹ️ Order already in Firestore: ' + order.orderId);
+              }
+            } catch (e) {
+              console.error('❌ Error syncing ' + order.orderId + ':', e.message);
+            }
+          }
+          console.log('✅ AUTO-SYNC COMPLETE: ' + syncedCount + ' new orders synced');
+        } catch (e) {
+          console.error('❌ FATAL AUTO-SYNC ERROR:', e.message, e);
+        }
+      }
+
+      // Call auto-sync immediately
+      await autoSyncOrdersToFirestore();
+
+
+      const container = document.getElementById('ordersContainer');
+      let all = [];
+      let isFromFirestore = false;
+
+      // Try to fetch orders from Firestore if user is logged in
+      if (userEmail && window.firebase && window.__FIREBASE_INITIALIZED__) {
+        try {
+          const db = firebase.firestore();
+          const querySnapshot = await db.collection('orders').where('userEmail', '==', userEmail).get();
+          const firestoreOrders = [];
+          querySnapshot.forEach(doc => {
+            firestoreOrders.push(doc.data());
+          });
+          if (firestoreOrders.length > 0) {
+            // Use Firestore orders (already user-scoped, so no need to filter by userEmail)
+            all = firestoreOrders;
+            isFromFirestore = true;
+            console.log('✅ Loaded ' + firestoreOrders.length + ' orders from Firestore');
+          } else {
+            // No orders in Firestore, try localStorage as fallback
+            try {
+              const localData = localStorage.getItem('orders');
+              all = localData ? JSON.parse(localData) : [];
+              console.log('ℹ️ No orders in Firestore, loaded ' + all.length + ' from localStorage');
+            } catch (parseError) {
+              console.warn('Failed to parse localStorage orders:', parseError);
+              all = [];
+            }
+          }
+        } catch (e) {
+          console.warn('⚠️ Failed to load orders from Firestore, falling back to localStorage:', e);
+          try {
+            const localData = localStorage.getItem('orders');
+            all = localData ? JSON.parse(localData) : [];
+            console.log('📦 Loaded ' + all.length + ' orders from localStorage fallback');
+          } catch (parseError) {
+            console.warn('Failed to parse localStorage orders:', parseError);
+            all = [];
+          }
+        }
+      } else {
+        // Fallback to localStorage if not logged in or Firebase not available
+        try {
+          const localData = localStorage.getItem('orders');
+          all = localData ? JSON.parse(localData) : [];
+          console.log('📦 No Firebase, loaded ' + all.length + ' orders from localStorage');
+        } catch (parseError) {
+          console.warn('Failed to parse localStorage orders:', parseError);
+          all = [];
+        }
+      }
+
+      // Auto-migrate old order schema to new schema
+      function migrateOldOrders(orders) {
+        return orders.map(o => {
+          // If order uses old schema (no customer object, has name field), migrate it
+          if (!o.customer && o.name) {
+            console.log('🔄 Migrating old order:', o.id || o.orderId);
+            return {
+              orderId: o.orderId || o.id,
+              status: o.status || 'confirmed',
+              customer: {
+                name: o.name,
+                phone: o.phone || '',
+                email: o.email || '',
+                address: o.address || ''
+              },
+              products: o.products || o.items || [],
+              subtotal: o.subtotal || (o.total ? parseInt(o.total) : 0),
+              discount: o.discount || 0,
+              total: o.total ? parseInt(o.total) : 0,
+              userEmail: o.userEmail || o.email || userEmail,
+              orderDate: o.orderDate || new Date(o.createdAt).toLocaleString('vi-VN'),
+              delivery: o.delivery || '',
+              payment: o.payment || '',
+              createdAt: o.createdAt,
+              // Keep legacy fields for backward compat
+              id: o.id,
+              name: o.name,
+              phone: o.phone,
+              email: o.email,
+              address: o.address,
+              items: o.items
+            };
+          }
+          return o;
+        });
+      }
+
+      // Apply migration
+      all = migrateOldOrders(all);
+      console.log('After migration, first order:', JSON.stringify(all[0], null, 2));
+
+      // với data từ firestore thì đã được lọc sẵn theo userEmail nên không cần filter lại, còn với data từ localStorage thì cần filter theo userEmail nếu có
+      const filtered = isFromFirestore ? all : (userEmail ? all.filter(o => o.userEmail && o.userEmail.toString().toLowerCase() === userEmail) : all);
+      console.log(' Final filtered orders: ' + filtered.length);
+      console.log('First filtered order:', JSON.stringify(filtered[0], null, 2));
+      console.log(' Order data from Firestore:', JSON.stringify(filtered, null, 2));
+      if (!filtered.length) { container.innerHTML = '<div class="muted">Chưa có đơn hàng nào.</div>'; return; }
+      filtered.slice().reverse().forEach(o => {
+        const box = document.createElement('div'); box.className = 'order-box';
+        let statusText = o.status || 'unknown';
+        if (statusText === 'pending_payment') statusText = 'Đang chờ duyệt thanh toán';
+        else if (statusText === 'confirmed') statusText = 'Đã xác nhận';
+        else if (statusText === 'cancelled') statusText = 'Đã hủy';
+        
+        box.innerHTML = `<div class="order-head"><strong>Mã:</strong> ${o.orderId || ''} <span class="muted">(${o.orderDate || ''})</span> <span class="status">${statusText}</span></div>`;
+        const prodWrap = document.createElement('div'); prodWrap.className = 'order-products';
+        (o.products || []).forEach(p => { const pdiv = document.createElement('div'); pdiv.className = 'order-product'; pdiv.innerHTML = `<img src="${p.image || 'src/giay nam dep.jfif'}"><div class="info"><div class="name">${p.name}</div><div>Số lượng: ${p.quantity || 1}</div></div><div class="price">${formatVND(p.price)}</div>`; prodWrap.appendChild(pdiv); });
+        box.appendChild(prodWrap);
+        box.appendChild(document.createElement('hr'));
+
+        // build meta rows with clearer structure
+        const meta = document.createElement('div'); meta.className = 'order-meta';
+        const subtotalDiv = document.createElement('div'); subtotalDiv.className = 'meta-row';
+
+        // tinh tong gia tri khii khavh hangf chua ap dung voucher
+        subtotalDiv.innerHTML = `<div class="meta-label">Tạm tính</div><div class="meta-value">${formatVND(o.subtotal || 0)}</div>`;
+        const discountDiv = document.createElement('div'); discountDiv.className = 'meta-row';
+
+        // khi ap voucher vao no se tinh tong gia tri giam gia
+        discountDiv.innerHTML = `<div class="meta-label">Giảm</div><div class="meta-value">${formatVND(o.discount || 0)}</div>`;
+
+        // tinh tong gia tri don hang cuoi cung 
+        const totalDiv = document.createElement('div'); totalDiv.className = 'meta-row meta-total';
+        totalDiv.innerHTML = `<div class="meta-label">Thành tiền</div><div class="meta-value">${formatVND(o.total || ((o.subtotal || 0) - (o.discount || 0)))}</div>`;
+        meta.appendChild(subtotalDiv);
+        meta.appendChild(discountDiv);
+        meta.appendChild(totalDiv);
+        box.appendChild(meta);
+        const rec = document.createElement('div'); rec.className = 'order-recipient';
+
+        // dung javascrip de tu dong dong bo cac dia chi ve website cua minh
+        const addrStructured = (o.customer && o.customer.addressStructured) || null;
+        const addrLines = addrStructured ? [addrStructured.detail, addrStructured.ward, addrStructured.district, addrStructured.city].filter(Boolean).join(', ') : ((o.customer && o.customer.address) || '');
+        rec.innerHTML = `
+          <h4>Người nhận</h4>
+          <div class="recipient-box">
+            <div class="recipient-row"><div class="label">Họ và tên</div><div class="value">${(o.customer && o.customer.name) || ''}</div></div>
+            <div class="recipient-row"><div class="label">Số điện thoại</div><div class="value">${(o.customer && o.customer.phone) || ''}</div></div>
+            <div class="recipient-row"><div class="label">Địa chỉ</div><div class="value">${addrLines}</div></div>
+          </div>
+        `;
+        //thêm người nhận trước để các hành động xuất hiện bên dưới địa chỉ
+        box.appendChild(rec);
+
+        // nếu muốn huỷ hiển thị hộp thả chọn lý do huỷ
+        if (o.cancel && o.cancel.refund) {
+          const cancelInfo = document.createElement('div'); cancelInfo.className = 'cancel-info';
+          cancelInfo.innerHTML = `<strong>Lý do hủy:</strong> ${o.cancel.reason || ''}<br><strong>Hoàn tiền:</strong> ${o.cancel.refund.method || ''} ${o.cancel.refund.bank ? (' - ' + o.cancel.refund.bank) : ''} ${o.cancel.refund.account ? (' - ' + o.cancel.refund.account) : ''}`;
+          box.appendChild(cancelInfo);
+        }
+
+        // Thao tác huỷ được đặt bên dưới người nhận
+        const actions = document.createElement('div'); actions.className = 'order-actions';
+        // Nút huỷ bắt đầu sự kiện khi user bấm huỷ
+        if ((o.status || '').toString().toLowerCase() !== 'cancelled') {
+          const cancelBtn = document.createElement('button'); cancelBtn.className = 'btn primary'; cancelBtn.textContent = 'Hủy đơn';
+          cancelBtn.addEventListener('click', () => openCancelForm(box, o));
+          actions.appendChild(cancelBtn);
+        } else {
+          const cancelledNote = document.createElement('div'); cancelledNote.className = 'status cancelled'; cancelledNote.textContent = 'Đã hủy'; actions.appendChild(cancelledNote);
+        }
+        // đặt hàng lại (luôn luôn hợp lệ)
+        const reorderBtn = document.createElement('button'); reorderBtn.className = 'btn'; reorderBtn.textContent = 'Đặt hàng lại';
+        reorderBtn.addEventListener('click', () => reorderOrder(o));
+        actions.appendChild(reorderBtn);
+        // Nút xem hoá đơn
+        const viewInv = document.createElement('button'); viewInv.className = 'btn'; viewInv.textContent = 'Xem hoá đơn';
+        viewInv.addEventListener('click', () => {
+          try { 
+            localStorage.setItem('viewOrderId', o.orderId || ''); 
+            localStorage.setItem('viewOrderData', JSON.stringify(o));
+          } catch (e) { }
+          window.location.href = 'invoice.html';
+        });
+        actions.appendChild(viewInv);
+
+        box.appendChild(actions);
+
+
+        container.appendChild(box);
+      });
+
+      // Reorder helper: copy order products into cart, prefill orderData and mark reorderSource
+      function reorderOrder(orderObj) {
+        try {
+          const products = (orderObj.products || []).map(p => Object.assign({}, p));
+          localStorage.setItem('cart', JSON.stringify(products));
+          const od = {
+            products: products,
+            subtotal: orderObj.subtotal || (products.reduce((s, i) => s + (typeof i.price === 'number' ? i.price : parseInt((i.price || 0).toString().replace(/[^0-9]/g, '')) || 0) * (i.quantity || 1), 0)),
+            discount: orderObj.discount || 0,
+            total: orderObj.total || (orderObj.subtotal || 0) - (orderObj.discount || 0),
+            customer: orderObj.customer || {}
+          };
+          if (orderObj.payment) od.payment = orderObj.payment;
+          localStorage.setItem('orderData', JSON.stringify(od));
+          localStorage.setItem('reorderSource', orderObj.orderId || '');
+          window.location.href = 'cart.html';
+        } catch (e) { console.error(e); alert('Không thể đặt hàng lại: ' + (e && e.message)); }
+      }
+
+      // chức năng mở hộp thả huỷ đơn hàng
+      function openCancelForm(boxEl, orderObj) {
+        // không mở khi form huỷ đơn chưa hiển thị
+        if (boxEl.querySelector('.cancel-form')) return;
+        const form = document.createElement('div'); form.className = 'cancel-form';
+        form.innerHTML = `
+          <h4>Hủy đơn ${orderObj.orderId || ''}</h4>
+          <label>Lý do hủy
+            <select class="cancel-reason">
+              <option value="">-- Chọn lý do --</option>
+              <option value="Thay đổi ý định">Thay đổi ý định</option>
+              <option value="Phát hiện giá rẻ hơn">Phát hiện giá rẻ hơn</option>
+              <option value="Sản phẩm không đúng mô tả">Sản phẩm không đúng mô tả</option>
+              <option value="Sản phẩm bị hư hỏng">Sản phẩm bị hư hỏng</option>
+              <option value="Giao chậm">Giao chậm</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </label>
+          <label>Phương thức hoàn tiền
+            <select class="refund-method">
+              <option value="bank-transfer">Chuyển khoản</option>
+              <option value="credit-card">Thẻ tín dụng</option>
+              <option value="cod-refund">Hoàn COD</option>
+            </select>
+          </label>
+          <div class="refund-bank-fields">
+            <label>Ngân hàng<select class="refund-bank"><option value="">Chọn ngân hàng</option></select></label>
+            <label>Số tài khoản<input class="refund-account" type="text"></label>
+            <label>Tên chủ tài khoản<input class="refund-account-name" type="text" placeholder="Tên chủ tài khoản"></label>
+          </div>
+          <div class="refund-card-fields" style="display:none;">
+            <label>Số thẻ tín dụng<input class="refund-card-number" type="text" placeholder="1234 5678 9012 3456"></label>
+            <label>Tên chủ thẻ<input class="refund-card-holder" type="text" placeholder="Tên in trên thẻ"></label>
+            <label>Hạn dùng<input class="refund-card-expiry" type="text" placeholder="MM/YY"></label>
+          </div>
+          <div class="refund-verification">
+            <label>Số điện thoại xác thực<input class="refund-phone" type="text" placeholder="Ví dụ: 0912345678"></label>
+            <label>Ảnh CMND/CCCD (tuỳ chọn)<input class="refund-id" type="file" accept="image/*"></label>
+            <label><input type="checkbox" class="refund-agree"> Tôi xác nhận thông tin hoàn tiền là chính xác và chịu trách nhiệm</label>
+            <div class="refund-note">Lưu ý: Vì đơn ban đầu là COD, yêu cầu hoàn tiền sẽ được lưu là <strong>pending</strong> và xử lý thủ công bởi hệ thống.</div>
+          </div>
+          <div class="cancel-form-actions"><button class="btn" type="button">Hủy</button><button class="btn primary btn-confirm-cancel" type="button">Gửi yêu cầu hoàn tiền</button></div>
+        `;
+        boxEl.appendChild(form);
+
+        // hiển thị popup ngân hàng
+        const refundBankEl = form.querySelector('.refund-bank');
+        const VIETNAM_BANKS = [
+          'Ngân hàng TMCP Ngoại thương Việt Nam (Vietcombank)',
+          'Ngân hàng TMCP Công Thương Việt Nam (VietinBank)',
+          'Ngân hàng TMCP Đầu tư và Phát triển Việt Nam (BIDV)',
+          'Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank)',
+          'Ngân hàng TMCP Á Châu (ACB)',
+          'Ngân hàng TMCP Quân Đội (MB)',
+          'Ngân hàng TMCP Việt Nam Thịnh Vượng (VPBank)',
+          'Ngân hàng TMCP Phát triển Nhà TPHCM (HDBank)',
+          'Ngân hàng TMCP Sài Gòn Thương Tín (Sacombank)',
+          'Ngân hàng Nông nghiệp và Phát triển Nông thôn (Agribank)',
+          'Ngân hàng TMCP Sài Gòn (SCB)',
+          'Ngân hàng TMCP Quốc Dân (NCB)',
+          'Ngân hàng TMCP Đông Á (DongA Bank)',
+          'Ngân hàng TMCP Phương Đông (OCB)',
+          'Ngân hàng TMCP Hàng Hải (MSB)',
+          'Ngân hàng TMCP Quốc Tế Việt Nam (VIB)',
+          'Ngân hàng TMCP Bảo Việt (BaoVietBank)',
+          'Ngân hàng TMCP Bưu Điện Liên Việt (LienVietPostBank)'
+        ];
+        VIETNAM_BANKS.forEach(b => { const o = document.createElement('option'); o.value = b; o.textContent = b; refundBankEl.appendChild(o); });
+
+        //khôi phục thông tin hoàn tiền cod đã lưu
+        try {
+          const saved = JSON.parse(localStorage.getItem('codRefundInfo') || 'null');
+          if (saved) {
+            if (saved.bank) refundBankEl.value = saved.bank;
+            const accEl = form.querySelector('.refund-account'); if (accEl && saved.account) accEl.value = saved.account;
+            const nameEl = form.querySelector('.refund-account-name'); if (nameEl && saved.accountName) nameEl.value = saved.accountName;
+          }
+        } catch (e) { }
+
+
+
+        // helper: normalize phone/account for comparisons
+        function normalizeNumber(s) { if (!s) return ''; try { return s.toString().replace(/[^0-9]/g, '').replace(/^84/, '0'); } catch (e) { return ''; } }
+
+        // handle refund method toggle (show bank fields or credit-card fields)
+        const refundMethodEl = form.querySelector('.refund-method');
+        const refundBankFields = form.querySelector('.refund-bank-fields');
+        const refundCardFields = form.querySelector('.refund-card-fields');
+        refundBankFields.style.display = refundMethodEl.value === 'bank-transfer' || refundMethodEl.value === 'cod-refund' ? 'block' : 'none';
+        refundCardFields.style.display = refundMethodEl.value === 'credit-card' ? 'block' : 'none';
+        refundMethodEl.addEventListener('change', () => {
+          if (refundMethodEl.value === 'bank-transfer' || refundMethodEl.value === 'cod-refund') {
+            refundBankFields.style.display = 'block'; refundCardFields.style.display = 'none';
+          } else if (refundMethodEl.value === 'credit-card') {
+            refundBankFields.style.display = 'none'; refundCardFields.style.display = 'block';
+          } else {
+            refundBankFields.style.display = 'none'; refundCardFields.style.display = 'none';
+          }
+        });
+
+        // autofill account info when user enters a phone number (search previous orders)
+        const phoneEl = form.querySelector('.refund-phone');
+        const accEl = form.querySelector('.refund-account');
+        const accNameEl = form.querySelector('.refund-account-name');
+        if (phoneEl) {
+          phoneEl.addEventListener('blur', () => {
+            const q = normalizeNumber(phoneEl.value.trim());
+            if (!q) return;
+            try {
+              // search saved orders for matching customer phone or payment detail
+              const allOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+              const found = (allOrders || []).slice().reverse().find(o => (o.customer && o.customer.phone && normalizeNumber(o.customer.phone) === q) || (o.payment && o.payment.details && o.payment.details.phone && normalizeNumber(o.payment.details.phone) === q));
+              if (found && found.payment && found.payment.details) {
+                const d = found.payment.details;
+                if (d.bank && refundBankEl) refundBankEl.value = d.bank;
+                if (d.accountNumber && accEl) accEl.value = d.accountNumber;
+                if ((d.accountName || d.cardHolder) && accNameEl) accNameEl.value = d.accountName || d.cardHolder;
+              } else {
+                // try codRefundInfo
+                const cod = JSON.parse(localStorage.getItem('codRefundInfo') || 'null');
+                if (cod) { if (cod.bank && refundBankEl) refundBankEl.value = cod.bank; if (cod.account && accEl) accEl.value = cod.account; if (cod.accountName && accNameEl) accNameEl.value = cod.accountName; }
+              }
+            } catch (e) { }
+          });
+        }
+
+        // cancel/hide
+        form.querySelector('.btn').addEventListener('click', () => form.remove());
+
+        // confirm cancel
+        form.querySelector('.btn-confirm-cancel').addEventListener('click', () => {
+          const reason = form.querySelector('.cancel-reason').value.trim();
+          const method = form.querySelector('.refund-method').value;
+          const bank = form.querySelector('.refund-bank').value;
+          const account = form.querySelector('.refund-account').value.trim();
+          const accountName = (form.querySelector('.refund-account-name') || { value: '' }).value.trim();
+          const cardNum = (form.querySelector('.refund-card-number') || { value: '' }).value.replace(/\s+/g, '');
+          const cardHolder = (form.querySelector('.refund-card-holder') || { value: '' }).value.trim();
+          const cardExpiry = (form.querySelector('.refund-card-expiry') || { value: '' }).value.trim();
+          const phone = (form.querySelector('.refund-phone') || { value: '' }).value.trim();
+          const agree = !!form.querySelector('.refund-agree') && form.querySelector('.refund-agree').checked;
+          // basic validation
+          if (!reason) { alert('Vui lòng chọn lý do hủy.'); return; }
+
+          // reference payment info saved in the order (may be undefined for COD)
+          const savedPayment = orderObj.payment && orderObj.payment.details ? orderObj.payment : null;
+          const originalMethod = orderObj.payment && orderObj.payment.method ? orderObj.payment.method : 'cod';
+
+          // If order had a real payment method recorded (not COD) and user selected a different method,
+          // allow a manual override only when the user provides the same phone number as the order (then treat as pending).
+          if (originalMethod && originalMethod !== 'cod' && originalMethod !== method) {
+            const enteredPhone = normalizeNumber((form.querySelector('.refund-phone') || { value: '' }).value.trim());
+            const orderPhone = normalizeNumber((orderObj.customer && orderObj.customer.phone) ? orderObj.customer.phone : '');
+            if (enteredPhone && orderPhone && enteredPhone === orderPhone) {
+              // allow override: require full refund details and mark as pending
+              if ((method === 'bank-transfer' || method === 'cod-refund') && (!bank || !account || !accountName)) { alert('Vui lòng nhập đầy đủ thông tin chuyển khoản (ngân hàng, số tài khoản, tên chủ tài khoản).'); return; }
+              if (method === 'credit-card' && (!cardNum || !cardHolder)) { alert('Vui lòng nhập đầy đủ thông tin thẻ (số thẻ và tên chủ thẻ).'); return; }
+
+              // validate phone/account/name/ID
+              const phoneOk = /^0\d{9,10}$/.test(enteredPhone) || /^84\d{9,10}$/.test(enteredPhone);
+              if (!phoneOk) { alert('Số điện thoại không hợp lệ. Vui lòng nhập định dạng 0xxxxxxxxx hoặc 84xxxxxxxxx.'); return; }
+              if ((method === 'bank-transfer' || method === 'cod-refund') && !/^\d{6,20}$/.test(account.replace(/\s+/g, ''))) { alert('Số tài khoản không hợp lệ (6-20 chữ số).'); return; }
+              if ((method === 'bank-transfer' || method === 'cod-refund') && accountName.trim().length < 2) { alert('Tên chủ tài khoản không hợp lệ.'); return; }
+              const idInput = form.querySelector('.refund-id');
+              if (idInput && idInput.files && idInput.files.length) { const f = idInput.files[0]; if (!f.type.startsWith('image/')) { alert('File CMND/CCCD phải là ảnh.'); return; } if (f.size > 2 * 1024 * 1024) { alert('File CMND/CCCD không được lớn hơn 2MB.'); return; } }
+
+              let refundObj = { method, status: 'pending', requestedAt: new Date().toISOString() };
+              if (method === 'credit-card') Object.assign(refundObj, { cardLast4: cardNum.slice(-4), cardHolder, expiry: cardExpiry });
+              if (method === 'bank-transfer' || method === 'cod-refund') Object.assign(refundObj, { bank, account, accountName });
+              refundObj.verification = { phone: enteredPhone, idUploaded: !!(idInput && idInput.files && idInput.files.length) };
+
+              orderObj.status = 'cancelled';
+              orderObj.cancel = { reason, refund: refundObj, requestedBy: 'user', requestedAt: new Date().toISOString(), note: 'override-by-phone' };
+              try { const allOrders = JSON.parse(localStorage.getItem('orders') || '[]'); const idx = allOrders.findIndex(x => x.orderId === orderObj.orderId); if (idx >= 0) allOrders[idx] = orderObj; else allOrders.push(orderObj); localStorage.setItem('orders', JSON.stringify(allOrders)); } catch (e) { }
+              // persist COD info if applicable
+              if (method === 'cod-refund') { try { localStorage.setItem('codRefundInfo', JSON.stringify({ bank, account, accountName })); } catch (e) { } }
+              form.remove(); alert('Yêu cầu hoàn tiền đã được ghi nhận và đang chờ xử lý (override by phone).'); window.location.reload(); return;
+            }
+            alert('Yêu cầu: phương thức hoàn tiền phải trùng với phương thức thanh toán gốc của đơn. Hoặc nhập số điện thoại trùng với đơn để yêu cầu xử lý thủ công.');
+            return;
+          }
+
+          // If original was COD (or no payment saved) allow user to request refund via provided method
+          if (originalMethod === 'cod' || !orderObj.payment) {
+            // require phone and agreement checkbox for safety
+            if (!phone) { alert('Vui lòng nhập số điện thoại để xác thực yêu cầu hoàn tiền.'); return; }
+            if (!agree) { alert('Vui lòng xác nhận rằng bạn chịu trách nhiệm về thông tin hoàn tiền.'); return; }
+            if ((method === 'bank-transfer' || method === 'cod-refund') && (!bank || !account || !accountName)) { alert('Vui lòng nhập đầy đủ thông tin chuyển khoản (ngân hàng, số tài khoản, tên chủ tài khoản).'); return; }
+            if (method === 'credit-card' && (!cardNum || !cardHolder)) { alert('Vui lòng nhập đầy đủ thông tin thẻ (số thẻ và tên chủ thẻ).'); return; }
+            // build refund object and mark pending for manual review
+            let refundObj = { method, status: 'pending', requestedAt: new Date().toISOString() };
+            if (method === 'bank-transfer' || method === 'cod-refund') Object.assign(refundObj, { bank, account, accountName });
+            if (method === 'credit-card') Object.assign(refundObj, { cardLast4: cardNum.slice(-4), cardHolder, expiry: cardExpiry });
+            refundObj.verification = { phone, idUploaded: !!(form.querySelector('.refund-id') && form.querySelector('.refund-id').files && form.querySelector('.refund-id').files.length) };
+            // persist COD refund info so user doesn't need to retype next time
+            if (method === 'cod-refund') {
+              try { localStorage.setItem('codRefundInfo', JSON.stringify({ bank, account, accountName })); } catch (e) { }
+            }
+            orderObj.status = 'cancelled';
+            orderObj.cancel = { reason, refund: refundObj, requestedBy: 'user', requestedAt: new Date().toISOString() };
+            try {
+              const allOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+              const idx = allOrders.findIndex(x => x.orderId === orderObj.orderId);
+              if (idx >= 0) allOrders[idx] = orderObj; else allOrders.push(orderObj);
+              localStorage.setItem('orders', JSON.stringify(allOrders));
+            } catch (e) { console.error(e); }
+            form.remove();
+            alert('Yêu cầu hoàn tiền đã được ghi nhận và đang chờ xử lý. Thông thường mất 1–3 ngày làm việc.');
+            window.location.reload();
+            return;
+          }
+
+          // Otherwise (original method exists and matches), perform strict checks as before
+          if (method === 'bank-transfer') {
+            if (!bank || !account) { alert('Vui lòng nhập ngân hàng và số tài khoản để hoàn tiền.'); return; }
+            // ensure saved payment exists and is bank-transfer
+            if (!savedPayment || (orderObj.payment.method !== 'bank-transfer')) { alert('Không thể hủy: thông tin chuyển khoản không khớp với đơn hàng.'); return; }
+            const savedBank = (savedPayment.details.bank || '').toString().trim().toLowerCase();
+            const savedAcc = (savedPayment.details.accountNumber || '').toString().trim().replace(/\s+/g, '');
+            if (savedBank !== bank.toString().trim().toLowerCase() || savedAcc !== account.replace(/\s+/g, '')) {
+              alert('Thông tin ngân hàng hoặc số tài khoản không trùng khớp với thông tin thanh toán của đơn. Không cho phép hủy.'); return;
+            }
+          } else if (method === 'credit-card') {
+            if (!cardNum || !cardHolder) { alert('Vui lòng nhập thông tin thẻ (số thẻ và tên chủ thẻ).'); return; }
+            if (!savedPayment || (orderObj.payment.method !== 'credit-card')) { alert('Không thể hủy: thông tin thẻ không khớp với đơn hàng.'); return; }
+            const savedMasked = (savedPayment.details.cardNumber || '').toString();
+            const savedHolder = (savedPayment.details.cardHolder || '').toString().trim().toLowerCase();
+            const savedLast4 = savedMasked.replace(/[^0-9]/g, '').slice(-4);
+            const inputLast4 = cardNum.replace(/[^0-9]/g, '').slice(-4);
+            if (!savedLast4 || savedLast4 !== inputLast4 || savedHolder !== cardHolder.toLowerCase()) {
+              alert('Thông tin thẻ không trùng khớp với thông tin thanh toán của đơn. Không cho phép hủy.'); return;
+            }
+          }
+
+          // build refund object
+          let refundObj = { method };
+          if (method === 'bank-transfer') refundObj = Object.assign(refundObj, { bank, account });
+          if (method === 'credit-card') refundObj = Object.assign(refundObj, { cardLast4: cardNum.slice(-4), cardHolder, expiry: cardExpiry });
+
+          // update order object and persist (immediate cancel since original payment matched)
+          orderObj.status = 'cancelled';
+          orderObj.cancel = { reason, refund: refundObj, cancelledAt: new Date().toISOString() };
+          try {
+            const allOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const idx = allOrders.findIndex(x => x.orderId === orderObj.orderId);
+            if (idx >= 0) allOrders[idx] = orderObj; else allOrders.push(orderObj);
+            localStorage.setItem('orders', JSON.stringify(allOrders));
+          } catch (e) { console.error(e); }
+          // update UI: remove form, mark cancelled
+          form.remove();
+          // refresh page to reflect changes
+          window.location.reload();
+        });
+      }
+    })();
+  </script>
+    <script src="chat.js"></script>
+</body>
+
+</html>

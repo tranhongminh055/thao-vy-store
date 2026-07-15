@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffffff;
+    overflow-x: hidden;
+}
+
+/* register form container */
+.container {
+    width: 400px;
+    padding: 35px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    margin-top: 90px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 35px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #2de5dd, #52a8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+}
+
+h2 {
+    margin-bottom: 25px;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 25px;
+    border: 1px solid #dcdcdc;
+    margin-bottom: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 25px;
+    border: none;
+    font-size: 17px;
+    background: #47e3c2;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+a {
+    text-decoration: none;
+    color: #0073e6;
+}
+
+.wave-bg {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0.65;
+    left: 0;
+    z-index: 1;
+}

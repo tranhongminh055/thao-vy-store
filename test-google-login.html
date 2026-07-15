@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test Google Login</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { padding: 10px 20px; font-size: 16px; margin: 10px 0; }
+        pre { background: #f0f0f0; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Test Google Login</h1>
+    
+    <div id="g_id_onload"
+         data-client_id="10027270244-50mh0qt5pt2pvh93qlvoojk9n82r0096.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
+    </div>
+    
+    <div class="g_id_signin" data-type="standard"></div>
+
+    <hr>
+    <h2>Debug Info:</h2>
+    <pre id="debug"></pre>
+
+    <!-- Google Sign-In SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+        const debug = document.getElementById('debug');
+        
+        // Check if Google SDK is loaded
+        setTimeout(() => {
+            if (typeof google !== 'undefined') {
+                debug.textContent = '✅ Google SDK Loaded!\n\n';
+                debug.textContent += 'google object: ' + JSON.stringify(Object.keys(google), null, 2);
+            } else {
+                debug.textContent = '❌ Google SDK NOT Loaded!';
+            }
+        }, 2000);
+
+        function handleCredentialResponse(response) {
+            debug.textContent = '✅ Google Login Success!\n';
+            debug.textContent += 'Credential: ' + response.credential.substring(0, 50) + '...';
+            
+            // Decode JWT
+            const payload = response.credential.split('.')[1];
+            const decodedPayload = JSON.parse(atob(payload));
+            debug.textContent += '\n\nUser Data:\n' + JSON.stringify(decodedPayload, null, 2);
+            
+            alert('Đăng nhập thành công! Email: ' + decodedPayload.email);
+        }
+
+        window.onload = function() {
+            debug.textContent += '\nPage fully loaded. Google SDK should be ready.';
+        };
+    </script>
+    <script src="chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Nguyên vật liệu - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* page-specific header styles */
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 24px;
+        }
+
+        .admin-header .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        .header-logo img { width: 56px; height: 56px; object-fit: cover; display: block; }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .header-title p {
+            margin: 0;
+            font-size: 13px;
+            opacity: 0.95;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notifications {
+            position: relative;
+        }
+
+        
+        .user-pill {
+            display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.06); padding: 6px 10px; border-radius: 12px;
+        }
+        /* quick panel styles */
+        .quick-panel .panel-list { display:flex; flex-direction:column; gap:8px; }
+        .panel-link { display:block; padding:10px 12px; border-radius:8px; text-decoration:none; color:#333; background: #f7f9fb; border:1px solid #eef3fb; }
+        .panel-link:hover { background:#eef6ff; }
+        .panel-link.active { background:#0b74ff; color:#fff; box-shadow:0 6px 18px rgba(11,116,255,0.18); }
+        .panel-link.primary { background:#0b74ff; color:#fff; border:none; }
+        .bell-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+        .bell-btn:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .bell-btn .badge {
+            position: absolute;
+            top: 4px;
+            right: 2px;
+            background: #ff4d4f;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffffff33;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .btn-logout-header {
+            background: #ffffff22;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .admin-container {
+            padding: 24px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header copied from admin.html -->
+    <header class="admin-header">
+        <div class="header-content">
+                <div class="header-left">
+                <div class="header-logo"></div>
+                <div class="header-title">
+                    <h1>Admin Dashboard</h1>
+                    <p>Quản lý cửa hàng ThaoVyStore</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="notifications">
+                    <button class="bell-btn" id="btnNotifications">🔔<span class="badge">0</span></button>
+                </div>
+                <div class="user-pill">
+                    <div class="user-avatar" id="userAvatar">V</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">VyNguyen</div>
+                        <div class="user-role">Quản trị viên</div>
+                    </div>
+                </div>
+                <button class="btn-logout-header" id="btnLogoutHeader">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container admin-container">
+        <div style="display:flex;gap:20px;align-items:flex-start;">
+            <aside class="admin-sidebar card" style="flex:0 0 240px;">
+                <nav class="sidebar-nav">
+                    <a href="admin.html">Doanh thu</a>
+                    <a href="users.html">QUản lý Người dùng</a>
+                    <a href="orders.html">Quản Lý tồn kho</a>
+                    <a href="products.html">Sản phẩm bán chạy</a>
+                    <a href="ingredients.html" class="active">Nguyên vật liệu</a>
+                </nav>
+            </aside>
+
+            <section style="flex:1 1 auto;">
+                <div class="card">
+                            <div style="display:flex;gap:18px;align-items:flex-start;">
+                                <div style="flex:0 0 260px;">
+                                    <div class="card quick-panel" style="padding:12px;">
+                                        <h4 style="margin:0 0 8px 0;font-size:14px;color:#333">Menu</h4>
+                                        <div class="panel-list">
+                                            <a href="revenue.html" class="panel-link active">Doanh thu</a>
+                                            <a href="admin.html" class="panel-link">Quản lý người dùng</a>
+                                            <a href="orders.html" class="panel-link">Quản lý tồn kho</a>
+                                            <a href="products.html" class="panel-link">Sản phẩm bán chạy</a>
+                                            <a href="ingredients.html" class="panel-link">Nguyên vật liệu</a>
+                                            <a href="revenue.html" class="panel-link primary">Quản lý doanh thu</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex:1 1 auto;">
+                                    <h3>Quản lý nguyên vật liệu</h3>
+                                    <p style="color:#666">Thêm, sửa, xóa nguyên vật liệu và tồn kho.</p>
+                                </div>
+                            </div>
+
+                    <form id="ingredientForm" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+                        <input type="hidden" id="ingredientId">
+                        <input type="text" id="ingredientName" placeholder="Tên nguyên vật liệu"
+                            style="padding:8px;border:1px solid #ccc;border-radius:4px;flex:1;min-width:200px;">
+                        <input type="number" id="ingredientQty" placeholder="Số lượng"
+                            style="padding:8px;border:1px solid #ccc;border-radius:4px;width:140px;">
+                        <input type="text" id="ingredientUnit" placeholder="Đơn vị (kg, cái...)"
+                            style="padding:8px;border:1px solid #ccc;border-radius:4px;width:160px;">
+                        <input type="number" id="ingredientCost" placeholder="Giá vốn (VND)"
+                            style="padding:8px;border:1px solid #ccc;border-radius:4px;width:180px;">
+                        <button type="button" id="saveIngredientBtn" class="btn btn-primary">Thêm / Cập nhật</button>
+                        <button type="button" id="clearIngredientBtn" class="btn btn-secondary"
+                            style="background:#6c757d;color:#fff;border:none;">Xóa form</button>
+                    </form>
+
+                    <div style="margin-top:12px;overflow-x:auto;">
+                        <table id="ingredientsTable" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Tên</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn vị</th>
+                                    <th>Giá vốn</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top:12px;">
+                        <a href="revenue.html" class="btn btn-primary">Quản lý doanh thu</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Firebase and scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="firebaseInit.js"></script>
+    <script>
+        try { if (typeof initializeFirebase === 'function') initializeFirebase(); } catch (e) { console.warn('Firebase init call failed', e); }
+    </script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

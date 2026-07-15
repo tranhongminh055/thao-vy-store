@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quản lý doanh thu - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Header styles (match admin) */
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-header .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .header-title p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 140px;
+        }
+
+        .user-details .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user-details .user-role {
+            font-size: 11px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .btn-logout-header {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Layout */
+        .admin-container {
+            padding: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .controls label {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .controls select,
+        .controls input[type="date"] {
+            padding: 8px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+        }
+
+        .controls .btn {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #0d6efd;
+            color: #fff;
+        }
+
+        /* Chart container */
+        .chart-wrap {
+            margin-top: 16px;
+            height: 420px;
+            background: linear-gradient(180deg, #fbfdff, #fff);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        /* Summary */
+        #summaryStats p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        @media (max-width:900px) {
+            .controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .admin-container {
+                padding: 12px;
+            }
+        }
+    </style>
+    <style>
+        /* Sidebar styles matching admin.html */
+        .admin-sidebar {
+            flex: 0 0 240px;
+            min-width: 200px;
+            max-width: 280px;
+            padding: 12px;
+        }
+
+        .admin-sidebar.card {
+            background: transparent;
+            border-radius: 8px;
+        }
+
+        .admin-sidebar .sidebar-nav {
+            background: #fff;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            color: #222;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            background: transparent;
+            transition: background .12s ease, color .12s ease, transform .08s ease;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(0, 0, 0, 0.03);
+            transform: translateY(-1px);
+        }
+
+        .sidebar-nav a.active {
+            background: #0d6efd;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(13, 110, 253, 0.12);
+        }
+
+        /* Notification dropdown */
+        #notification-dropdown {
+            display: none;
+            position: absolute;
+            right: 24px;
+            top: 64px;
+            width: 320px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            padding: 12px;
+            z-index: 1300;
+        }
+
+        #notification-dropdown h4 {
+            margin: 0 0 8px 0;
+        }
+
+        #notification-badge {
+            display: flex !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="admin-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="header-logo"></div>
+                <div class="header-title">
+                    <h1>Admin Dashboard</h1>
+                    <p>Quản lý cửa hàng ThaoVyStore</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div id="notification-icon" class="notification-icon" onclick="toggleNotificationDropdown()"
+                    style="color: white; font-size: 20px; cursor: pointer; position: relative; margin-right: 12px;">
+                    <i class="fas fa-bell"></i>
+                    <span id="notification-badge" class="notification-badge"
+                        style="display: none; position: absolute; top: -8px; right: -8px; background: #ff4444; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">0</span>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Admin</div>
+                        <div class="user-role">Quản trị viên</div>
+                    </div>
+                </div>
+                <button class="btn-logout-header" id="btnLogoutHeader">Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container admin-container">
+        <div style="display:flex;gap:20px;align-items:flex-start;">
+            <aside class="admin-sidebar card" style="flex:0 0 240px;">
+                <div class="sidebar-header"></div>
+                <nav class="sidebar-nav">
+                    <a href="admin.html">Doanh thu</a>
+                    <a href="#" id="link-users">QUản lý Người dùng</a>
+                    <a href="#" id="link-orders">Quản Lý tồn kho</a>
+                    <a href="#" id="link-products">Sản phẩm bán chạy</a>
+                    <a href="revenue.html" id="link-revenue" class="active">Quản lý doanh thu</a>
+                </nav>
+            </aside>
+
+            <section style="flex:1 1 auto;">
+                <div class="card">
+                    <h3>Quản lý doanh thu</h3>
+                    <p style="color:#666">Chọn khoảng thời gian để xem biểu đồ doanh thu.</p>
+
+                    <div class="controls">
+                        <label style="margin:0;color:#666;">Phạm vi:</label>
+                        <select id="periodSelect" style="padding:6px;border:1px solid #ccc;border-radius:4px;">
+                            <option value="day">Ngày</option>
+                            <option value="week">Tuần</option>
+                            <option value="month">Tháng</option>
+                            <option value="year">Năm</option>
+                        </select>
+
+                        <label style="margin:0;color:#666;">Từ:</label>
+                        <input type="date" id="fromDate">
+                        <label style="margin:0;color:#666;">Đến:</label>
+                        <input type="date" id="toDate">
+                        <button id="loadRangeBtn" class="btn btn-primary">Tải dữ liệu</button>
+                    </div>
+
+                    <div class="chart-wrap">
+                        <canvas id="rangeChart"></canvas>
+                    </div>
+
+                    <div style="margin-top:12px;">
+                        <h4>Chi tiết thống kê</h4>
+                        <div id="summaryStats" style="color:#333;"></div>
+                        <div style="margin-top:12px;">
+                            <h4>Top người mua</h4>
+                            <div style="overflow-x:auto;">
+                                <table id="topBuyersTable" style="width:100%; border-collapse:collapse;">
+                                    <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th style="text-align:center">Số đơn</th>
+                                            <th style="text-align:right">Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="firebaseInit.js"></script>
+    <script>
+        try { if (typeof initializeFirebase === 'function') initializeFirebase(); } catch (e) { console.warn('Firebase init call failed', e); }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        async function waitForFirebase(timeout = 5000) {
+            return new Promise(resolve => {
+                if (window.firebase && window.__FIREBASE_INITIALIZED__) return resolve(true);
+                const s = Date.now(); const iv = setInterval(() => { if (window.firebase && window.__FIREBASE_INITIALIZED__) { clearInterval(iv); return resolve(true); } if (Date.now() - s > timeout) { clearInterval(iv); return resolve(false); } }, 150);
+            });
+        }
+
+        function formatVND(amount) { return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount); }
+
+        function start() {
+            const btn = document.getElementById('loadRangeBtn');
+            btn.addEventListener('click', loadRangeData);
+            document.getElementById('periodSelect').value = 'day';
+        }
+
+        async function loadRangeData() {
+            try {
+                const ready = await waitForFirebase(5000);
+                if (!ready) return alert('Không kết nối Firebase');
+                const db = firebase.firestore();
+                const fromVal = document.getElementById('fromDate').value;
+                const toVal = document.getElementById('toDate').value;
+                if (!fromVal || !toVal) return alert('Chọn cả từ và đến');
+                const from = new Date(fromVal + 'T00:00:00');
+                const to = new Date(toVal + 'T23:59:59');
+                // fetch orders in range
+                let snap;
+                try {
+                    snap = await db.collection('orders').where('createdAt', '>=', firebase.firestore.Timestamp.fromDate(from)).where('createdAt', '<=', firebase.firestore.Timestamp.fromDate(to)).get();
+                } catch (e) { snap = await db.collection('orders').get(); }
+                const orders = [];
+                snap.forEach(d => orders.push(Object.assign({ id: d.id }, d.data())));
+                // filter if needed
+                const filtered = orders.filter(o => {
+                    if (o.createdAt && o.createdAt.toDate) { const dt = o.createdAt.toDate(); return dt >= from && dt <= to; }
+                    if (o.orderDate) { try { const od = new Date(o.orderDate); if (!isNaN(od.getTime())) return od >= from && od <= to; } catch (e) { } }
+                    return false;
+                });
+                console.log('orders fetched:', orders.length, 'orders after filter:', filtered.length);
+                if (filtered.length > 0) console.debug('sample order:', filtered[0]);
+                const period = document.getElementById('periodSelect').value;
+                const aggregated = aggregateOrdersByPeriod(filtered, period);
+                renderChart(aggregated.labels, aggregated.data, period);
+                renderSummary(aggregated.total);
+                renderTopBuyers(filtered);
+            } catch (e) { console.error(e); alert('Lỗi khi tải dữ liệu: ' + e); }
+        }
+
+        function aggregateOrdersByPeriod(orders, period) {
+            const map = {};
+            let total = 0;
+            orders.forEach(o => {
+                let dt = null;
+                if (o.createdAt && o.createdAt.toDate) dt = o.createdAt.toDate();
+                else if (o.orderDate) dt = new Date(o.orderDate);
+                if (!dt) return;
+                let key = '';
+                if (period === 'day') key = dt.toLocaleDateString('vi-VN');
+                else if (period === 'week') { const w = getWeekYear(dt); key = 'W' + w.week + ' ' + w.year; }
+                else if (period === 'month') key = (dt.getMonth() + 1) + '/' + dt.getFullYear();
+                else if (period === 'year') key = '' + dt.getFullYear();
+                const amt = getOrderTotal(o);
+                map[key] = (map[key] || 0) + amt;
+                total += amt;
+            });
+            const labels = Object.keys(map).sort((a, b) => a.localeCompare(b, 'vi'));
+            const data = labels.map(l => map[l]);
+            return { labels, data, total };
+        }
+
+        function getOrderTotal(o) {
+            // Try common fields and normalize string amounts to numbers
+            const candidates = [o.total, o.amount, o.totalAmount, o.subtotal, o.price, o.payAmount, o.tongTien];
+            for (let v of candidates) {
+                if (v === undefined || v === null) continue;
+                if (typeof v === 'number' && !isNaN(v)) return Number(v);
+                if (typeof v === 'string') {
+                    // remove non-digit and non-dot/comma characters, replace commas
+                    const cleaned = v.replace(/[^0-9.,-]/g, '').replace(/,/g, '.');
+                    const parsed = parseFloat(cleaned);
+                    if (!isNaN(parsed)) return parsed;
+                }
+            }
+            // fallback: try to sum products array if present
+            if (Array.isArray(o.products)) {
+                let s = 0;
+                o.products.forEach(p => { const q = Number(p.quantity || p.qty || 1); const pr = Number(p.price || p.unitPrice || p.amount || 0); if (!isNaN(q) && !isNaN(pr)) s += q * pr; });
+                if (s > 0) return s;
+            }
+            return 0;
+        }
+
+        function getWeekYear(d) {
+            // ISO week number
+            const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            const dayNum = date.getUTCDay() || 7;
+            date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+            const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+            return { week: weekNo, year: date.getUTCFullYear() };
+        }
+
+        let rangeChart = null;
+        function renderChart(labels, data, period) {
+            const ctx = document.getElementById('rangeChart');
+            if (!ctx) return;
+            if (rangeChart) rangeChart.destroy();
+            rangeChart = new Chart(ctx, {
+                type: 'bar',
+                data: { labels, datasets: [{ label: 'Doanh thu (VND)', data, backgroundColor: 'rgba(39,174,96,0.6)', borderColor: '#27ae60' }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => formatVND(v) } } } }
+            });
+        }
+
+        function renderSummary(total) {
+            const el = document.getElementById('summaryStats');
+            el.innerHTML = `<p>Tổng doanh thu: <strong>${formatVND(total)}</strong></p>`;
+        }
+
+        function renderTopBuyers(orders) {
+            try {
+                const map = {};
+                orders.forEach(o => {
+                    const email = o.userEmail || (o.customer && o.customer.email) || o.email || 'Khách vãng lai';
+                    if (!map[email]) map[email] = { orders: 0, amount: 0 };
+                    map[email].orders += 1;
+                    map[email].amount += getOrderTotal(o);
+                });
+                const rows = Object.entries(map).map(([email, stats]) => ({ email, orders: stats.orders, amount: stats.amount }));
+                rows.sort((a, b) => b.amount - a.amount);
+                const tbody = document.querySelector('#topBuyersTable tbody');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                rows.forEach(r => {
+                    const tr = document.createElement('tr');
+                    const tdEmail = document.createElement('td'); tdEmail.textContent = r.email;
+                    const tdOrders = document.createElement('td'); tdOrders.textContent = r.orders; tdOrders.style.textAlign = 'center';
+                    const tdAmount = document.createElement('td'); tdAmount.textContent = formatVND(r.amount); tdAmount.style.textAlign = 'right';
+                    tr.appendChild(tdEmail); tr.appendChild(tdOrders); tr.appendChild(tdAmount);
+                    tbody.appendChild(tr);
+                });
+            } catch (e) { console.error('renderTopBuyers failed', e); }
+        }
+
+        document.addEventListener('DOMContentLoaded', start);
+    </script>
+    <script>
+        // Ensure notification badge visible and implement toggle dropdown
+        function toggleNotificationDropdown() {
+            const dd = document.getElementById('notification-dropdown');
+            if (!dd) return;
+            dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+        }
+
+        (function showBadge() {
+            const b = document.getElementById('notification-badge');
+            if (b) { b.textContent = '0'; b.style.display = 'flex'; b.style.background = '#ff4444'; b.style.color = '#fff'; }
+            // create dropdown container if missing
+            if (!document.getElementById('notification-dropdown')) {
+                const dd = document.createElement('div'); dd.id = 'notification-dropdown'; dd.innerHTML = '<h4>Thông báo</h4><div style="color:#666">Không có thông báo</div>';
+                document.body.appendChild(dd);
+            }
+            // hide dropdown when clicking outside
+            document.addEventListener('click', function (e) { const dd = document.getElementById('notification-dropdown'); const icon = document.getElementById('notification-icon'); if (!dd || !icon) return; if (!dd.contains(e.target) && !icon.contains(e.target)) dd.style.display = 'none'; });
+        })();
+    </script>
+    <script>
+        // Minimal header helpers (update avatar/name and logout)
+        async function updateHeaderUserInfo() {
+            try {
+                const localUser = JSON.parse(localStorage.getItem('loggedUser') || localStorage.getItem('loggedInUser') || '{}');
+                const userEmail = localUser.email || '';
+                if (!userEmail) return;
+                if (!window.firebase || !window.__FIREBASE_INITIALIZED__) return;
+                const db = firebase.firestore();
+                const userDoc = await db.collection('users').doc(userEmail.toLowerCase()).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    const userName = userData.name || 'Admin';
+                    const avatarEl = document.getElementById('userAvatar'); if (avatarEl) avatarEl.textContent = (userName.charAt(0) || 'A').toUpperCase();
+                    const userNameEl = document.getElementById('userName'); if (userNameEl) userNameEl.textContent = userName;
+                }
+            } catch (e) { console.warn('updateHeaderUserInfo failed', e); }
+        }
+
+        document.getElementById('btnLogoutHeader') && document.getElementById('btnLogoutHeader').addEventListener('click', function () { if (confirm('Bạn có chắc muốn đăng xuất?')) { localStorage.removeItem('authToken'); localStorage.removeItem('loggedUser'); localStorage.removeItem('loggedInUser'); window.location.href = 'login.html'; } });
+        // call header update when firebase ready
+        (async () => { await waitForFirebase(5000); try { updateHeaderUserInfo(); } catch (e) { } })();
+    </script>
+</body>
+
+</html>

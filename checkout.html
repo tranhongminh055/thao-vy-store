@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thanh toán & Giao hàng - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <header id="header">
+    <div class="header-top">
+      <div class="container flex-between">
+        <div class="logo"><a href="index.html"><img src="Logo/màu kem hồng minh họa thức ăn Sticker tròn.png" alt="Logo bánh" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"></a></div>
+        <div class="header-search"><input id="search-input" placeholder="Tìm bánh, mã đơn hoặc từ khóa..."><button id="search-btn"><i class="fas fa-search"></i></button><ul id="search-suggestions" class="suggestions-list"></ul></div>
+        <div class="header-hotline"><i class="fas fa-phone-volume"></i> Hotline: 1800 2097</div>
+        <div class="header-account"><a href="account.html"><i class="fas fa-user"></i> <span id="userEmail">Đăng nhập</span></a></div>
+        <!-- Thông báo -->
+        <div id="notification-icon" class="notification-icon" onclick="toggleNotificationDropdown()">
+          <i class="fas fa-bell"></i>
+          <span id="notification-badge" class="notification-badge" style="display: none;">0</span>
+        </div>
+        <div id="notification-dropdown" class="notification-dropdown" style="display: none;">
+          <div class="notification-header">
+            <h3>Thông báo</h3>
+            <div class="notification-actions">
+              <button onclick="markAllAsRead()" title="Đánh dấu tất cả là đã đọc" class="btn-mark-all">
+                <i class="fas fa-check-double"></i>
+              </button>
+              <button onclick="clearAllNotifications()" title="Xóa tất cả" class="btn-clear-all">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div id="notificationsList" class="notifications-list"></div>
+        </div>
+        <div class="header-cart"><a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></a></div>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-list">
+          <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+          <li><a href="stores.html"><i class="fas fa-store"></i> Cửa hàng</a></li>
+          <li><a href="recruitment.html"><i class="fas fa-briefcase"></i> Tuyển dụng</a></li>
+          <li><a href="warranty.html"><i class="fas fa-shield-alt"></i> Bảo hành</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container checkout-main">
+    <h1>Chính sách & Nội quy Thanh toán — Giao hàng</h1>
+    <div class="checkout-layout">
+      <section class="checkout-policy panel">
+        <h2>1. Nguyên tắc thanh toán</h2>
+        <p>Khách hàng có thể chọn một trong các phương thức thanh toán sau: Thanh toán khi nhận hàng (COD), chuyển khoản ngân hàng, hoặc thanh toán trực tuyến qua cổng thẻ/QR. Đơn hàng sẽ được xử lý khi thanh toán (đối với hình thức chuyển khoản/online) hoặc khi nhân viên giao hàng xác nhận nhận hàng (COD).</p>
+
+        <h2>2. Điều kiện & Quy định</h2>
+        <ul>
+          <li>Mỗi đơn hàng phải cung cấp đầy đủ thông tin liên hệ và địa chỉ giao hàng chính xác.</li>
+          <li>Với hình thức chuyển khoản, vui lòng giữ lại biên lai/chứng từ để đối chiếu khi cần.</li>
+          <li>Trong trường hợp phát hiện gian lận hoặc thông tin không hợp lệ, ThaoVyStore có quyền hủy đơn hàng và thông báo khách hàng.</li>
+        </ul>
+
+        <h2>3. Thời gian giao hàng</h2>
+        <p>Thời gian giao hàng tiêu chuẩn là 2–5 ngày làm việc tuỳ vào khu vực. Giao nhanh (1–2 ngày) áp dụng cho các khu vực nội thành và có thể phát sinh phí vận chuyển.</p>
+
+        <h2>4. Phí vận chuyển & Hoàn trả</h2>
+        <p>Phí vận chuyển được tính ở bước thanh toán tuỳ theo trọng lượng và khoảng cách. Chính sách hoàn trả áp dụng theo điều kiện sản phẩm: hàng lỗi do nhà sản xuất hoặc giao nhầm/thiếu hàng sẽ được đổi trả trong thời gian quy định (xem chi tiết trong mục Bảo hành & Đổi trả).</p>
+
+        <h2>5. Hủy đơn & Trạng thái đơn</h2>
+        <p>Khách hàng có thể yêu cầu hủy đơn trước khi đơn hàng được giao. Sau khi đơn hàng đã được chuyển cho đối tác vận chuyển, việc hủy sẽ tuỳ theo quy định đối tác và có thể phát sinh chi phí.</p>
+
+        <h2>6. Liên hệ hỗ trợ</h2>
+        <p>Mọi thắc mắc vui lòng gọi Hotline 1800 2097 hoặc gửi email tới support@thaovystore.vn. Khi liên hệ, vui lòng cung cấp mã đơn hàng (nếu có) để được hỗ trợ nhanh chóng.</p>
+
+        
+
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-top">
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="about.html">Giới thiệu</a></li>
+          <li><a href="stores.html">Hệ thống cửa hàng</a></li>
+          <li><a href="recruitment.html">Tuyển dụng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Chính sách</h4>
+        <ul>
+          <li><a href="warranty.html">Bảo hành đổi trả</a></li>
+          <li><a href="checkout.html">Thanh toán & giao hàng</a></li>
+          <li><a href="privacy.html">Bảo mật thông tin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ khách hàng</h4>
+        <ul>
+          <li><a href="#">Liên hệ</a></li>
+          <li><a href="faq.html">Câu hỏi thường gặp</a></li>
+          <li><a href="huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/be.la.minh.739188/"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@endermantv6933"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@shibichi2005"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/_____t.hm____/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Thảo Vy Shop - .Shoe Store-. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="about-search.js"></script>
+  <script src="cart-count.js"></script>
+  <script src="fix-mobile.js"></script>
+  <script src="notification.js"></script>
+  <script src="notification-helper.js"></script>
+  <!-- Checkout logic (renders cart, submits order, sends notification) -->
+  <script src="checkout.js"></script>
+  <script>
+    try{ const u = JSON.parse(localStorage.getItem('loggedUser'))||JSON.parse(localStorage.getItem('loggedInUser')); if(u && u.email) document.getElementById('userEmail').innerText = u.email;}catch(e){}
+  </script>
+    <script src="chat.js"></script>
+</body>
+</html>

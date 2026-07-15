@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chi tiết sản phẩm - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    .product-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 40px 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .product-image {
+      text-align: center;
+    }
+    .product-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .product-info h1 {
+      font-size: 28px;
+      color: #333;
+      margin: 10px 0;
+    }
+    .product-sku {
+      font-size: 12px;
+      color: #999;
+      margin: 10px 0;
+    }
+    .product-price {
+      font-size: 24px;
+      color: #e74c3c;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    .product-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+    .product-option {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 6px;
+    }
+    .product-option label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .size-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .size-options input[type="radio"] {
+      display: none;
+    }
+    .size-options label {
+      margin: 0;
+      display: inline-block;
+      padding: 8px 15px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .size-options input[type="radio"]:checked + label {
+      border-color: #e74c3c;
+      background: #ffe6e1;
+      color: #e74c3c;
+    }
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+    }
+    .quantity-control button {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .quantity-control button:hover {
+      background: #f0f0f0;
+    }
+    .quantity-control input {
+      width: 60px;
+      height: 40px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .product-actions {
+      display: flex;
+      gap: 15px;
+      margin: 30px 0;
+    }
+    .btn-add-cart {
+      flex: 1;
+      padding: 15px 30px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-add-cart:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+    .btn-chat {
+      padding: 15px 30px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-chat:hover {
+      background: #229954;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .product-detail {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .product-info h1 {
+        font-size: 22px;
+      }
+      .product-price {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="header-top">
+      <div class="container flex-between">
+        <div class="logo"><a href="index.html"><img src="Logo/màu kem hồng minh họa thức ăn Sticker tròn.png" alt="Logo bánh" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"></a></div>
+        <div class="header-search"><input id="search-input" placeholder="Tìm bánh..."><button id="search-btn"><i class="fas fa-search"></i></button><ul id="search-suggestions" class="suggestions-list"></ul></div>
+        <div class="header-hotline"><i class="fas fa-phone-volume"></i> Hotline: 1800 2097</div>
+        <div class="header-account"><a href="account.html"><i class="fas fa-user"></i> <span id="userEmail">Đăng nhập</span></a></div>
+        <div class="header-cart"><a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></a></div>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-list">
+          <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+          <li><a href="banh-gato.html"><i class="fas fa-birthday-cake"></i> Bánh Gato</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <a href="javascript:history.back()" class="back-link"><i class="fas fa-arrow-left"></i> Quay lại</a>
+    
+    <div class="product-detail">
+      <div class="product-image">
+        <img id="productImage" src="" alt="Sản phẩm">
+      </div>
+
+      <div class="product-info">
+        <h1 id="productName"></h1>
+        <div class="product-sku" id="productSku"></div>
+        <div class="product-price" id="productPrice"></div>
+        <div class="product-description" id="productDescription"></div>
+
+        <!-- Chọn kích thước -->
+        <div class="product-option">
+          <label>Kích thước</label>
+          <div class="size-options" id="sizeOptions"></div>
+        </div>
+
+        <!-- Chọn số lượng -->
+        <div class="product-option">
+          <label>Số lượng</label>
+          <div class="quantity-control">
+            <button id="decreaseQty">−</button>
+            <input type="number" id="quantityInput" value="1" min="1" max="999">
+            <button id="increaseQty">+</button>
+          </div>
+        </div>
+
+        <!-- Các nút hành động -->
+        <div class="product-actions">
+          <button class="btn-add-cart" id="addToCartBtn">THÊM VÀO GIỎ HÀNG</button>
+          <button class="btn-chat"><i class="fab fa-whatsapp"></i> Chat với shop</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-top">
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="about.html">Giới thiệu</a></li>
+          <li><a href="stores.html">Hệ thống cửa hàng</a></li>
+          <li><a href="recruitment.html">Tuyển dụng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Chính sách</h4>
+        <ul>
+          <li><a href="warranty.html">Bảo hành đổi trả</a></li>
+          <li><a href="checkout.html">Thanh toán & giao hàng</a></li>
+          <li><a href="privacy.html">Bảo mật thông tin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ khách hàng</h4>
+        <ul>
+          <li><a href="#">Liên hệ</a></li>
+          <li><a href="faq.html">Câu hỏi thường gặp</a></li>
+          <li><a href="huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/be.la.minh.739188/"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@endermantv6933"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@shibichi2005"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/_____t.hm____/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Thảo Vy Shop - .Shoe Store-. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="about-search.js"></script>
+  <script src="cart-count.js"></script>
+  <script>
+    // Lấy dữ liệu sản phẩm từ sessionStorage
+    const productData = JSON.parse(sessionStorage.getItem('selectedProduct') || 'null');
+    
+    if (!productData) {
+      alert('Không tìm thấy sản phẩm. Vui lòng quay lại trang chủ.');
+      window.location.href = 'index.html';
+    }
+
+    // Hiển thị thông tin sản phẩm
+    document.getElementById('productImage').src = productData.image;
+    document.getElementById('productName').textContent = productData.name;
+    document.getElementById('productSku').textContent = `SKU: ${productData.sku || 'Không có dùng'} | Danh mục: ${productData.category || 'Bánh kem'}`;
+    document.getElementById('productPrice').textContent = (productData.price || 0).toLocaleString('vi-VN') + ' VND';
+    document.getElementById('productDescription').textContent = productData.description || 'Sản phẩm bánh kem ngon, tươi mới, được chế biến từ những nguyên liệu tốt nhất.';
+
+    // Tạo các nút chọn kích thước
+    const sizes = productData.sizes || ['16cm', '18cm', '20cm'];
+    const sizeOptionsDiv = document.getElementById('sizeOptions');
+    sizes.forEach((size, index) => {
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'size';
+      input.value = size;
+      input.id = 'size_' + index;
+      if (index === 0) input.checked = true;
+      
+      const label = document.createElement('label');
+      label.htmlFor = 'size_' + index;
+      label.appendChild(document.createTextNode(' ' + size));
+      
+      sizeOptionsDiv.appendChild(input);
+      sizeOptionsDiv.appendChild(label);
+    });
+
+    // Xử lý tăng/giảm số lượng
+    const quantityInput = document.getElementById('quantityInput');
+    document.getElementById('decreaseQty').addEventListener('click', () => {
+      if (quantityInput.value > 1) quantityInput.value--;
+    });
+    document.getElementById('increaseQty').addEventListener('click', () => {
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+    // Xử lý thêm vào giỏ hàng
+    document.getElementById('addToCartBtn').addEventListener('click', () => {
+      const selectedSize = document.querySelector('input[name="size"]:checked')?.value || '16cm';
+      const quantity = parseInt(quantityInput.value) || 1;
+
+      const cartItem = {
+        ...productData,
+        size: selectedSize,
+        quantity: quantity,
+        cartItemId: Date.now() // ID duy nhất cho item trong giỏ
+      };
+
+      // Lấy giỏ hàng từ localStorage
+      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      
+      // Kiểm tra xem sản phẩm đã có trong giỏ chưa (dựa trên tên + kích thước)
+      const existingItem = cart.find(item => item.name === cartItem.name && item.size === selectedSize);
+      if (existingItem) {
+        existingItem.quantity += quantity;
+      } else {
+        cart.push(cartItem);
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      alert(`Đã thêm ${quantity} ${cartItem.name} (${selectedSize}) vào giỏ hàng!`);
+      window.location.href = 'cart.html';
+    });
+
+    // Xử lý nút chat
+    document.querySelector('.btn-chat').addEventListener('click', () => {
+      const phone = '84912345678'; // Thay bằng số điện thoại thực của bạn
+      const message = `Xin chào, tôi muốn hỏi về sản phẩm ${productData.name}`;
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`);
+    });
+
+    // Hiển thị email người dùng
+    try {
+      const u = JSON.parse(localStorage.getItem('loggedUser')) || JSON.parse(localStorage.getItem('loggedInUser')) || null;
+      if (u && u.email) document.getElementById('userEmail').textContent = u.email;
+    } catch (e) {}
+  </script>
+    <script src="chat.js"></script>
+</body>
+</html>

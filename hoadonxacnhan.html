@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thông tin đơn hàng - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="hoadonxacnhan.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script>
+    if (!localStorage.getItem('loggedUser') && !localStorage.getItem('loggedInUser')) {
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+  <header id="header">
+    <div class="header-top">
+      <div class="container flex-between">
+        <div class="logo"><a href="index.html"><img src="Logo/màu kem hồng minh họa thức ăn Sticker tròn.png" alt="Logo bánh" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"></a></div>
+        <div class="header-search"><input id="search-input" placeholder="Tìm sản phẩm..."><button id="search-btn"><i class="fas fa-search"></i></button><ul id="search-suggestions" class="suggestions-list"></ul></div>
+        <div class="header-hotline"><i class="fas fa-phone-volume"></i> Hotline: 1800 2097</div>
+        <div class="header-account"><a href="account.html"><i class="fas fa-user"></i> <span id="userEmail">Đăng nhập</span></a></div>
+        <div class="header-cart"><a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></a></div>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-list">
+          <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+          <li><a href="stores.html"><i class="fas fa-store"></i> Cửa hàng</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container order-main">
+    <section class="panel order-hero">
+      <h1>Thông tin đơn hàng</h1>
+      <p id="orderSubtitle">Kiểm tra thông tin đơn hàng và hoàn tất thanh toán.</p>
+    </section>
+
+    <section class="panel order-grid">
+      <div class="order-left">
+        <h2>Chi tiết đơn hàng</h2>
+        <div id="orderProducts" class="product-list"></div>
+        <div class="summary-row"><strong>Tạm tính:</strong> <span id="od-subtotal">0 VND</span></div>
+        <div class="summary-row"><strong>Giảm giá:</strong> <span id="od-discount">0 VND</span></div>
+        <div class="summary-row total"><strong>Thành tiền:</strong> <span id="od-total">0 VND</span></div>
+      </div>
+
+      <aside class="order-right">
+        <h2>Thông tin người nhận</h2>
+        <div class="readonly-field">
+          <label>Họ và tên</label>
+          <div id="recipientName" class="readonly-value"></div>
+        </div>
+        <div class="readonly-field">
+          <label>Số điện thoại</label>
+          <div id="recipientPhone" class="readonly-value"></div>
+        </div>
+        <div class="readonly-field">
+          <label>Địa chỉ</label>
+          <div id="recipientAddress" class="readonly-value"></div>
+        </div>
+
+        <h3>Phương thức thanh toán</h3>
+        <div id="paymentSummary" class="payment-summary"></div>
+        <!-- keep detailed forms hidden (not editable here) -->
+        <div id="credit-card-form" class="payment-form hidden"></div>
+        <div id="bank-transfer-form" class="payment-form hidden"></div>
+
+        <div class="confirm-actions">
+          <button id="confirmOrderBtn" class="btn-primary">Xác nhận & Thanh toán</button>
+        </div>
+
+        <div id="orderResult" class="order-result hidden"></div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-top">
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="about.html">Giới thiệu</a></li>
+          <li><a href="stores.html">Hệ thống cửa hàng</a></li>
+          <li><a href="recruitment.html">Tuyển dụng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Chính sách</h4>
+        <ul>
+          <li><a href="warranty.html">Bảo hành đổi trả</a></li>
+          <li><a href="checkout.html">Thanh toán & giao hàng</a></li>
+          <li><a href="privacy.html">Bảo mật thông tin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ khách hàng</h4>
+        <ul>
+          <li><a href="#">Liên hệ</a></li>
+          <li><a href="faq.html">Câu hỏi thường gặp</a></li>
+          <li><a href="huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/be.la.minh.739188/"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@endermantv6933"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@shibichi2005"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/_____t.hm____/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Thảo Vy Shop - .Shoe Store-. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="about-search.js"></script>
+  <script src="cart-count.js"></script>
+  <script src="notification.js"></script>
+  <script src="notification-helper.js"></script>
+  <script>
+    (function(){
+      function getPriceNumber(v){ if(!v) return 0; return parseInt(v.toString().replace(/[^0-9]/g,''))||0; }
+      function formatVND(n){ return n.toLocaleString('vi-VN') + ' VND'; }
+
+      // Read provisional order data created by cart.js
+      let orderData = null;
+      try{ orderData = JSON.parse(localStorage.getItem('orderData')) || null; }catch(e){ orderData = null; }
+
+      // If no orderData, try to build from cart
+      if(!orderData){
+        try{ const cart = JSON.parse(localStorage.getItem('cart')||'[]'); const subtotal = (cart||[]).reduce((s,i)=>s + (getPriceNumber(i.price)||i.price||0) * (i.quantity||1),0); orderData = { orderId: '#'+Math.floor(Math.random()*1000000000), orderDate: new Date().toLocaleDateString(), products: cart, subtotal, discount: getPriceNumber(localStorage.getItem('appliedVoucher')?localStorage.getItem('appliedVoucher'):0), total: subtotal, customer: {} }; }catch(e){ orderData = { products: [], subtotal:0, discount:0, total:0, customer:{} }; }
+      }
+
+      // Populate header user
+      try{ const u = JSON.parse(localStorage.getItem('loggedUser'))||JSON.parse(localStorage.getItem('loggedInUser')); if(u && u.email) document.getElementById('userEmail').innerText = u.email;}catch(e){}
+
+      const productsWrap = document.getElementById('orderProducts');
+      const odSubtotal = document.getElementById('od-subtotal');
+      const odDiscount = document.getElementById('od-discount');
+      const odTotal = document.getElementById('od-total');
+
+      function renderProducts(){
+        productsWrap.innerHTML = '';
+        const prods = orderData.products || [];
+        if(!prods.length) { productsWrap.innerHTML = '<div class="muted">Không có sản phẩm.</div>'; }
+        prods.forEach(p=>{
+          const price = getPriceNumber(p.price);
+          const div = document.createElement('div'); div.className='product-card';
+          div.innerHTML = `<img src="${p.image||'src/giay nam dep.jfif'}" alt="${p.name}"><div class="info"><h4>${p.name}</h4><div class="price">${formatVND(price)}</div><div>Số lượng: ${p.quantity||1}</div></div>`;
+          productsWrap.appendChild(div);
+        });
+        odSubtotal.textContent = formatVND(orderData.subtotal || (orderData.products||[]).reduce((s,i)=>s + getPriceNumber(i.price)*(i.quantity||1),0));
+        odDiscount.textContent = formatVND(orderData.discount || 0);
+        odTotal.textContent = formatVND(orderData.total || ( (orderData.subtotal||0) - (orderData.discount||0) ));
+      }
+
+      renderProducts();
+
+      // Fill recipient (read-only) from orderData
+      document.getElementById('recipientName').textContent = (orderData.customer && (orderData.customer.name||orderData.customer.fullName)) || '';
+      document.getElementById('recipientPhone').textContent = (orderData.customer && orderData.customer.phone) || '';
+      document.getElementById('recipientAddress').textContent = (orderData.customer && orderData.customer.address) || '';
+
+      // Render payment summary (non-editable) from orderData.payment if available
+      const paymentSummary = document.getElementById('paymentSummary');
+      const pm = (orderData.payment && orderData.payment.method) ? orderData.payment.method : 'cash-on-delivery';
+      let summaryHtml = '';
+      if(pm === 'credit-card'){
+        const d = orderData.payment && orderData.payment.details || {};
+        summaryHtml = `<div><strong>Thẻ tín dụng</strong></div><div>Số thẻ: ${d.cardNumber||'--'}</div><div>Tên chủ thẻ: ${d.cardHolder||'--'}</div><div>Hạn: ${d.expiry||'--'}</div>`;
+      } else if(pm === 'bank-transfer'){
+        const d = orderData.payment && orderData.payment.details || {};
+        summaryHtml = `<div><strong>Chuyển khoản</strong></div><div>Ngân hàng: ${d.bank||'--'}</div><div>Số tài khoản: ${d.accountNumber||'--'}</div>`;
+      } else {
+        summaryHtml = `<div><strong>Thanh toán khi nhận hàng (COD)</strong></div>`;
+      }
+      paymentSummary.innerHTML = summaryHtml;
+
+      // Confirm order
+      document.getElementById('confirmOrderBtn').addEventListener('click', ()=>{
+        // Đơn đã được lưu vào localStorage.orders ở bước trước, chỉ cần chuyển trang
+        // Nếu chưa lưu, vẫn lưu lại như cũ
+        try {
+          if (!orderData.status || (orderData.status !== 'confirmed' && orderData.status !== 'pending_payment')) {
+            orderData.status = orderData.paymentProofUrl ? 'pending_payment' : 'confirmed';
+            orderData.confirmedAt = new Date().toISOString();
+          } else if (orderData.paymentProofUrl) {
+            orderData.status = 'pending_payment';
+            if (!orderData.confirmedAt) orderData.confirmedAt = new Date().toISOString();
+          }
+          // attach logged-in user email if available for persistent history
+          try{
+              const u = JSON.parse(localStorage.getItem('loggedUser')) || JSON.parse(localStorage.getItem('loggedInUser')) || null;
+              if(u && u.email) orderData.userEmail = (u.email||u.user).toString().trim().toLowerCase();
+            }catch(e){}
+            // ensure structured address is included (from orderData if set earlier)
+            try{ const odStored = JSON.parse(localStorage.getItem('orderData')||'{}'); if(odStored && odStored.customer && odStored.customer.addressStructured){ orderData.customer.addressStructured = odStored.customer.addressStructured; } }catch(e){}
+            // save into orders array
+            const orders = JSON.parse(localStorage.getItem('orders')||'[]');
+            orders.push(orderData);
+            // If this confirmation is from a reorder, update the original cancelled order
+            try{
+              const reorderSource = localStorage.getItem('reorderSource');
+              if(reorderSource){
+                const idx = orders.findIndex(x=>x.orderId === reorderSource);
+                if(idx >= 0){
+                  // restore/replace the original order's products and mark as reordered
+                  orders[idx].products = orderData.products;
+                  orders[idx].status = 'reordered';
+                  orders[idx].reorderedAt = new Date().toISOString();
+                  // remove cancel info if present
+                  if(orders[idx].cancel) delete orders[idx].cancel;
+                  // link to new order id
+                  orders[idx].replacedBy = orderData.orderId || '';
+                }
+                localStorage.removeItem('reorderSource');
+              }
+            }catch(e){console.error(e);}
+            localStorage.setItem('orders', JSON.stringify(orders));
+            localStorage.setItem('orderData', JSON.stringify(orderData));
+            // Sync order to Firestore for multi-device access
+            try{
+              if (window.firebase && window.__FIREBASE_INITIALIZED__ && orderData.userEmail) {
+                const db = firebase.firestore();
+                const orderId = orderData.orderId || ('ORD' + Date.now());
+                const userEmail = orderData.userEmail.toString().toLowerCase();
+                // Create order doc under Firestore: orders/{orderId} with userEmail field
+                db.collection('orders').doc(orderId).set(Object.assign({}, orderData, {
+                  createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                })).catch(e => console.warn('Failed to sync order to Firestore:', e));
+                // Also add FULL order under users/{userEmail}/orders for quick lookup
+                db.collection('users').doc(userEmail).collection('orders').doc(orderId).set(Object.assign({}, orderData, {
+                  createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                })).catch(e => console.warn('Failed to add order to user orders:', e));
+              }
+            }catch(e){ console.warn('Firestore sync error:', e); }
+
+            // send notification for the new order
+            try {
+              if (typeof notifyOrderCreated === 'function' && orderData.userEmail) {
+                console.log('hoadonxacnhan: notifying order created for', orderData.userEmail, orderData.orderId);
+                notifyOrderCreated(orderData.userEmail, orderData.orderId, orderData.total || orderData.subtotal || 0);
+
+                // also update UI immediately
+                if (window.notificationsList && Array.isArray(notificationsList)) {
+                  const now2 = new Date();
+                  const tmp = {
+                    id: 'temp-' + Date.now(),
+                    recipientEmail: orderData.userEmail,
+                    title: '✅ Đơn hàng được xác nhận',
+                    message: `Đơn hàng #${orderData.orderId} của bạn đã được nhận. Tổng tiền: ${
+                      (orderData.total||orderData.subtotal||0).toLocaleString()}đ`,
+                    type: 'order',
+                    isRead: false,
+                    createdAt: now2,
+                    updatedAt: now2,
+                    orderId: orderData.orderId
+                  };
+                  notificationsList.unshift(tmp);
+                  saveNotificationsLocal();
+                  updateUnreadCount();
+                  updateNotificationBadge();
+                  renderNotifications();
+                }
+              }
+            } catch(e){ console.error('Error sending notification on confirmation', e); }
+
+        } catch(e){}
+        // cleanup: clear cart and appliedVoucher & update badge
+        localStorage.removeItem('cart');
+        localStorage.removeItem('appliedVoucher');
+        if (typeof updateCartCount === 'function') updateCartCount();
+        // chuyển sang trang orders.html
+        window.location.href = 'orders.html';
+      });
+      
+      // Tự động xác nhận nếu đơn hàng là thanh toán QR đã tải lên minh chứng
+      if (orderData && orderData.paymentProofUrl && (!orderData.status || orderData.status === 'pending_payment')) {
+        // Thay vì bắt người dùng phải bấm nút Xác nhận một lần nữa, hệ thống tự động bấm
+        setTimeout(() => {
+          const btn = document.getElementById('confirmOrderBtn');
+          if(btn) btn.click();
+        }, 300);
+      }
+
+    })();
+  </script>
+    <script src="chat.js"></script>
+</body>
+</html>

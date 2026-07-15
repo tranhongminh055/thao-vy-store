@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thao-vy-store.web.app/sitemap.xml

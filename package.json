@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "sitemap:generate": "node scripts/sitemap-graph.js --url https://thao-vy-store.web.app --output sitemap.xml",
+    "sitemap:graph": "node scripts/sitemap-graph.js --from sitemap.xml --dot sitemap.dot --html sitemap.html",
+    "sitemap:local": "node scripts/sitemap-graph.js --localDir . --baseUrl https://thao-vy-store.web.app --output sitemap-local.xml --dot sitemap-local.dot --html sitemap-local.html",
+    "sitemap:all": "npm run sitemap:generate && npm run sitemap:graph"
+  },
+  "dependencies": {
+    "firebase": "^12.7.0"
+  }
+}

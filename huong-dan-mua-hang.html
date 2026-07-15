@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hướng dẫn mua hàng - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="huong-dan.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <header id="header">
+    <div class="header-top">
+      <div class="container flex-between">
+        <div class="logo"><a href="index.html"><img src="Logo/màu kem hồng minh họa thức ăn Sticker tròn.png" alt="Logo bánh" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"></a></div>
+        <div class="header-search"><input id="search-input" placeholder="Tìm sản phẩm..."><button id="search-btn"><i class="fas fa-search"></i></button><ul id="search-suggestions" class="suggestions-list"></ul></div>
+        <div class="header-hotline"><i class="fas fa-phone-volume"></i> Hotline: 1800 2097</div>
+        <div class="header-account"><a href="account.html"><i class="fas fa-user"></i> <span id="userEmail">Đăng nhập</span></a></div>
+        <div class="header-cart"><a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></a></div>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-list">
+          <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+          <li><a href="stores.html"><i class="fas fa-store"></i> Cửa hàng</a></li>
+          <li><a href="recruitment.html"><i class="fas fa-briefcase"></i> Tuyển dụng</a></li>
+          <li><a href="huong-dan-mua-hang.html" class="active"><i class="fas fa-book"></i> Hướng dẫn</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container guide-main">
+    <section class="guide-hero panel">
+      <h1>Hướng dẫn mua hàng</h1>
+      <p>Các bước nhanh để đặt hàng trên ThaoVyStore.</p>
+    </section>
+
+    <section class="guide-steps panel">
+      <ol>
+        <li>1. Tìm sản phẩm: sử dụng ô tìm kiếm ở đầu trang để tìm sản phẩm bạn muốn.</li>
+        <li>2. Thêm vào giỏ: bấm 'Mua ngay' trên thẻ sản phẩm để thêm sản phẩm vào giỏ hàng.</li>
+        <li>3. Xem giỏ hàng: bấm vào biểu tượng giỏ hàng để kiểm tra số lượng và tiến hành thanh toán.</li>
+        <li>4. Thanh toán: chọn phương thức thanh toán và hoàn tất đặt hàng.</li>
+      </ol>
+    </section>
+
+    <section class="guide-search panel">
+      <h2>Trường hợp lỗi thanh toán qua banking</h2>
+      <p>Nếu bạn gặp lỗi khi thanh toán qua ngân hàng, vui lòng kiểm tra lại thông tin tài khoản và thử lại. Nếu vẫn gặp sự cố, hãy liên hệ với bộ phận hỗ trợ khách hàng.</p>
+      <div id="search-results" class="search-results hidden">
+        <h3></h3>
+        <div id="searchProducts" class="product-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-top">
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="about.html">Giới thiệu</a></li>
+          <li><a href="stores.html">Hệ thống cửa hàng</a></li>
+          <li><a href="recruitment.html">Tuyển dụng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Chính sách</h4>
+        <ul>
+          <li><a href="warranty.html">Bảo hành đổi trả</a></li>
+          <li><a href="checkout.html">Thanh toán & giao hàng</a></li>
+          <li><a href="privacy.html">Bảo mật thông tin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ khách hàng</h4>
+        <ul>
+          <li><a href="#">Liên hệ</a></li>
+          <li><a href="faq.html">Câu hỏi thường gặp</a></li>
+          <li><a href="huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/be.la.minh.739188/"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@endermantv6933"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@shibichi2005"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/_____t.hm____/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Thảo Vy Shop - .Shoe Store-. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="about-search.js"></script>
+  <script src="cart-count.js"></script>
+  <script>
+    try{ const u = JSON.parse(localStorage.getItem('loggedUser'))||JSON.parse(localStorage.getItem('loggedInUser')); if(u && u.email) document.getElementById('userEmail').innerText = u.email;}catch(e){}
+  </script>
+    <script src="chat.js"></script>
+</body>
+</html>

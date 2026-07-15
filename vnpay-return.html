@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Kết quả thanh toán - ThaoVy Store</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      background: #f0f2f5;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+    }
+
+    .result-wrap {
+      max-width: 520px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+      padding: 48px 40px;
+      text-align: center;
+    }
+
+    .result-icon {
+      font-size: 4rem;
+      margin-bottom: 18px;
+    }
+
+    .result-icon.success {
+      color: #27ae60;
+    }
+
+    .result-icon.fail {
+      color: #e74c3c;
+    }
+
+    .result-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .result-title.success {
+      color: #27ae60;
+    }
+
+    .result-title.fail {
+      color: #e74c3c;
+    }
+
+    .result-msg {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .info-table td {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+
+    .info-table td:first-child {
+      color: #888;
+      width: 44%;
+    }
+
+    .info-table td:last-child {
+      font-weight: 600;
+      color: #222;
+    }
+
+    .info-table tr:nth-child(even) td {
+      background: #f8f8f8;
+    }
+
+    .btn-home {
+      display: inline-block;
+      background: #c0392b;
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 6px 4px;
+      transition: background 0.2s;
+    }
+
+    .btn-home:hover {
+      background: #a93226;
+    }
+
+    .btn-orders {
+      display: inline-block;
+      background: #fff;
+      color: #c0392b;
+      padding: 12px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #c0392b;
+      margin: 6px 4px;
+    }
+
+    .loading-spinner {
+      font-size: 2.5rem;
+      color: #005BAA;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="result-wrap" id="resultBox">
+    <div class="loading-spinner"><i class="fas fa-circle-notch"></i></div>
+    <p style="color:#666;margin-top:16px;">Đang xác minh kết quả thanh toán...</p>
+  </div>
+
+  <!-- Firebase (compat) for client-side Firestore & Auth -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script>
+    try {
+      if (window.firebase && !window.__FIREBASE_INITIALIZED__) {
+        const firebaseConfig = {
+          apiKey: "AIzaSyBLE1v4CecJzwXu7Ost4cQAispy-tU0bOs",
+          authDomain: "thao-vy-store.firebaseapp.com",
+          projectId: "thao-vy-store",
+          storageBucket: "thao-vy-store.firebasestorage.app",
+          messagingSenderId: "286529155045",
+          appId: "1:286529155045:web:76fabec55bdcfbe614090c",
+          measurementId: "G-SQH3EQEE08"
+        };
+        firebase.initializeApp(firebaseConfig);
+        window.__FIREBASE_INITIALIZED__ = true;
+      }
+    } catch (e) {
+      console.warn('Firebase init failed', e);
+    }
+  </script>
+
+  <script src="notification-helper.js"></script>
+
+  <script>
+    const FUNCTION_BASE = 'https://verifyvnpayreturn-gxhdltzhga-uc.a.run.app';
+
+    async function verifyPayment() {
+      // Lấy tất cả query params từ VNPay
+      const urlParams = Object.fromEntries(new URLSearchParams(window.location.search));
+      const box = document.getElementById('resultBox');
+
+      try {
+        const resp = await fetch(`${FUNCTION_BASE}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ vnp_Params: urlParams }),
+        });
+        const result = await resp.json();
+
+        if (result.success) {
+          // Lưu đơn hàng thành công
+          let userEmail = null;
+          let orderId = result.txnRef;
+          let subtotal = 0;
+          try {
+            const od = JSON.parse(localStorage.getItem('orderData') || '{}');
+            od.payment = od.payment || {};
+            od.payment.transactionNo = result.transactionNo;
+            od.payment.bankCode = result.bankCode;
+            od.payment.vnpayResult = 'success';
+
+            // Finalize order status
+            od.status = 'confirmed';
+            od.confirmedAt = new Date().toISOString();
+            orderId = od.orderId || orderId;
+            subtotal = od.total || od.subtotal || result.amount;
+
+            // Lấy email người dùng đăng nhập
+            const u = JSON.parse(localStorage.getItem('loggedUser')) || JSON.parse(localStorage.getItem('loggedInUser')) || null;
+            if (u && u.email) {
+              userEmail = (u.email || u.user).toString().trim().toLowerCase();
+              od.userEmail = userEmail;
+            } else if (od.customer && od.customer.email) {
+              userEmail = od.customer.email.toLowerCase().trim();
+              od.userEmail = userEmail;
+            }
+
+            // Lưu vào localStorage orders array
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(od);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            localStorage.setItem('orderData', JSON.stringify(od));
+
+            // Xóa cart và voucher
+            localStorage.removeItem('cart');
+            localStorage.removeItem('appliedVoucher');
+            if (typeof window.updateCartCount === 'function') window.updateCartCount();
+
+            // Lưu vào Firestore
+            if (window.firebase && window.__FIREBASE_INITIALIZED__ && userEmail) {
+              const db = firebase.firestore();
+              // Lưu vào collection chung
+              db.collection('orders').doc(orderId).set(Object.assign({}, od, {
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              }), { merge: true }).catch(e => console.warn('Failed to sync order to global Firestore:', e));
+
+              // Lưu vào collection riêng của user
+              db.collection('users').doc(userEmail).collection('orders').doc(orderId).set(Object.assign({}, od, {
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              }), { merge: true }).catch(e => console.warn('Failed to sync order to user Firestore:', e));
+
+              // Gửi thông báo
+              if (typeof notifyOrderCreated === 'function') {
+                notifyOrderCreated(userEmail, orderId, subtotal);
+              }
+            }
+          } catch (e) {
+            console.error('Error finalising order:', e);
+          }
+
+          box.innerHTML = `
+            <div class="result-icon success"><i class="fas fa-check-circle"></i></div>
+            <div class="result-title success">Thanh toán thành công!</div>
+            <div class="result-msg">Đơn hàng của bạn đã được xác nhận. Cảm ơn bạn đã mua hàng tại ThaoVy Store!</div>
+            <table class="info-table">
+              <tr><td>Mã giao dịch</td><td>${result.transactionNo || result.txnRef}</td></tr>
+              <tr><td>Mã đơn hàng</td><td>${result.txnRef}</td></tr>
+              <tr><td>Số tiền</td><td>${Number(result.amount).toLocaleString('vi-VN')} VND</td></tr>
+              <tr><td>Ngân hàng</td><td>${result.bankCode || 'VNPay'}</td></tr>
+            </table>
+            <a href="index.html" class="btn-home"><i class="fas fa-home"></i> Về trang chủ</a>
+            <a href="orders.html" class="btn-orders"><i class="fas fa-list"></i> Xem đơn hàng</a>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="result-icon fail"><i class="fas fa-times-circle"></i></div>
+            <div class="result-title fail">Thanh toán thất bại</div>
+            <div class="result-msg">${result.message || 'Giao dịch không thành công. Vui lòng thử lại.'}</div>
+            <table class="info-table">
+              <tr><td>Mã đơn hàng</td><td>${result.txnRef || urlParams.vnp_TxnRef || '-'}</td></tr>
+              <tr><td>Mã lỗi</td><td>${result.responseCode || urlParams.vnp_ResponseCode || '-'}</td></tr>
+            </table>
+            <a href="cart.html" class="btn-home"><i class="fas fa-redo"></i> Thử lại</a>
+            <a href="index.html" class="btn-orders">Về trang chủ</a>
+          `;
+        }
+      } catch (err) {
+        console.error('Verify error:', err);
+        box.innerHTML = `
+          <div class="result-icon fail"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="result-title fail">Không thể xác minh</div>
+          <div class="result-msg">Đã xảy ra lỗi khi xác minh kết quả. Vui lòng kiểm tra lịch sử đơn hàng hoặc liên hệ hỗ trợ.</div>
+          <a href="cart.html" class="btn-home">Quay lại giỏ hàng</a>
+          <a href="orders.html" class="btn-orders">Xem đơn hàng</a>
+        `;
+      }
+    }
+
+    verifyPayment();
+  </script>
+</body>
+
+</html>

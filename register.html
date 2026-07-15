@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ThaoVyStore - Register</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: url('BanhGato/91ae9ed4caf4ba014729106d0e6910e6.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .login-wrapper {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 2.5rem;
+            margin-bottom: 45px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 5px;
+            top: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-control-custom {
+            width: 100% !important;
+            background: transparent !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4) !important;
+            border-radius: 0 !important;
+            padding: 8px 10px 8px 35px !important;
+            color: #fff !important;
+            font-size: 0.95rem !important;
+            outline: none !important;
+            box-shadow: none !important;
+            transition: border-color 0.3s !important;
+        }
+
+        .form-control-custom:focus {
+            border-bottom: 1px solid #fff !important;
+            background: transparent !important;
+            color: #fff !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        /* Hack to remove Chrome autofill background */
+        .form-control-custom:-webkit-autofill,
+        .form-control-custom:-webkit-autofill:hover,
+        .form-control-custom:-webkit-autofill:focus,
+        .form-control-custom:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s !important;
+            -webkit-text-fill-color: #fff !important;
+        }
+
+        .form-control-custom::placeholder {
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        .options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-bottom: 30px;
+        }
+
+        .options-row a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .options-row a:hover {
+            text-decoration: underline;
+        }
+
+        .custom-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .custom-check input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .custom-check input:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 10px;
+            color: #333;
+        }
+
+        .btn-login {
+            background-color: #fc3955 !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px !important;
+            width: 100% !important;
+            border-radius: 3px !important;
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            cursor: pointer !important;
+            transition: background 0.3s !important;
+            margin-top: 0 !important;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login:hover {
+            background-color: #e02845 !important;
+        }
+
+        .or-divider {
+            position: relative;
+            text-align: center;
+            margin: 35px 0;
+        }
+
+        .or-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1;
+        }
+
+        .or-badge {
+            position: relative;
+            z-index: 2;
+            background: #fc3955;
+            color: white;
+            padding: 6px 8px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .btn-social {
+            flex: 1 !important;
+            padding: 0 !important;
+            border: none !important;
+            border-radius: 3px !important;
+            color: white !important;
+            font-size: 0.85rem !important;
+            display: flex !important;
+            align-items: center !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            transition: opacity 0.3s !important;
+            margin-top: 0 !important;
+            overflow: hidden;
+            background-color: #3b5998;
+            /* Default for Facebook */
+        }
+
+        .btn-social:hover {
+            opacity: 0.9;
+            color: white;
+        }
+
+        .btn-social i {
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.15);
+            font-size: 1rem;
+        }
+
+        .btn-social span {
+            flex: 1;
+            text-align: center;
+            padding-right: 14px;
+        }
+
+        .btn-google {
+            background-color: #3b5998 !important;
+            /* Facebook color */
+        }
+
+        .btn-zalo {
+            background-color: #00aced !important;
+            /* Twitter color */
+        }
+
+        .btn-admin {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 8px;
+            width: 100%;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-admin:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        #msg {
+            margin-top: 15px;
+            color: #ffcccc;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-overlay"></div>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <h1 class="login-title"> Register </h1>
+
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="regName" class="form-control-custom" placeholder="Full name">
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="regEmail" class="form-control-custom" placeholder="Email">
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="regPassword" class="form-control-custom" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="regPasswordConfirm" class="form-control-custom"
+                    placeholder="Confirm Password">
+            </div>
+
+            <div class="options-row">
+                <label class="custom-check">
+                    <input type="checkbox" checked> I agree to terms
+                </label>
+                <a href="login.html">Already have account?</a>
+            </div>
+
+            <button onclick="register()" class="btn-login">Register</button>
+            <p id="msg"></p>
+
+            <div class="or-divider">
+                <span class="or-badge">or</span>
+            </div>
+
+            <div class="social-buttons">
+                <!-- Using Facebook/Twitter styles from image for Google/Zalo -->
+                <button class="btn-social btn-google" id="googleRegisterBtn">
+                    <i class="fab fa-google"></i><span>Google</span>
+                </button>
+            </div>
+
+            <div class="footer-text">
+                &copy; 2026 ThaoVyStore. All rights reserved | Design by ThaoVyStore
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Sign-In SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Firebase (compat) for client-side Firestore & Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="firebaseInit.js"></script>
+    <script>
+        initializeFirebase();
+    </script>
+    <script src="oauth-helper.js"></script>
+    <script src="firestore-sync.js"></script>
+    <script src="register.js"></script>
+    <script src="fix-mobile.js"></script>
+
+    <script>
+        try {
+            console.log('Origin =', location.origin);
+            console.log('Google SDK =', typeof google !== 'undefined' ? 'loaded' : 'missing');
+            console.log('Client ID =', window.GoogleOAuth && GoogleOAuth.CLIENT_ID);
+        } catch (e) {
+            console.warn('Debug logs failed', e);
+        }
+
+        function ensureGoogleInit(onReady) {
+            let attempts = 0;
+            const interval = setInterval(() => {
+                attempts++;
+                if (window.google && google.accounts && google.accounts.id) {
+                    clearInterval(interval);
+                    try {
+                        GoogleOAuth.init(handleGoogleRegister);
+                    } catch (e) {
+                        console.error('Google init failed', e);
+                    }
+                    if (typeof onReady === 'function') onReady();
+                } else if (attempts > 40) {
+                    clearInterval(interval);
+                    console.warn('Google SDK not available after waiting.');
+                }
+            }, 250);
+        }
+
+        ensureGoogleInit();
+
+        document.getElementById('googleRegisterBtn').addEventListener('click', function () {
+            if (window.google && google.accounts && google.accounts.id) {
+                google.accounts.id.prompt();
+            } else {
+                ensureGoogleInit(() => {
+                    if (window.google && google.accounts && google.accounts.id) google.accounts.id.prompt();
+                });
+            }
+        });
+
+        function handleGoogleRegister(response) {
+            if (response && response.credential) {
+                const userData = GoogleOAuth.parseToken(response.credential);
+                if (userData) {
+                    const user = GoogleOAuth.formatUserData(userData);
+
+                    GoogleOAuth.saveUser(user).then(async () => {
+                        const docId = (user.email || '').toString().toLowerCase();
+                        const msg = document.getElementById('msg');
+
+                        try {
+                            if (!window.firebase || !window.__FIREBASE_INITIALIZED__) {
+                                console.warn('Firebase not initialized yet, initializing...');
+                                initializeFirebase();
+                                await new Promise(resolve => setTimeout(resolve, 500));
+                            }
+
+                            if (window.firebase && window.__FIREBASE_INITIALIZED__) {
+                                const db = firebase.firestore();
+                                await db.collection('users').doc(docId).set({
+                                    email: docId,
+                                    name: user.name || 'Google User',
+                                    role: user.role || 'user',
+                                    picture: user.picture || '',
+                                    provider: user.provider || 'google',
+                                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                                }, { merge: true });
+                            }
+                        } catch (e) {
+                            console.warn('⚠️ Firestore sync warning:', e);
+                        }
+
+                        msg.textContent = 'Đăng nhập Google thành công! ' + user.email;
+
+                        const loggedUser = JSON.parse(localStorage.getItem('loggedUser') || '{}');
+                        setTimeout(() => {
+                            try { sessionStorage.setItem('seenLogin', '1'); } catch (e) { }
+                            if (loggedUser && loggedUser.role === 'admin') {
+                                window.location.href = 'admin.html';
+                            } else {
+                                window.location.href = 'index.html';
+                            }
+                        }, 1000);
+                    }).catch(e => {
+                        console.error('❌ Error during Google login:', e);
+                        const msg = document.getElementById('msg');
+                        msg.textContent = 'Lỗi đăng nhập: ' + (e.message || 'Vui lòng thử lại');
+                    });
+                }
+            }
+        }
+    </script>
+    <script src="chat.js"></script>
+</body>
+
+</html>

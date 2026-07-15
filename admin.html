@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Dashboard - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Layout for admin with left sidebar */
+    .admin-layout {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .admin-sidebar {
+      flex: 0 0 240px;
+      min-width: 200px;
+      max-width: 280px;
+      height: auto;
+      padding: 12px;
+    }
+
+    .admin-sidebar .sidebar-header {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      background: transparent;
+      transition: background .15s ease, color .15s ease;
+    }
+
+    .sidebar-nav a:hover {
+      background: rgba(0,0,0,0.04);
+    }
+
+    .sidebar-nav a.active {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .main-content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    @media (max-width: 900px) {
+      .admin-layout { flex-direction: column; }
+      .admin-sidebar { width: 100%; max-width: 100%; }
+    }
+
+    .admin-container {
+      padding: 24px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border: 1px solid #dee2e6;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+    }
+
+    .btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #0d6efd;
+      color: white;
+      border: none;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+      border: none;
+    }
+
+    /* Users table action buttons - keep buttons on same row */
+    #usersTable td.users-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    #usersTable td.users-actions .action-btn {
+      min-width: 82px;
+      height: 34px;
+      padding: 6px 10px;
+      font-size: 13px;
+      border-radius: 6px;
+    }
+
+    /* Modal for admin details */
+    .modal-overlay {
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      padding: 20px;
+    }
+    .modal-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      position: relative;
+    }
+    .modal-card h4 { margin: 0 0 10px 0; }
+    .modal-row { display:flex; gap:8px; margin:8px 0; }
+    .modal-row .label { width: 120px; color:#666; font-weight:600; }
+    .modal-row .value { flex:1; }
+    .modal-close {
+      position: absolute; right:10px; top:10px; background:transparent; border:none; font-size:18px; cursor:pointer; color:#666;
+    }
+
+    .role-badge {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .role-admin {
+      background: #fdecec;
+      color: #842029;
+    }
+
+    .role-user {
+      background: #e7f5ff;
+      color: #0b5ed7;
+    }
+
+    #status {
+      margin-bottom: 12px;
+    }
+
+    /* Admin Header Styles */
+    .admin-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 16px 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-header .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-logo:hover {
+      opacity: 0.9;
+    }
+
+    .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .header-title h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .header-title p {
+      margin: 0;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 140px;
+    }
+
+    .user-details .user-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .user-details .user-role {
+      font-size: 11px;
+      opacity: 0.85;
+      color: white;
+    }
+
+    .btn-logout-header {
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-logout-header:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        padding: 12px 16px;
+      }
+
+      .admin-header .header-content {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .header-left {
+        flex: 1;
+      }
+
+      .header-right {
+        flex: 1;
+        justify-content: flex-end;
+      }
+
+      .header-logo {
+        font-size: 18px;
+      }
+
+      .header-title h1 {
+        font-size: 16px;
+      }
+
+      .user-details {
+        display: none;
+      }
+
+      .user-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+
+      .btn-logout-header {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+    }
+
+    /* Top Products Table Styles */
+    #topProductsTable {
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+    }
+
+    #topProductsTable thead {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: 600;
+    }
+
+    #topProductsTable th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      border-bottom: 2px solid #667eea;
+    }
+
+    #topProductsTable th:nth-child(2),
+    #topProductsTable th:nth-child(3),
+    #topProductsTable th:nth-child(4) {
+      text-align: center;
+    }
+
+    #topProductsTable tbody tr {
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s ease;
+    }
+
+    #topProductsTable tbody tr:hover {
+      background: #f9f9ff;
+    }
+
+    #topProductsTable tbody tr:nth-child(1) {
+      background: #fffbf0;
+    }
+
+    #topProductsTable tbody tr:nth-child(2) {
+      background: #f9f6ff;
+    }
+
+    #topProductsTable tbody tr:nth-child(3) {
+      background: #f5f8ff;
+    }
+
+    #topProductsTable td {
+      padding: 14px 16px;
+      font-size: 13px;
+    }
+
+    #topProductsTable td:nth-child(2),
+    #topProductsTable td:nth-child(3),
+    #topProductsTable td:nth-child(4) {
+      text-align: center;
+    }
+
+    #topProductsTable .product-rank {
+      font-weight: 700;
+      font-size: 18px;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    #topProductsTable .rank-1 { color: #ffc107; }
+    #topProductsTable .rank-2 { color: #c0c0c0; }
+    #topProductsTable .rank-3 { color: #cd7f32; }
+    #topProductsTable .rank-other { color: #999; }
+
+    #topProductsTable .product-quantity {
+      font-weight: 600;
+      color: #0d6efd;
+    }
+
+    #topProductsTable .product-percent {
+      background: #e7f5ff;
+      color: #0b5ed7;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Shared Table Styles */
+    #topProductsTable, #usersTable, #perUserTable, #productsInventoryTable {
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+    }
+
+    #topProductsTable thead, #usersTable thead, #perUserTable thead, #productsInventoryTable thead {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: black;
+      font-weight: 600;
+    }
+
+    #topProductsTable th, #usersTable th, #perUserTable th, #productsInventoryTable th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #667eea;
+      border-bottom: 2px solid #667eea;
+      color: black;
+    }
+
+    #productsInventoryTable tbody tr {
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s ease;
+    }
+
+    #productsInventoryTable tbody tr:hover {
+      background: #f9f9ff;
+    }
+
+    #productsInventoryTable tbody tr.stock-danger {
+      background: #fff5f5;
+    }
+
+    #productsInventoryTable tbody tr.stock-warning {
+      background: #fffbf0;
+    }
+
+    #productsInventoryTable td {
+      padding: 14px 16px;
+      font-size: 13px;
+    }
+
+    #productsInventoryTable .qty-input {
+      padding: 6px 8px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 12px;
+      max-width: 100%;
+    }
+
+    #productsInventoryTable .qty-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+
+
+    #productsInventoryTable .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    #productsInventoryTable .status-ok {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    #productsInventoryTable .status-warning {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    #productsInventoryTable .status-danger {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    #productsInventoryTable button {
+      padding: 6px 12px;
+      background: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-right: 6px;
+      transition: all 0.2s;
+    }
+
+    #productsInventoryTable button:hover {
+      background: #0b5ed7;
+      transform: translateY(-1px);
+    }
+
+    #productsInventoryTable button.btn-save {
+      background: #28a745;
+    }
+
+    #productsInventoryTable button.btn-save:hover {
+      background: #218838;
+    }
+
+    #productsInventoryTable button.btn-cancel {
+      background: #6c757d;
+    }
+
+    #productsInventoryTable button.btn-cancel:hover {
+      background: #5a6268;
+    }
+
+    #productsInventoryTable button.btn-import-row {
+      background: #007bff;
+    }
+
+    #productsInventoryTable button.btn-import-row:hover {
+      background: #0056b3;
+    }
+
+    #productsInventoryTable button.btn-export-row {
+      background: #ffc107;
+      color: #333;
+    }
+
+    #productsInventoryTable button.btn-export-row:hover {
+      background: #e0a800;
+    }
+
+    #productsInventoryTable button.btn-export-excel-row {
+      background: #28a745;
+    }
+
+    #productsInventoryTable button.btn-export-excel-row:hover {
+      background: #218838;
+    }
+
+    #exportExcelBtn {
+      transition: background 0.2s ease;
+    }
+
+    #exportExcelBtn:hover {
+      background: #218838 !important;
+    }
+
+    #importExcelBtn:hover {
+      background: #0056b3 !important;
+    }
+
+    #downloadTemplateBtn:hover {
+      background: #545b62 !important;
+    }
+
+    #addProductBtn:hover {
+      background: #138496 !important;
+    }
+
+    #exportBtn:hover {
+      background: #e0a800 !important;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+    }
+
+    .close {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .import-preview {
+      margin: 20px 0;
+    }
+
+    .import-preview table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .import-preview th,
+    .import-preview td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .import-preview th {
+      background-color: #f2f2f2;
+    }
+
+    .import-actions {
+      text-align: right;
+    }
+
+    .import-actions button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-confirm {
+      background: #28a745;
+      color: white;
+    }
+
+    .btn-cancel {
+      background: #6c757d;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="header-logo"></div>
+        <div class="header-title">
+          <h1>Admin Dashboard</h1>
+          <p>Quản lý cửa hàng ThaoVyStore</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <!-- Thông báo -->
+        <div id="notification-icon" class="notification-icon" onclick="toggleNotificationDropdown()" style="color: white; font-size: 20px; cursor: pointer; position: relative; margin-right: 20px;">
+          <i class="fas fa-bell"></i>
+          <span id="notification-badge" class="notification-badge" style="display: none; position: absolute; top: -8px; right: -8px; background: #ff4444; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">0</span>
+        </div>
+        <div id="notification-dropdown" class="notification-dropdown" style="display: none;">
+          <div class="notification-header">
+            <h3>Thông báo</h3>
+            <div class="notification-actions">
+              <button onclick="markAllAsRead()" title="Đánh dấu tất cả là đã đọc" class="btn-mark-all">
+                <i class="fas fa-check-double"></i>
+              </button>
+              <button onclick="clearAllNotifications()" title="Xóa tất cả" class="btn-clear-all">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div id="notificationsList" class="notifications-list"></div>
+        </div>
+        <div class="user-info">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div class="user-details">
+            <div class="user-name" id="userName">Admin</div>
+            <div class="user-role">Quản trị viên</div>
+          </div>
+        </div>
+        <button class="btn-logout-header" id="btnLogoutHeader">Đăng xuất</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container admin-container">
+    <div class="admin-layout">
+      <aside class="admin-sidebar card">
+        <div class="sidebar-header"></div>
+        <nav class="sidebar-nav">
+          <a href="admin.html" class="active">Doanh thu</a>
+          <a href="#" id="link-users">QUản lý Người dùng</a>
+          <a href="#" id="link-orders">Quản Lý tồn kho</a>
+          <a href="#" id="link-proofs">Phê duyệt thanh toán</a>
+          <a href="#" id="link-products">Sản phẩm bán chạy</a>
+          <a href="revenue.html" id="link-revenue">Quản lý doanh thu</a>
+        </nav>
+      </aside>
+
+      <section class="main-content">
+        <div id="dashboardSection">
+          <div id="status" class="card">Kiểm tra quyền...</div>
+
+          <div class="card">
+            <h3>Thống kê</h3>
+            <div id="stats">Đang tải...</div>
+          </div>
+
+          <div class="card" style="margin-top:12px;">
+            <h3>Biểu đồ doanh thu</h3>
+            <div style="position: relative; height: 400px; width: 100%;">
+              <canvas id="revenueChart"></canvas>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:8px; align-items:center;">
+              <label style="margin:0; color:#666; font-size:13px;">Xem doanh thu ngày:</label>
+              <input type="date" id="revenueDate" style="padding:6px;border:1px solid #ccc;border-radius:4px;">
+              <button id="fetchRevenueDayBtn" class="btn btn-primary">Lấy dữ liệu</button>
+              <div style="margin-left:auto; text-align:right;">
+                <div style="font-size:12px;color:#666;">Doanh thu ngày</div>
+                <div id="dailyTotal" style="font-weight:700; color:#27ae60;">0 VND</div>
+              </div>
+            </div>
+            <div style="margin-top:12px; overflow-x:auto; display:none;" id="dailyRevenueContainer">
+              <h4 style="margin:8px 0 6px 0;">Chi tiết đơn trong ngày</h4>
+              <table id="dailyRevenueTable" style="width:100%;">
+                <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Thời gian</th><th>Tổng tiền</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div style="margin-top: 12px; padding: 12px; background: #f8f9fa; border-radius: 6px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <p style="margin: 0 0 4px 0; color: #666; font-size: 12px;">Tổng doanh thu</p>
+                  <p style="margin: 0; font-size: 24px; font-weight: bold; color: #27ae60;" id="totalRevenue">0 VND</p>
+                </div>
+                <div>
+                  <p style="margin: 0 0 4px 0; color: #666; font-size: 12px;">Tổng số đơn hàng</p>
+                  <p style="margin: 0; font-size: 24px; font-weight: bold; color: #3498db;" id="totalOrders">0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px;">
+            <h3>Mua hàng theo từng user</h3>
+            <div style="overflow-x:auto;">
+              <table id="perUserTable" style="width:100%;">
+                <thead>
+                  <tr><th>Email user</th><th>Tổng đơn</th><th>Tổng tiền</th></tr>
+                </thead>
+                <tbody></tbody> 
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="proofsSection" class="card" style="margin-top:12px; display:none;">
+          <h3>✅ Phê duyệt thanh toán QR</h3>
+          <p style="color:#666;font-size:13px;margin-bottom:15px;">Danh sách đơn hàng chờ duyệt minh chứng chuyển khoản</p>
+          <div style="overflow-x:auto;">
+            <table id="proofsTable" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th style="border-bottom: 2px solid #667eea; padding: 10px; text-align: left;">Mã đơn</th>
+                  <th style="border-bottom: 2px solid #667eea; padding: 10px; text-align: left;">Khách hàng</th>
+                  <th style="border-bottom: 2px solid #667eea; padding: 10px; text-align: right;">Số tiền</th>
+                  <th style="border-bottom: 2px solid #667eea; padding: 10px; text-align: center;">Thời gian</th>
+                  <th style="border-bottom: 2px solid #667eea; padding: 10px; text-align: center;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <h4 style="margin-top: 30px; margin-bottom: 10px; color: #28a745;">Lịch sử minh chứng đã duyệt</h4>
+          <div style="overflow-x:auto;">
+            <table id="approvedProofsTable" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th style="border-bottom: 2px solid #28a745; padding: 10px; text-align: left;">Mã đơn</th>
+                  <th style="border-bottom: 2px solid #28a745; padding: 10px; text-align: left;">Khách hàng</th>
+                  <th style="border-bottom: 2px solid #28a745; padding: 10px; text-align: right;">Số tiền</th>
+                  <th style="border-bottom: 2px solid #28a745; padding: 10px; text-align: center;">Thời gian</th>
+                  <th style="border-bottom: 2px solid #28a745; padding: 10px; text-align: center;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <h4 style="margin-top: 30px; margin-bottom: 10px; color: #dc3545;">Lịch sử minh chứng đã hủy</h4>
+          <div style="overflow-x:auto;">
+            <table id="cancelledProofsTable" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th style="border-bottom: 2px solid #dc3545; padding: 10px; text-align: left;">Mã đơn</th>
+                  <th style="border-bottom: 2px solid #dc3545; padding: 10px; text-align: left;">Khách hàng</th>
+                  <th style="border-bottom: 2px solid #dc3545; padding: 10px; text-align: right;">Số tiền</th>
+                  <th style="border-bottom: 2px solid #dc3545; padding: 10px; text-align: left;">Lý do hủy</th>
+                  <th style="border-bottom: 2px solid #dc3545; padding: 10px; text-align: center;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Modal xem lại minh chứng (chỉ xem, không có nút duyệt/hủy) -->
+        <div id="proofViewOnlyModal" class="modal-overlay" aria-hidden="true">
+          <div class="modal-card" style="max-width: 500px; text-align: center;">
+            <button class="modal-close" id="proofViewOnlyModalClose">✕</button>
+            <h4 style="margin-bottom: 15px;">Xem lại minh chứng</h4>
+            <div id="proofViewOnlyImageContainer" style="margin-bottom: 20px;">
+              <img id="proofViewOnlyImage" src="" alt="Minh chứng" style="max-width: 100%; max-height: 400px; border-radius: 8px; border: 1px solid #ddd;">
+            </div>
+            <button id="btnCloseViewOnlyProof" class="btn btn-secondary">Đóng</button>
+          </div>
+        </div>
+
+        <!-- Modal xem minh chứng -->
+        <div id="proofModal" class="modal-overlay" aria-hidden="true">
+          <div class="modal-card" style="max-width: 500px; text-align: center;">
+            <button class="modal-close" id="proofModalClose">✕</button>
+            <h4 style="margin-bottom: 15px;">Minh chứng chuyển khoản</h4>
+            <div id="proofImageContainer" style="margin-bottom: 20px;">
+              <img id="proofImage" src="" alt="Minh chứng" style="max-width: 100%; max-height: 400px; border-radius: 8px; border: 1px solid #ddd;">
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+              <button id="btnApproveProof" class="btn btn-primary" style="background: #28a745;">Duyệt đơn</button>
+              <button id="btnRejectProof" class="btn btn-danger">Hủy (Minh chứng giả)</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="usersSection" class="card" style="margin-top:12px; display:none;">
+          <h3>Danh sách người dùng</h3>
+          <p style="color:#666;font-size:13px;"></p>
+          <div style="overflow-x:auto; width:100%;">
+            <table id="usersTable">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Họ tên</th>
+                  <th>Role</th>
+                  <th>Yêu cầu admin</th>
+                  <th>Lần đăng nhập cuối</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Admin detail modal -->
+        <div id="adminDetailModal" class="modal-overlay" aria-hidden="true">
+          <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="adminDetailTitle">
+            <button class="modal-close" id="adminModalClose">✕</button>
+            <h4 id="adminDetailTitle">Thông tin tài khoản</h4>
+            <div class="modal-row"><div class="label">Email</div><div class="value modal-email">-</div></div>
+            <div class="modal-row"><div class="label">Họ tên</div><div class="value modal-name">-</div></div>
+            <div class="modal-row"><div class="label">Role</div><div class="value modal-role">-</div></div>
+            <div class="modal-row"><div class="label">Lần đăng nhập</div><div class="value modal-lastlogin">-</div></div>
+            <div class="modal-row"><div class="label">Yêu cầu admin</div><div class="value modal-request">-</div></div>
+            <div style="margin-top:12px;"><details><summary style="cursor:pointer;color:#0d6efd">Xem raw JSON</summary><pre class="modal-raw" style="white-space:pre-wrap;max-height:220px;overflow:auto;background:#f6f6f8;padding:10px;border-radius:6px;margin-top:8px">-</pre></details></div>
+          </div>
+        </div>
+
+        <div id="ordersSection" class="card" style="margin-top:12px; display:none;">
+          <h3>📦 Quản Lý Sản Phẩm & Tồn Kho</h3>
+          <p style="color:#666;font-size:13px;margin-bottom:15px;">Quản lý hàng tồn kho, theo dõi số lượng và cảnh báo khi hết hàng</p>
+          
+          <div style="margin-bottom:15px; display:flex; gap:10px;">
+            <button class="btn btn-primary" onclick="showAddProductModal()" style="background:#0d6efd; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer; font-weight:600;"><i class="fas fa-plus"></i> Nhập hàng</button>
+            <button class="btn btn-success" onclick="exportToExcelBeautiful()" style="background:#28a745; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer; font-weight:600;"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table id="productsInventoryTable" style="width:100%;">
+              <thead>
+                <tr>
+                  <th style="min-width:200px;">Tên sản phẩm</th>
+                  <th style="text-align:center;min-width:120px;">Tồn kho hiện tại</th>
+                  <th style="text-align:center;min-width:120px;">Ngưỡng tối thiểu</th>
+                  <th style="text-align:center;min-width:120px;">Trạng thái</th>
+                  <th style="text-align:center;min-width:140px;">Hành động</th>
+                </tr>
+              </thead>
+              <tbody style="font-size:13px;"></tbody>
+            </table>
+          </div>
+
+          <div style="margin-top:15px; padding:15px; background:#f8f9fa; border-radius:6px;">
+            <p style="font-size:13px; color:#333;margin-bottom:8px;"><strong>ℹ️ Hướng dẫn sử dụng:</strong></p>
+            <ul style="font-size:12px; color:#666; margin-left:20px; line-height:1.8;">
+      
+              <li>cảnh báo</li>
+              <li>Ngưỡng cảnh báo </li>
+              <li><span style="color:#dc3545;">● Đỏ</span> = Hết hoặc sắp hết hàng (cần bổ sung ngay)</li>
+              <li><span style="color:#f59e0b;">● Vàng</span> = Cảnh báo (số lượng thấp)</li>
+              <li><span style="color:#10b981;">● Xanh</span> = Còn hàng đủ</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="productsSection" class="card" style="margin-top:12px; display:none;">
+          <h3>📦 Sản phẩm bán chạy</h3>
+          <p style="color:#666;font-size:13px;margin-bottom:15px;">Thống kê sản phẩm được bán trong tất cả đơn hàng</p>
+          <div style="overflow-x:auto;">
+            <table id="topProductsTable" style="width:100%;">
+              <thead>
+                <tr>
+                  <th style="text-align:left;">Tên sản phẩm</th>
+                  <th style="text-align:center;">Số lượng bán</th>
+                  <th style="text-align:center;">Tỷ lệ (%)</th>
+                  <th style="text-align:center;">Xếp hạng</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p style="color:#999;font-size:12px;margin-top:15px;">* Dữ liệu được cập nhật theo thời gian thực</p>
+        </div>
+
+        <div style="margin-top:12px;">
+          <a href="index.html" class="btn btn-primary">Về trang chủ</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Firebase compat + init -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+  <script src="firebaseInit.js"></script>
+  <script>
+    try { if (typeof initializeFirebase === 'function') initializeFirebase(); } catch(e) { console.warn('Firebase init call failed', e); }
+  </script>
+
+  <!-- Chart.js for revenue charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Notification System -->
+  <script src="notification.js"></script>
+  <script src="notification-helper.js"></script>
+
+  <script>
+    // Update header with current user info from Firebase only
+    async function updateHeaderUserInfo() {
+      try {
+        // Get current user from localStorage first (for session management)
+        const localUser = JSON.parse(localStorage.getItem('loggedUser') || localStorage.getItem('loggedInUser') || '{}');
+        const userEmail = localUser.email || '';
+
+        if (!userEmail) {
+          console.warn('No user email found');
+          return;
+        }
+
+        // Require Firebase to be available
+        if (!window.firebase || !window.__FIREBASE_INITIALIZED__) {
+          console.warn('Firebase not available for header update');
+          return;
+        }
+
+        // Get fresh data from Firebase
+        const db = firebase.firestore();
+        const userDoc = await db.collection('users').doc(userEmail.toLowerCase()).get();
+
+        if (userDoc.exists) {
+          const userData = userDoc.data();
+          const userName = userData.name || 'Admin';
+
+          // Update avatar with first letter of name
+          const avatarEl = document.getElementById('userAvatar');
+          if (avatarEl) {
+            const firstLetter = (userName.charAt(0) || 'A').toUpperCase();
+            avatarEl.textContent = firstLetter;
+          }
+
+          // Update user name in header
+          const userNameEl = document.getElementById('userName');
+          if (userNameEl) {
+            userNameEl.textContent = userName;
+          }
+
+          console.log('Header updated with Firebase data:', userName);
+        } else {
+          console.warn('User document not found in Firebase');
+        }
+      } catch (e) {
+        console.warn('Update header failed', e);
+      }
+    }
+
+    // Handle logout from header button
+    document.getElementById('btnLogoutHeader').addEventListener('click', function() {
+      if (confirm('Bạn có chắc muốn đăng xuất?')) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('loggedUser');
+        localStorage.removeItem('loggedInUser');
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Initialize header on page load
+    updateHeaderUserInfo();
+  </script>
+
+  <script>
+    // Sidebar navigation handlers
+    function showSection(sectionId) {
+      // ẩn tất cả section trước an toàn (tránh lỗi null)
+      const sections = ['dashboardSection', 'usersSection', 'ordersSection', 'productsSection', 'settingsSection', 'proofsSection'];
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+
+      // Update active link
+      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+
+      // Show selected section
+      const sectionEl = document.getElementById(sectionId);
+      if (sectionEl) {
+        sectionEl.style.display = 'block';
+      }
+
+      // Set active link
+      if (sectionId === 'dashboardSection') {
+        document.querySelector('.sidebar-nav a[href="admin.html"]').classList.add('active');
+      } else {
+        const linkId = sectionId.replace('Section', '');
+        const link = document.querySelector('#link-' + linkId);
+        if (link) {
+          link.classList.add('active');
+        }
+      }
+    }
+
+    // Setup sidebar navigation
+    document.addEventListener('DOMContentLoaded', () => {
+      const linkUsers = document.getElementById('link-users');
+      const linkOrders = document.getElementById('link-orders');
+      const linkProducts = document.getElementById('link-products');
+      const linkSettings = document.getElementById('link-settings');
+      const linkProofs = document.getElementById('link-proofs');
+      const dashboardLink = document.querySelector('.sidebar-nav a[href="admin.html"]');
+
+      if (linkUsers) {
+        linkUsers.addEventListener('click', (e) => {
+          e.preventDefault();
+          showSection('usersSection');
+        });
+      }
+
+      if (linkOrders) {
+        linkOrders.addEventListener('click', (e) => {
+          e.preventDefault();
+          showSection('ordersSection');
+        });
+      }
+
+      if (linkProducts) {
+        linkProducts.addEventListener('click', (e) => {
+          e.preventDefault();
+          showSection('productsSection');
+        });
+      }
+
+      if (linkSettings) {
+        linkSettings.addEventListener('click', (e) => {
+          e.preventDefault();
+          showSection('settingsSection');
+        });
+      }
+
+      if (linkProofs) {
+        linkProofs.addEventListener('click', (e) => {
+          e.preventDefault();
+          showSection('proofsSection');
+        });
+      }
+
+      if (dashboardLink) {
+        dashboardLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          showSection('dashboardSection');
+        });
+      }
+
+      // Update header on load
+      updateHeaderUserInfo();
+      updateLogoutButton();
+    });
+
+    // Logout button handler
+    function updateLogoutButton() {
+      const btnLogout = document.getElementById('btnLogoutHeader');
+      if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+          localStorage.removeItem('loggedUser');
+          localStorage.removeItem('loggedInUser');
+          localStorage.removeItem('authToken');
+          window.location.href = 'login.html';
+        });
+      }
+    }
+  </script>
+
+  <!-- Firebase already initialized above -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="admin.js"></script>
+  <script src="manage-products.js"></script>
+</body>
+
+<!-- Import Modal -->
+<div id="importModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>📥 Xem trước dữ liệu nhập</h3>
+      <span class="close">&times;</span>
+    </div>
+    <div id="importPreview" class="import-preview">
+      <!-- Preview table will be inserted here -->
+    </div>
+    <div class="import-actions">
+      <button id="confirmImportBtn" class="btn-confirm">✅ Xác nhận nhập</button>
+      <button id="cancelImportBtn" class="btn-cancel">❌ Hủy</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Product Modal -->
+<div id="addProductModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>➕ Thêm sản phẩm mới</h3>
+      <span class="close">&times;</span>
+    </div>
+    <form id="addProductForm" style="padding: 20px 0;">
+      <div style="margin-bottom: 15px;">
+        <label for="newProductName" style="display: block; margin-bottom: 5px; font-weight: bold;">Tên sản phẩm *</label>
+        <input type="text" id="newProductName" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+      </div>
+      
+      <div style="margin-bottom: 15px;">
+        <label for="newProductCategory" style="display: block; margin-bottom: 5px; font-weight: bold;">Danh mục</label>
+        <select id="newProductCategory" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+          <option value="">Chọn danh mục</option>
+          <option value="banh-2010">Bánh 2010</option>
+          <option value="banh-gato">Bánh Gato</option>
+          <option value="banh-tiramisu">Bánh Tiramisu</option>
+          <option value="banh-sinh-nhat">Bánh Sinh Nhật</option>
+          <option value="banh-cupcake">Bánh Cupcake</option>
+          <option value="uncategorized">Chưa phân loại</option>
+        </select>
+      </div>
+      
+      <div style="margin-bottom: 15px;">
+        <label for="newProductImage" style="display:block;margin-bottom:6px;font-weight:bold;">Ảnh sản phẩm (tùy chọn)</label>
+        <input type="file" id="newProductImage" accept="image/*" style="display:block;">
+        <div id="newProductImagePreview" style="margin-top:8px;">
+          <img id="newProductImagePreviewImg" src="" alt="Preview" style="max-width:200px;display:none;border:1px solid #eee;padding:6px;border-radius:6px;" />
+        </div>
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <label for="newProductQuantity" style="display: block; margin-bottom: 5px; font-weight: bold;">Số lượng nhập</label>
+        <input type="number" id="newProductQuantity" value="0" min="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+      </div>
+      <div style="margin-bottom: 15px;">
+        <label for="newProductThreshold" style="display: block; margin-bottom: 5px; font-weight: bold;">Ngưỡng cảnh báo (threshold)</label>
+        <input type="number" id="newProductThreshold" value="5" min="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+      </div>
+      
+
+      
+      <div class="import-actions">
+        <button type="submit" class="btn-confirm">✅ Thêm sản phẩm</button>
+        <button type="button" id="cancelAddProductBtn" class="btn-cancel">❌ Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</html>

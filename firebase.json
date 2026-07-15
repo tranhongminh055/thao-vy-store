@@ -1,0 +1,40 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default"
+    }
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**",
+      "ngrok/**"
+    ]
+    ,
+    "rewrites": [
+      {
+        "source": "/",
+        "destination": "/login.html"
+      }
+      ,
+      {
+        "source": "/api/support",
+        "function": "support"
+      }
+    ]
+  },
+  "emulators": {
+    "host": "0.0.0.0"
+  }
+}

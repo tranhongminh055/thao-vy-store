@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hóa đơn - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="invoice.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <!-- site header copied from index for consistent look -->
+  <header id="header">
+    <div class="header-top">
+      <div class="container flex-between">
+        <div class="logo">
+          <a href="index.html"><img src="Logo/màu kem hồng minh họa thức ăn Sticker tròn.png" alt="Logo bánh" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"></a>
+        </div>
+        <div class="header-search">
+          <input type="text" id="search-input" placeholder="Bạn muốn tìm gì?">
+          <button><i class="fas fa-search"></i></button>
+          <ul id="search-suggestions" class="suggestions-list"></ul>
+        </div>
+        <div class="header-hotline">
+          <i class="fas fa-phone-volume"></i> <span>Hotline: 1800 2097</span>
+        </div>
+        <div class="header-account">
+          <a href="account.html"><i class="fas fa-user"></i> <span id="userEmail"></span></a>
+        </div>
+        <div id="cart-icon" class="cart-icon">
+          <a href="cart.html"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="header-nav">
+      <div class="container">
+        <ul class="nav-list">
+          <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+          <li><a href="#promo"><i class="fas fa-tags"></i> Khuyến mãi</a></li>
+          <li><a href="#news"><i class="fas fa-newspaper"></i> Tin tức</a></li>
+          <li><a href="stores.html"><i class="fas fa-store"></i> Hệ thống cửa hàng</a></li>
+          <li><a href="#support"><i class="fas fa-question-circle"></i> Hỗ trợ</a></li>
+          <li><a href="orders.html"><i class="fas fa-history"></i> Lịch sử đơn hàng</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main class="container invoice-main">
+    <section class="panel">
+      <h1>Hóa đơn</h1>
+    </section>
+
+    <section class="panel invoice-panel">
+      <div id="invoice">
+        <!-- Invoice content rendered by JS -->
+      </div>
+
+      <div class="invoice-actions">
+        <button id="downloadPdf" class="btn primary">Tải PDF</button>
+        <button id="sendEmail" class="btn">Gửi email</button>
+        <a href="index.html" class="btn back-home-btn">Về trang chủ</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-top">
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="about.html">Giới thiệu</a></li>
+          <li><a href="stores.html">Hệ thống cửa hàng</a></li>
+          <li><a href="recruitment.html">Tuyển dụng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Chính sách</h4>
+        <ul>
+          <li><a href="warranty.html">Bảo hành đổi trả</a></li>
+          <li><a href="checkout.html">Thanh toán & giao hàng</a></li>
+          <li><a href="privacy.html">Bảo mật thông tin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ khách hàng</h4>
+        <ul>
+          <li><a href="#">Liên hệ</a></li>
+          <li><a href="faq.html">Câu hỏi thường gặp</a></li>
+          <li><a href="huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/be.la.minh.739188/"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@endermantv6933"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@shibichi2005"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/_____t.hm____/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Thảo Vy Shop - .Shoe Store-. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+  <script>
+    (function(){
+      function formatVND(n){ return Number(n||0).toLocaleString('vi-VN') + ' VND'; }
+      // load order by viewOrderId or fallback to last orderData
+      let order = null;
+      try{
+        const id = localStorage.getItem('viewOrderId');
+        const viewOrderData = JSON.parse(localStorage.getItem('viewOrderData') || 'null');
+        
+        if (viewOrderData && viewOrderData.orderId === id) {
+            order = viewOrderData;
+        } else {
+            const orders = JSON.parse(localStorage.getItem('orders')||'[]');
+            if(id){ order = orders.find(o=>o.orderId === id) || null; }
+            if(!order){ order = JSON.parse(localStorage.getItem('orderData')||'null'); }
+        }
+      }catch(e){ order = JSON.parse(localStorage.getItem('orderData')||'null'); }
+
+      const invoiceEl = document.getElementById('invoice');
+      if(!order){ invoiceEl.innerHTML = '<div class="muted">Không tìm thấy hoá đơn.</div>'; return; }
+
+      // sync logged user into header (same pattern as other pages)
+      try{
+        const u = JSON.parse(localStorage.getItem('loggedUser')) || JSON.parse(localStorage.getItem('loggedInUser')) || null;
+        if(u && (u.email || u.user)) document.getElementById('userEmail').innerText = (u.email || u.user);
+      }catch(e){}
+
+      // Format address properly
+      const customer = order.customer || {};
+      const addr = (customer.addressStructured) 
+        ? [customer.addressStructured.detail, customer.addressStructured.ward, customer.addressStructured.district, customer.addressStructured.city].filter(Boolean).join(', ') 
+        : (customer.address || '');
+
+      // Products table rows
+      const productsHtml = (order.products||[]).map(p => {
+        const qty = parseInt(p.quantity) || 1;
+        const price = typeof p.price === 'number' ? p.price : parseInt((p.price||'0').toString().replace(/[^0-9]/g, '')) || 0;
+        const total = qty * price;
+        return `
+          <tr>
+            <td>
+              <div class="modern-prod-name">${p.name}</div>
+            </td>
+            <td class="text-center">${qty}</td>
+            <td class="text-right">${formatVND(price)}</td>
+            <td class="text-right">${formatVND(total)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Payment details
+      const payment = order.payment || {};
+      let paymentMethodName = 'COD (Thanh toán khi nhận hàng)';
+      let paymentDetailsHtml = '';
+      if(payment.method === 'credit-card'){
+        paymentMethodName = 'Thẻ tín dụng';
+        paymentDetailsHtml = `<br>Số thẻ: **** **** **** ${(payment.details?.cardNumber||'').slice(-4)}<br>Chủ thẻ: ${payment.details?.cardHolder||''}`;
+      } else if(payment.method === 'bank-transfer'){
+        paymentMethodName = 'Chuyển khoản ngân hàng';
+        paymentDetailsHtml = `<br>Ngân hàng: ${payment.details?.bank||''}<br>STK: ${payment.details?.accountNumber||''}<br>Chủ TK: ${payment.details?.accountName||''}`;
+      }
+
+      // Generate full HTML
+      invoiceEl.innerHTML = `
+        <div class="modern-invoice">
+            <div class="modern-header">
+                <div class="modern-company">
+                    <h2 class="company-name">ThaoVyStore</h2>
+                    <p class="company-detail">123 Đường ABC, Quận X, TP HCM</p>
+                    <p class="company-detail">Email: hello@thaovystore.vn</p>
+                    <p class="company-detail">Hotline: 0123 456 789</p>
+                </div>
+                <div class="modern-title-box">
+                    <h1 class="invoice-title">HÓA ĐƠN</h1>
+                    <table class="meta-table">
+                        <tr><td class="meta-label">Mã đơn:</td><td class="meta-value"><strong>${order.orderId||'--'}</strong></td></tr>
+                        <tr><td class="meta-label">Ngày tạo:</td><td class="meta-value">${order.orderDate||'--'}</td></tr>
+                        <tr><td class="meta-label">Trạng thái:</td><td class="meta-value"><span class="status-badge">${order.status||'--'}</span></td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="modern-customer-info">
+                <div class="info-block bill-to">
+                    <h3>THÔNG TIN KHÁCH HÀNG</h3>
+                    <p class="customer-name">${customer.name||'--'}</p>
+                    <p class="customer-phone"><i class="fas fa-phone-alt"></i> ${customer.phone||'--'}</p>
+                    <p class="customer-address"><i class="fas fa-map-marker-alt"></i> ${addr||'--'}</p>
+                </div>
+                <div class="info-block payment-info">
+                    <h3>THÔNG TIN THANH TOÁN</h3>
+                    <p><strong>Phương thức:</strong> ${paymentMethodName}</p>
+                    <p class="payment-details">${paymentDetailsHtml}</p>
+                </div>
+            </div>
+
+            <div class="modern-products">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th class="text-left">SẢN PHẨM</th>
+                            <th class="text-center">SL</th>
+                            <th class="text-right">ĐƠN GIÁ</th>
+                            <th class="text-right">THÀNH TIỀN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${productsHtml}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modern-summary-section">
+                <div class="modern-notes">
+                    <h4>Ghi chú:</h4>
+                    <p>Cảm ơn quý khách đã tin tưởng và mua sắm tại ThaoVyStore. Chúc quý khách một ngày tốt lành!</p>
+                </div>
+                <div class="modern-totals">
+                    <div class="total-row">
+                        <span class="total-label">Tạm tính:</span>
+                        <span class="total-value">${formatVND(order.subtotal||0)}</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="total-label">Giảm giá:</span>
+                        <span class="total-value discount-value">-${formatVND(order.discount||0)}</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span class="total-label">TỔNG CỘNG:</span>
+                        <span class="total-value highlight">${formatVND(order.total||((order.subtotal||0)-(order.discount||0)))}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modern-footer">
+                <p>ThaoVyStore - Hóa đơn được tạo tự động từ hệ thống.</p>
+            </div>
+        </div>
+      `;
+
+      // download PDF
+      document.getElementById('downloadPdf').addEventListener('click', ()=>{
+        // Tạm thời bỏ padding và shadow để render PDF chuẩn xác hơn
+        const originalPadding = invoiceEl.style.padding;
+        const originalShadow = invoiceEl.style.boxShadow;
+        const originalMaxWidth = invoiceEl.style.maxWidth;
+        
+        invoiceEl.style.padding = '10px';
+        invoiceEl.style.boxShadow = 'none';
+        invoiceEl.style.maxWidth = '100%';
+
+        const opt = { 
+            margin: 10, 
+            filename: `${(order.orderId||'invoice').replace(/[#\s]/g,'')}.pdf`, 
+            image: { type: 'jpeg', quality: 0.98 }, 
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, logging: false }, 
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+        
+        html2pdf().set(opt).from(invoiceEl).save().then(() => {
+            // Khôi phục style
+            invoiceEl.style.padding = originalPadding;
+            invoiceEl.style.boxShadow = originalShadow;
+            invoiceEl.style.maxWidth = originalMaxWidth;
+        });
+      });
+
+      // send email: generate pdf (download) then open mailto to user email
+      document.getElementById('sendEmail').addEventListener('click', async ()=>{
+        const userEmail = order.userEmail || (order.customer && order.customer.email) || '';
+        const filename = `${(order.orderId||'invoice').replace(/[#\s]/g,'')}.pdf`;
+        
+        const originalPadding = invoiceEl.style.padding;
+        const originalShadow = invoiceEl.style.boxShadow;
+        const originalMaxWidth = invoiceEl.style.maxWidth;
+        
+        invoiceEl.style.padding = '10px';
+        invoiceEl.style.boxShadow = 'none';
+        invoiceEl.style.maxWidth = '100%';
+
+        const opt = { 
+            margin: 10, 
+            filename, 
+            image: { type: 'jpeg', quality: 0.98 }, 
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0, logging: false }, 
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+        
+        try{
+          await html2pdf().set(opt).from(invoiceEl).save();
+        }catch(e){ console.warn('PDF generation failed', e); }
+        finally {
+            invoiceEl.style.padding = originalPadding;
+            invoiceEl.style.boxShadow = originalShadow;
+            invoiceEl.style.maxWidth = originalMaxWidth;
+        }
+        
+        // open mail client with prefilled subject/body (cannot attach automatically from browser)
+        const subject = encodeURIComponent('Hoá đơn ' + (order.orderId||''));
+        let body = `Kính gửi ${customer.name||''},\n\nVui lòng tìm hoá đơn của bạn (tệp PDF đính kèm) cho đơn ${order.orderId||''}.\n\nNếu bạn chưa thấy file, đã được tải xuống trong trình duyệt của bạn. Vui lòng đính kèm file khi gửi qua email này.\n\nTrân trọng,\nThaoVyStore`;
+        body = encodeURIComponent(body);
+        const mailto = 'mailto:' + (userEmail || '') + '?subject=' + subject + '&body=' + body;
+        window.location.href = mailto;
+      });
+
+    })();
+  </script>
+    <script src="chat.js"></script>
+</body>
+</html>

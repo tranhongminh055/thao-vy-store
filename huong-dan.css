@@ -1,0 +1,58 @@
+/* Styles for Hướng dẫn mua hàng page */
+@import url('style.css');
+
+.guide-main {
+    padding: 28px 0;
+}
+
+.guide-hero {
+    padding: 18px 20px;
+    margin-bottom: 18px;
+}
+
+.guide-hero h1 {
+    margin: 0 0 6px;
+    color: var(--dark);
+}
+
+.guide-hero p {
+    margin: 0;
+    color: #666;
+}
+
+.guide-steps {
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.guide-steps ol {
+    margin: 0;
+    padding-left: 18px;
+    color: #333;
+}
+
+.guide-steps li {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.guide-search {
+    padding: 18px;
+}
+
+.search-results {
+    margin-top: 12px;
+}
+
+/* reuse existing product card styles from style.css */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+@media (max-width: 900px) {
+    .guide-main {
+        padding: 18px 8px;
+    }
+}

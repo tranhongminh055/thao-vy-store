@@ -1,0 +1,446 @@
+/* Make address selects match input style */
+#city-select, #district-select, #ward-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  background: #fff;
+  box-sizing: border-box;
+}
+:root {
+  --red: #b92222;
+  --dark: #222;
+  --light: #f6f6f6;
+  --gray: #8a8a8a;
+  --border: #e3e3e3;
+  --radius: 8px;
+  --shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  margin: 0;
+}
+
+/* Container chính */
+.cart-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.cart-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--dark);
+}
+
+/* Nội dung giỏ hàng */
+.cart-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Danh sách sản phẩm */
+.cart-items {
+  flex: 2;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.cart-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+  font-weight: bold;
+  color: var(--dark);
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.item-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.item-info h3 {
+  font-size: 16px;
+  color: var(--dark);
+  font-weight: 600;
+}
+
+.item-price,
+.item-total {
+  font-size: 14px;
+  color: var(--red);
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Thanh toán */
+.cart-summary {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.summary-row span:last-child {
+  font-weight: bold;
+  color: var(--red);
+}
+
+/* Nút Mua hàng */
+.checkout-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-buy {
+  background-color: #ff5722;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-buy:hover {
+  background-color: #e64a19;
+}
+
+/* Điều chỉnh số lượng */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-control input {
+  width: 50px;
+  text-align: center;
+  margin-right: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 5px;
+  font-size: 14px;
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: var(--light);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--dark);
+  border-radius: var(--radius);
+  transition: background 0.3s ease;
+}
+
+.quantity-control button:hover {
+  background: #e9ecef;
+}
+
+/* Voucher */
+.voucher-list {
+  margin-top: 15px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.voucher-list.hidden {
+  display: none;
+}
+
+.voucher-list h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--dark);
+}
+
+.voucher-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.voucher-list ul li {
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--gray);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.voucher-list ul li:hover {
+  background: #e9ecef;
+  color: var(--dark);
+}
+
+.voucher-list ul li:last-child {
+  border-bottom: none;
+}
+
+/* Ẩn form mặc định */
+.hidden {
+    display: none;
+}
+
+/* Form thẻ tín dụng và chuyển khoản */
+#credit-card-form,
+#bank-transfer-form {
+    margin-top: 15px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#credit-card-form h4,
+#bank-transfer-form h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+#credit-card-form input,
+#bank-transfer-form input,
+#bank-transfer-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#credit-card-form input:focus,
+#bank-transfer-form input:focus,
+#bank-transfer-form select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Thông tin khách hàng */
+.customer-info {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.customer-info h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+.customer-info label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.customer-info input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#map {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* ===== PAYMENT TABS ===== */
+.pay-tabs {
+    display: flex;
+    gap: 12px;
+    margin: 10px 0 14px;
+}
+
+.pay-tab {
+    flex: 1;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    background: #fafafa;
+}
+
+.pay-tab:hover {
+    border-color: #005BAA;
+    background: #f0f6ff;
+}
+
+.pay-tab.active {
+    border-color: #005BAA;
+    background: #e8f0fe;
+    box-shadow: 0 0 0 3px rgba(0,91,170,0.12);
+}
+
+.pay-tab img {
+    height: 36px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 6px;
+}
+
+.pay-tab-label {
+    font-size: 0.78rem;
+    color: #555;
+    margin-top: 4px;
+}
+
+.pay-info-box {
+    margin-top: 12px;
+    padding: 14px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.vnpay-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.bank-badge {
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.pay-secure-note {
+    color: #27ae60;
+    font-size: 0.82rem;
+    margin: 0;
+}
+
+.btn-buy-loading {
+    opacity: 0.7;
+    cursor: not-allowed !important;
+}
+
+/* VNPay type selector */
+.vnpay-select-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: #333;
+    margin-bottom: 8px;
+    margin-top: 12px;
+}
+
+.vnpay-type-radios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.vnpay-type-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+    background: #fff;
+}
+
+.vnpay-type-option:hover {
+    border-color: #005BAA;
+    background: #f0f6ff;
+}
+
+.vnpay-type-option input[type="radio"] {
+    accent-color: #005BAA;
+}
+
+.vnpay-type-option i {
+    font-size: 1.1rem;
+    color: #005BAA;
+}
+
+#vnpay-bank-code,
+#vnpay-wallet-code {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: #fff;
+    margin-bottom: 10px;
+}
