@@ -241,12 +241,15 @@ if (!ensureAdminOrRedirect()) {
           userStats[userEmail].totalAmount += orderTotal;
           
           // pending proofs check
-          if (order.status === 'pending_payment' && order.paymentProofUrl) {
-            pendingProofs.push(order);
-          } else if (order.status === 'confirmed' && order.paymentProofUrl) {
-            approvedProofs.push(order);
-          } else if (order.status === 'cancelled' && order.paymentProofUrl) {
-            cancelledProofs.push(order);
+          if (order.paymentProofUrl) {
+            if (order.status === 'pending_payment') {
+              pendingProofs.push(order);
+            } else if (order.status === 'cancelled') {
+              cancelledProofs.push(order);
+            } else {
+              // Any other status (confirmed, shipping, completed, etc) with a proof means it was approved
+              approvedProofs.push(order);
+            }
           }
       }); // End of orders loop
 
@@ -352,8 +355,10 @@ if (!ensureAdminOrRedirect()) {
         });
       }
 
-      // render danh sách chờ duyệt minh chứng
+      // render danh sách minh chứng
       renderPendingProofs(pendingProofs);
+      renderApprovedProofs(approvedProofs);
+      renderCancelledProofs(cancelledProofs);
 
     } catch(e) { console.error('processing orders failed', e); }
   } // End of processOrdersAndUpdateChart
@@ -419,8 +424,6 @@ if (!ensureAdminOrRedirect()) {
 
     // Cập nhật biến global để nút xem dùng
     window.currentPendingProofs = proofs;
-    renderApprovedProofs(approvedProofs);
-    renderCancelledProofs(cancelledProofs);
   }
 
   function renderApprovedProofs(proofs) {
