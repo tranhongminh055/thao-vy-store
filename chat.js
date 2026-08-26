@@ -4,7 +4,7 @@ function injectChatbotHtml() { // Inject chatbot HTML into the page
   if (document.querySelector('.chatbot-wrapper')) return; // already injected
   const wrapper = document.createElement('div'); // Tạo một phần tử div mới để chứa toàn bộ giao diện của chatbot, điều này giúp tổ chức mã HTML của chatbot một cách gọn gàng và dễ quản lý, đồng thời tránh xung đột với các phần tử khác trên trang web
   wrapper.className = 'chatbot-wrapper'; // Add a wrapper div for the chatbot to avoid conflicts with existing styles
-    wrapper.innerHTML = `
+  wrapper.innerHTML = `
       <div class="fa-rocketchat"></div>
       <div class="chat-container d-none">
         <div class="chat-header">
@@ -37,10 +37,10 @@ let messages = [
 ];
 
 function setupChat() { // Bỏ qua việc inject chatbot trên các trang login và register để tránh gây rối khi người dùng đang cố gắng đăng nhập hoặc đăng ký tài khoản, đảm bảo trải nghiệm người dùng tốt hơn
-  
+
   if (shouldHideChatbotOnThisPage()) return;
 
-  injectChatbotHtml(); 
+  injectChatbotHtml();
 
   const chatBox = document.getElementById("chatBox");
   const input = document.getElementById("userInput");
@@ -62,7 +62,7 @@ function setupChat() { // Bỏ qua việc inject chatbot trên các trang login 
       sendMessage();
     }
   });
-// Lắng nghe sự kiện click trên nút gửi để gọi hàm sendMessage khi người dùng nhấn nút gửi, điều này cung cấp một cách khác để người dùng có thể gửi tin nhắn ngoài việc nhấn phím Enter, giúp tăng tính tiện dụng và linh hoạt trong giao diện người dùng
+  // Lắng nghe sự kiện click trên nút gửi để gọi hàm sendMessage khi người dùng nhấn nút gửi, điều này cung cấp một cách khác để người dùng có thể gửi tin nhắn ngoài việc nhấn phím Enter, giúp tăng tính tiện dụng và linh hoạt trong giao diện người dùng
   sendBtn.addEventListener('click', sendMessage);
 
   async function sendMessage() {// Hàm này chịu trách nhiệm xử lý việc gửi tin nhắn của người dùng, nó sẽ lấy nội dung từ ô input, thêm tin nhắn của người dùng vào mảng messages, hiển thị lại tất cả các tin nhắn, sau đó gọi API của Gemini AI để nhận phản hồi và thêm phản hồi đó vào mảng messages để hiển thị trên giao diện người dùng
@@ -79,16 +79,17 @@ function setupChat() { // Bỏ qua việc inject chatbot trên các trang login 
     chatBox.appendChild(loadingDiv);
 
     try {
-      const API_KEY = "AQ.Ab8RN6ImOagc4jTpLIHwwDwmGxigG9eMGygmF9T9RuLbgLIzVg";
-      const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
-      
+      // api key cua chat su dung model co san tu google AI studio 
+      const API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+      const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${API_KEY}`;
+
       const systemInstruction = "Bạn là Nữ Hoàng Đỏ, trợ lý tư vấn bánh kem thân thiện của Thảo Vy Store. Hãy trả lời bằng tiếng Việt, ngắn gọn và hữu ích. (Nói chuyện dễ thương).";
-      
+
       // Chuyển đổi định dạng messages sang định dạng Gemini
       const chatHistory = [];
       const chatMessages = messages.filter(m => m.role === 'user' || m.role === 'assistant');
       const lastUserMsg = chatMessages[chatMessages.length - 1];
-      
+
       for (let i = 0; i < chatMessages.length - 1; i++) {
         chatHistory.push({
           role: chatMessages[i].role === 'assistant' ? 'model' : 'user',
@@ -99,8 +100,8 @@ function setupChat() { // Bỏ qua việc inject chatbot trên các trang login 
       const reqBody = {
         systemInstruction: { parts: [{ text: systemInstruction }] },
         contents: [
-            ...chatHistory,
-            { role: "user", parts: [{ text: lastUserMsg.content }] }
+          ...chatHistory,
+          { role: "user", parts: [{ text: lastUserMsg.content }] }
         ]
       };
 
@@ -115,7 +116,7 @@ function setupChat() { // Bỏ qua việc inject chatbot trên các trang login 
         const reply = data.candidates[0].content.parts[0].text;
         messages.push({ role: 'assistant', content: reply });
       } else {
-        const errData = await response.json().catch(()=>({}));
+        const errData = await response.json().catch(() => ({}));
         console.warn("Gemini API error:", errData);
         messages.push({ role: 'assistant', content: '❌ Có lỗi xảy ra từ máy chủ AI. Vui lòng thử lại sau.' });
       }
@@ -134,9 +135,9 @@ function setupChat() { // Bỏ qua việc inject chatbot trên các trang login 
   });
 
   const closeBtn = document.querySelector(".fa-xmark"); // Lắng nghe sự kiện click trên nút đóng để ẩn hộp thoại trò chuyện, điều này cung cấp một cách dễ dàng cho người dùng để đóng chatbot khi họ không muốn sử dụng nó nữa, giúp cải thiện trải nghiệm người dùng bằng cách cho phép họ kiểm soát việc hiển thị của chatbot một cách linh hoạt
-  closeBtn.addEventListener("click", () => { 
+  closeBtn.addEventListener("click", () => {
     const chatContainer = document.querySelector(".chat-container"); // Khi người dùng nhấn vào nút đóng, tìm phần tử chứa hộp thoại trò chuyện và thêm lớp "d-none" để ẩn nó, điều này giúp cải thiện trải nghiệm người dùng bằng cách cho phép họ dễ dàng đóng chatbot khi không cần thiết mà không làm gián đoạn trải nghiệm của họ trên trang web
-    chatContainer.classList.add("d-none"); 
+    chatContainer.classList.add("d-none");
   });
 
   renderMessages(); // Gọi hàm renderMessages để hiển thị tất cả các tin nhắn hiện có trong mảng messages lên giao diện người dùng ngay khi chatbot
@@ -144,7 +145,7 @@ function setupChat() { // Bỏ qua việc inject chatbot trên các trang login 
 
 // khởi tạo chatbot khi trang web được tải để đảm bảo rằng chatbot sẵn sàng để sử dụng ngay khi người dùng truy cập vào trang web, điều này giúp cải thiện trải nghiệm người dùng bằng cách cung cấp một công cụ hỗ trợ trực tuyến có thể truy cập dễ dàng từ bất kỳ trang nào trên website
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupChat);
+  document.addEventListener('DOMContentLoaded', setupChat);
 } else {
-    setupChat();
+  setupChat();
 }

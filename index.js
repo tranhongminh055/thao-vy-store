@@ -279,6 +279,71 @@ if (typeof document !== 'undefined') {
     });
 }
 
+// Bảng ánh xạ ảnh theo danh mục - dùng khi Firestore chưa có ảnh đúng
+const CATEGORY_IMAGES = {
+    'banh-2010': [
+        'Banh2010/02184eb178f039f01c5662b61e3f2675.jpg',
+        'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg',
+        'Banh2010/4afe8a7289e24896acca32364a4fb563.jpg',
+        'Banh2010/77f000ee15da8bc67e9949b2e0c7b635.jpg',
+        'Banh2010/977b703871a0d4406ede50b8db0615c7.jpg',
+        'Banh2010/e6301aa7ff3de72fd276d6c932673846.jpg',
+        'Banh2010/e64a998fb833a9b21046cb8f3b2c3c20.jpg',
+        'Banh2010/f304c8d3b7dddabc3ab9781c388f1cd9.jpg'
+    ],
+    'banh-gato': [
+        'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg',
+        'BanhGato/6007dbd10612fce21d1d3c1fadc13d1a.jpg',
+        'BanhGato/91ae9ed4caf4ba014729106d0e6910e6.jpg',
+        'BanhGato/94904a60e755300bb3ef919c6d24d296.jpg',
+        'BanhGato/97cd6f1045d7181a985fa03099eb54bb.jpg',
+        'BanhGato/b11cf55c413ff7977ba0cefcb8affeb8.jpg',
+        'BanhGato/d63e74b805c9f7aa7376584005713914.jpg',
+        'BanhGato/e19df724827a978ca7de092b723b4c8f.jpg'
+    ],
+    'banh-tiramisu': [
+        'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg',
+        'BanhTiramisu/1a2b4a325a77f16c9737acaad4a3a790.jpg',
+        'BanhTiramisu/67e554b4c0ed564475e4b146cdb354f8.jpg',
+        'BanhTiramisu/6e2a9fc7f0985ff9589524d47078532e.jpg',
+        'BanhTiramisu/9d92b7f943fb07d03a2f05df7c8b8e69.jpg',
+        'BanhTiramisu/dbcd1c92e7084806adc82d7d0d0a7935.jpg',
+        'BanhTiramisu/ec333cce68ae99bc8f982856166487ab.jpg'
+    ],
+    'banh-sinh-nhat': [
+        'Banh2010/02184eb178f039f01c5662b61e3f2675.jpg',
+        'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg',
+        'Banh2010/77f000ee15da8bc67e9949b2e0c7b635.jpg',
+        'BanhGato/6007dbd10612fce21d1d3c1fadc13d1a.jpg',
+        'BanhGato/91ae9ed4caf4ba014729106d0e6910e6.jpg',
+        'BanhGato/94904a60e755300bb3ef919c6d24d296.jpg',
+        'BanhGato/97cd6f1045d7181a985fa03099eb54bb.jpg',
+        'BanhGato/b11cf55c413ff7977ba0cefcb8affeb8.jpg'
+    ],
+    'banh-cupcake': [
+        'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg',
+        'BanhGato/6007dbd10612fce21d1d3c1fadc13d1a.jpg',
+        'BanhGato/91ae9ed4caf4ba014729106d0e6910e6.jpg',
+        'BanhGato/94904a60e755300bb3ef919c6d24d296.jpg',
+        'BanhGato/97cd6f1045d7181a985fa03099eb54bb.jpg',
+        'BanhGato/b11cf55c413ff7977ba0cefcb8affeb8.jpg',
+        'BanhGato/d63e74b805c9f7aa7376584005713914.jpg',
+        'BanhGato/e19df724827a978ca7de092b723b4c8f.jpg'
+    ]
+};
+
+// Lấy ảnh phù hợp cho sản phẩm dựa trên category
+function getProductImage(product, index) {
+    // Chỉ giữ ảnh nếu nó là URL online hợp lệ (từ ImgBB hoặc hosting khác)
+    if (product.image && product.image.startsWith('https://')) {
+        return product.image;
+    }
+    // Luôn gán ảnh local theo danh mục — đảm bảo 100% hiển thị đúng
+    const cat = product.category || 'banh-2010';
+    const imgs = CATEGORY_IMAGES[cat] || CATEGORY_IMAGES['banh-2010'];
+    return imgs[index % imgs.length];
+}
+
 // Hàm tải sản phẩm từ Firestore và hiển thị lên danh sách sản phẩm trang khách hàng
 async function loadProductsFromFirestore() {
     if (!window.firebase || !window.firebase.firestore) {
@@ -321,6 +386,7 @@ async function loadProductsFromFirestore() {
             // Lấy danh sách tên sản phẩm tĩnh đã có để không hiển thị trùng
             const existingNames = Array.from(list.querySelectorAll('.product-card h3')).map(h3 => h3.textContent.trim().toLowerCase());
             
+            let productIndex = 0;
             firestoreProducts.forEach(p => {
                 if (!p.name) return;
                 
@@ -333,11 +399,15 @@ async function loadProductsFromFirestore() {
                 
                 // Nếu sản phẩm đã hết hàng (quantity <= 0), có thể làm mờ hoặc ẩn đi tuỳ logic, ở đây vẫn hiển thị
                 
+                // Chọn ảnh đúng theo danh mục
+                const imgSrc = getProductImage(p, productIndex);
+                productIndex++;
+                
                 // Thêm vào giao diện
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <img src="${p.image || 'Logo/màu kem hồng minh họa thức ăn Sticker tròn.png'}" alt="${p.name}">
+                    <img src="${imgSrc}" alt="${p.name}">
                     <h3>${p.name}</h3>
                     <div class="product-rating">⭐⭐⭐⭐⭐ <span>(5.0/5)</span></div>
                     <div class="price">250.000đ</div>
@@ -352,7 +422,7 @@ async function loadProductsFromFirestore() {
                         id: p.id || ('prod_' + Date.now()),
                         name: p.name,
                         price: 250000,
-                        image: p.image || 'Logo/màu kem hồng minh họa thức ăn Sticker tròn.png',
+                        image: imgSrc,
                         sku: 'SKU-' + (p.id || Date.now()),
                         category: p.category || 'Bánh kem',
                         description: 'Sản phẩm tươi ngon, vừa được thêm mới.',

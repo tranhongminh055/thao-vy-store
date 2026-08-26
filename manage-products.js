@@ -6,66 +6,66 @@
 // Danh sách sản phẩm 
 const DEFAULT_PRODUCTS = [
   // Từ index.html - Sản phẩm nổi bật
-  { id: 'banh-2010-dac-biet', name: 'Bánh 2010 Đặc Biệt', category: 'banh-2010', quantity: 40, threshold: 5 },
-  { id: 'banh-gato-phap', name: 'Bánh Gato Pháp', category: 'banh-gato', quantity: 30, threshold: 5 },
-  { id: 'banh-tiramisu-y', name: 'Bánh Tiramisu Ý', category: 'banh-tiramisu', quantity: 25, threshold: 5 },
-  { id: 'banh-sinh-nhat', name: 'Bánh Sinh Nhật', category: 'banh-sinh-nhat', quantity: 35, threshold: 5 },
-  { id: 'banh-cupcake', name: 'Bánh Cupcake', category: 'banh-cupcake', quantity: 50, threshold: 8 },
-  { id: 'banh-mousse', name: 'Bánh Mousse', category: 'banh-gato', quantity: 20, threshold: 5 },
-  { id: 'banh-tart', name: 'Bánh Tart', category: 'banh-2010', quantity: 45, threshold: 8 },
-  { id: 'banh-bong-lan', name: 'Bánh Bông Lan', category: 'banh-gato', quantity: 38, threshold: 6 },
+  { id: 'banh-2010-dac-biet', name: 'Bánh 2010 Đặc Biệt', category: 'banh-2010', quantity: 40, threshold: 5, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-gato-phap', name: 'Bánh Gato Pháp', category: 'banh-gato', quantity: 30, threshold: 5, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'banh-tiramisu-y', name: 'Bánh Tiramisu Ý', category: 'banh-tiramisu', quantity: 25, threshold: 5, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-sinh-nhat', name: 'Bánh Sinh Nhật', category: 'banh-sinh-nhat', quantity: 35, threshold: 5, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-cupcake', name: 'Bánh Cupcake', category: 'banh-cupcake', quantity: 50, threshold: 8, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'banh-mousse', name: 'Bánh Mousse', category: 'banh-gato', quantity: 20, threshold: 5, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'banh-tart', name: 'Bánh Tart', category: 'banh-2010', quantity: 45, threshold: 8, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-bong-lan', name: 'Bánh Bông Lan', category: 'banh-gato', quantity: 38, threshold: 6, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
 
   // Bánh 2010 (8 sản phẩm)
-  { id: 'banh-2010-classic', name: 'Bánh 2010 Classic', category: 'banh-2010', quantity: 40, threshold: 5 },
-  { id: 'banh-2010-premium', name: 'Bánh 2010 Premium', category: 'banh-2010', quantity: 35, threshold: 5 },
-  { id: 'banh-2010-deluxe', name: 'Bánh 2010 Deluxe', category: 'banh-2010', quantity: 30, threshold: 5 },
-  { id: 'banh-2010-special', name: 'Bánh 2010 Special', category: 'banh-2010', quantity: 35, threshold: 5 },
-  { id: 'banh-2010-signature', name: 'Bánh 2010 Signature', category: 'banh-2010', quantity: 28, threshold: 4 },
-  { id: 'banh-2010-royal', name: 'Bánh 2010 Royal', category: 'banh-2010', quantity: 25, threshold: 4 },
-  { id: 'banh-2010-elegant', name: 'Bánh 2010 Elegant', category: 'banh-2010', quantity: 32, threshold: 5 },
-  { id: 'banh-2010-supreme', name: 'Bánh 2010 Supreme', category: 'banh-2010', quantity: 29, threshold: 4 },
+  { id: 'banh-2010-classic', name: 'Bánh 2010 Classic', category: 'banh-2010', quantity: 40, threshold: 5, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-2010-premium', name: 'Bánh 2010 Premium', category: 'banh-2010', quantity: 35, threshold: 5, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-2010-deluxe', name: 'Bánh 2010 Deluxe', category: 'banh-2010', quantity: 30, threshold: 5, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-2010-special', name: 'Bánh 2010 Special', category: 'banh-2010', quantity: 35, threshold: 5, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-2010-signature', name: 'Bánh 2010 Signature', category: 'banh-2010', quantity: 28, threshold: 4, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-2010-royal', name: 'Bánh 2010 Royal', category: 'banh-2010', quantity: 25, threshold: 4, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-2010-elegant', name: 'Bánh 2010 Elegant', category: 'banh-2010', quantity: 32, threshold: 5, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
+  { id: 'banh-2010-supreme', name: 'Bánh 2010 Supreme', category: 'banh-2010', quantity: 29, threshold: 4, image: 'Banh2010/3475e744a44eb25637d64b4a8d8ef1e0.jpg'  },
 
   // Bánh Cupcake (9 sản phẩm)
-  { id: 'cupcake-vanilla', name: 'Cupcake Vanilla', category: 'banh-cupcake', quantity: 60, threshold: 10 },
-  { id: 'cupcake-chocolate', name: 'Cupcake Chocolate', category: 'banh-cupcake', quantity: 55, threshold: 10 },
-  { id: 'cupcake-strawberry', name: 'Cupcake Strawberry', category: 'banh-cupcake', quantity: 50, threshold: 8 },
-  { id: 'cupcake-lemon', name: 'Cupcake Lemon', category: 'banh-cupcake', quantity: 52, threshold: 9 },
-  { id: 'cupcake-red-velvet', name: 'Cupcake Red Velvet', category: 'banh-cupcake', quantity: 48, threshold: 8 },
-  { id: 'cupcake-caramel', name: 'Cupcake Caramel', category: 'banh-cupcake', quantity: 54, threshold: 9 },
-  { id: 'cupcake-matcha', name: 'Cupcake Matcha', category: 'banh-cupcake', quantity: 50, threshold: 8 },
-  { id: 'cupcake-blueberry', name: 'Cupcake Blueberry', category: 'banh-cupcake', quantity: 51, threshold: 9 },
-  { id: 'cupcake-coconut', name: 'Cupcake Coconut', category: 'banh-cupcake', quantity: 53, threshold: 9 },
+  { id: 'cupcake-vanilla', name: 'Cupcake Vanilla', category: 'banh-cupcake', quantity: 60, threshold: 10, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-chocolate', name: 'Cupcake Chocolate', category: 'banh-cupcake', quantity: 55, threshold: 10, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-strawberry', name: 'Cupcake Strawberry', category: 'banh-cupcake', quantity: 50, threshold: 8, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-lemon', name: 'Cupcake Lemon', category: 'banh-cupcake', quantity: 52, threshold: 9, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-red-velvet', name: 'Cupcake Red Velvet', category: 'banh-cupcake', quantity: 48, threshold: 8, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-caramel', name: 'Cupcake Caramel', category: 'banh-cupcake', quantity: 54, threshold: 9, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-matcha', name: 'Cupcake Matcha', category: 'banh-cupcake', quantity: 50, threshold: 8, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-blueberry', name: 'Cupcake Blueberry', category: 'banh-cupcake', quantity: 51, threshold: 9, image: 'BanhCupcake/cupcake.png'  },
+  { id: 'cupcake-coconut', name: 'Cupcake Coconut', category: 'banh-cupcake', quantity: 53, threshold: 9, image: 'BanhCupcake/cupcake.png'  },
 
   // Bánh Gato (8 sản phẩm)
-  { id: 'gato-vanilla', name: 'Gato Vanilla', category: 'banh-gato', quantity: 30, threshold: 5 },
-  { id: 'gato-chocolate', name: 'Gato Chocolate', category: 'banh-gato', quantity: 28, threshold: 5 },
-  { id: 'gato-strawberry', name: 'Gato Strawberry', category: 'banh-gato', quantity: 32, threshold: 5 },
-  { id: 'gato-matcha', name: 'Gato Matcha', category: 'banh-gato', quantity: 25, threshold: 4 },
-  { id: 'gato-red-velvet', name: 'Gato Red Velvet', category: 'banh-gato', quantity: 23, threshold: 4 },
-  { id: 'gato-caramel', name: 'Gato Caramel', category: 'banh-gato', quantity: 27, threshold: 4 },
-  { id: 'gato-coffee', name: 'Gato Coffee', category: 'banh-gato', quantity: 29, threshold: 5 },
-  { id: 'gato-lemon', name: 'Gato Lemon', category: 'banh-gato', quantity: 31, threshold: 5 },
+  { id: 'gato-vanilla', name: 'Gato Vanilla', category: 'banh-gato', quantity: 30, threshold: 5, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'gato-chocolate', name: 'Gato Chocolate', category: 'banh-gato', quantity: 28, threshold: 5, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'gato-strawberry', name: 'Gato Strawberry', category: 'banh-gato', quantity: 32, threshold: 5, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'gato-matcha', name: 'Gato Matcha', category: 'banh-gato', quantity: 25, threshold: 4, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'gato-red-velvet', name: 'Gato Red Velvet', category: 'banh-gato', quantity: 23, threshold: 4, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'gato-caramel', name: 'Gato Caramel', category: 'banh-gato', quantity: 27, threshold: 4, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'gato-coffee', name: 'Gato Coffee', category: 'banh-gato', quantity: 29, threshold: 5, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
+  { id: 'gato-lemon', name: 'Gato Lemon', category: 'banh-gato', quantity: 31, threshold: 5, image: 'BanhGato/548542206da9dcd8577f04e76ada4cd8.jpg'  },
 
   // Bánh Sinh Nhật (8 sản phẩm)
-  { id: 'banh-sinh-nhat-trai-cay', name: 'Bánh Sinh Nhật Trái Cây', category: 'banh-sinh-nhat', quantity: 35, threshold: 5 },
-  { id: 'banh-sinh-nhat-socola', name: 'Bánh Sinh Nhật Socola', category: 'banh-sinh-nhat', quantity: 30, threshold: 5 },
-  { id: 'banh-sinh-nhat-dau-tay', name: 'Bánh Sinh Nhật Dâu Tây', category: 'banh-sinh-nhat', quantity: 32, threshold: 5 },
-  { id: 'banh-sinh-nhat-vanilla', name: 'Bánh Sinh Nhật Vanilla', category: 'banh-sinh-nhat', quantity: 36, threshold: 5 },
-  { id: 'banh-sinh-nhat-matcha', name: 'Bánh Sinh Nhật Matcha', category: 'banh-sinh-nhat', quantity: 27, threshold: 4 },
-  { id: 'banh-sinh-nhat-red-velvet', name: 'Bánh Sinh Nhật Red Velvet', category: 'banh-sinh-nhat', quantity: 25, threshold: 4 },
-  { id: 'banh-sinh-nhat-caramel', name: 'Bánh Sinh Nhật Caramel', category: 'banh-sinh-nhat', quantity: 29, threshold: 5 },
-  { id: 'banh-sinh-nhat-coffee', name: 'Bánh Sinh Nhật Coffee', category: 'banh-sinh-nhat', quantity: 33, threshold: 5 },
+  { id: 'banh-sinh-nhat-trai-cay', name: 'Bánh Sinh Nhật Trái Cây', category: 'banh-sinh-nhat', quantity: 35, threshold: 5, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-sinh-nhat-socola', name: 'Bánh Sinh Nhật Socola', category: 'banh-sinh-nhat', quantity: 30, threshold: 5, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-sinh-nhat-dau-tay', name: 'Bánh Sinh Nhật Dâu Tây', category: 'banh-sinh-nhat', quantity: 32, threshold: 5, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-sinh-nhat-vanilla', name: 'Bánh Sinh Nhật Vanilla', category: 'banh-sinh-nhat', quantity: 36, threshold: 5, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-sinh-nhat-matcha', name: 'Bánh Sinh Nhật Matcha', category: 'banh-sinh-nhat', quantity: 27, threshold: 4, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-sinh-nhat-red-velvet', name: 'Bánh Sinh Nhật Red Velvet', category: 'banh-sinh-nhat', quantity: 25, threshold: 4, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-sinh-nhat-caramel', name: 'Bánh Sinh Nhật Caramel', category: 'banh-sinh-nhat', quantity: 29, threshold: 5, image: 'BanhSinhNhat/birthday.png'  },
+  { id: 'banh-sinh-nhat-coffee', name: 'Bánh Sinh Nhật Coffee', category: 'banh-sinh-nhat', quantity: 33, threshold: 5, image: 'BanhSinhNhat/birthday.png'  },
 
   // Bánh Tiramisu (9 sản phẩm)
-  { id: 'banh-tiramisu-classic', name: 'Bánh Tiramisu Classic', category: 'banh-tiramisu', quantity: 40, threshold: 6 },
-  { id: 'banh-tiramisu-chocolate', name: 'Bánh Tiramisu Chocolate', category: 'banh-tiramisu', quantity: 35, threshold: 5 },
-  { id: 'banh-tiramisu-strawberry', name: 'Bánh Tiramisu Strawberry', category: 'banh-tiramisu', quantity: 30, threshold: 5 },
-  { id: 'banh-tiramisu-caramel', name: 'Bánh Tiramisu Caramel', category: 'banh-tiramisu', quantity: 38, threshold: 6 },
-  { id: 'banh-tiramisu-mini', name: 'Bánh Tiramisu Mini', category: 'banh-tiramisu', quantity: 60, threshold: 10 },
-  { id: 'banh-tiramisu-large', name: 'Bánh Tiramisu Large', category: 'banh-tiramisu', quantity: 20, threshold: 3 },
-  { id: 'banh-tiramisu-vegan', name: 'Bánh Tiramisu Vegan', category: 'banh-tiramisu', quantity: 25, threshold: 4 },
-  { id: 'banh-tiramisu-coffee', name: 'Bánh Tiramisu Coffee', category: 'banh-tiramisu', quantity: 42, threshold: 6 },
-  { id: 'banh-tiramisu-almond', name: 'Bánh Tiramisu Almond', category: 'banh-tiramisu', quantity: 37, threshold: 5 }
+  { id: 'banh-tiramisu-classic', name: 'Bánh Tiramisu Classic', category: 'banh-tiramisu', quantity: 40, threshold: 6, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-chocolate', name: 'Bánh Tiramisu Chocolate', category: 'banh-tiramisu', quantity: 35, threshold: 5, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-strawberry', name: 'Bánh Tiramisu Strawberry', category: 'banh-tiramisu', quantity: 30, threshold: 5, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-caramel', name: 'Bánh Tiramisu Caramel', category: 'banh-tiramisu', quantity: 38, threshold: 6, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-mini', name: 'Bánh Tiramisu Mini', category: 'banh-tiramisu', quantity: 60, threshold: 10, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-large', name: 'Bánh Tiramisu Large', category: 'banh-tiramisu', quantity: 20, threshold: 3, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-vegan', name: 'Bánh Tiramisu Vegan', category: 'banh-tiramisu', quantity: 25, threshold: 4, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-coffee', name: 'Bánh Tiramisu Coffee', category: 'banh-tiramisu', quantity: 42, threshold: 6, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  },
+  { id: 'banh-tiramisu-almond', name: 'Bánh Tiramisu Almond', category: 'banh-tiramisu', quantity: 37, threshold: 5, image: 'BanhTiramisu/0642cb051f2d34a90e2aab923e584992.jpg'  }
 ];
 
 let productsData = [...DEFAULT_PRODUCTS];
@@ -87,19 +87,41 @@ async function initializeProducts() {
       try {
         const db = firebase.firestore();
         const snapshot = await db.collection('products').get();
-        
+
         console.log('🔍 Kiểm tra Firestore - Số sản phẩm:', snapshot.size);
-        
+
         //  lấy từ Firestore
         if (!snapshot.empty && snapshot.size >= DEFAULT_PRODUCTS.length) {
           const firestoreProducts = [];
+          
+          /* FORCED IMAGE UPDATE BLOCK - Temporarily sync images to Firestore */
+          const batch = db.batch();
+          let needsUpdate = false;
+          
           snapshot.forEach(doc => {
+            const data = doc.data();
+            
+            // Find corresponding default product to check its expected image
+            const defaultProd = DEFAULT_PRODUCTS.find(p => p.id === doc.id);
+            if (defaultProd && defaultProd.image && (data.image !== defaultProd.image || !data.image || data.image.includes('02184eb178f039f01c5662b61e3f2675.jpg'))) {
+                batch.update(doc.ref, { image: defaultProd.image });
+                data.image = defaultProd.image;
+                needsUpdate = true;
+            }
+            
             firestoreProducts.push({
               id: doc.id,
-              ...doc.data()
+              ...data
             });
           });
+          
+          if (needsUpdate) {
+              batch.commit().then(() => console.log('✅ Đã cập nhật ảnh sửa lỗi vào Firestore')).catch(e => console.error(e));
+          }
+          /* END FORCED IMAGE UPDATE BLOCK */
+
           productsData = firestoreProducts;
+
           console.log('✅ Đã tải sản phẩm từ Firestore:', productsData.length, 'sản phẩm');
         } else {
           // Firestore trống hoặc không đủ, khởi tạo từ DEFAULT_PRODUCTS
@@ -135,9 +157,9 @@ async function initializeFirestoreProducts() {
       console.warn('Firebase chưa khởi tạo');
       return;
     }
-    
+
     const db = firebase.firestore();
-    
+
     // Xóa sản phẩm cũ (nếu có)
     const existingSnapshot = await db.collection('products').get();
     if (existingSnapshot.size > 0) {
@@ -148,10 +170,10 @@ async function initializeFirestoreProducts() {
       await batch.commit();
       console.log('✅ Đã xóa sản phẩm cũ');
     }
-    
+
     // Thêm sản phẩm mới
     const batch = db.batch();
-    
+
     DEFAULT_PRODUCTS.forEach(product => {
       const docRef = db.collection('products').doc(product.id);
       batch.set(docRef, {
@@ -165,7 +187,7 @@ async function initializeFirestoreProducts() {
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
     });
-    
+
     await batch.commit();
     console.log('✅ Đã khởi tạo', DEFAULT_PRODUCTS.length, 'sản phẩm vào Firestore');
   } catch (error) {
@@ -183,7 +205,7 @@ function displayProducts(filter = '') {
   // Lọc sản phẩm
   let filtered = productsData;
   if (filter) {
-    filtered = productsData.filter(p => 
+    filtered = productsData.filter(p =>
       p.name.toLowerCase().includes(filter.toLowerCase())
     );
   }
@@ -196,17 +218,17 @@ function displayProducts(filter = '') {
   // Hiển thị từng sản phẩm
   filtered.forEach(product => {
     const tr = document.createElement('tr');
-    
+
     // Xác định trạng thái dựa trên tồn kho
     let statusClass = 'status-ok';
-    let statusText = '✅ Còn hàng';
+    let statusText = ' Còn hàng';
     if (product.quantity <= 0) {
       statusClass = 'status-danger';
-      statusText = '❌ Hết hàng';
+      statusText = ' Hết hàng';
       tr.classList.add('stock-danger');
     } else if (product.quantity <= product.threshold) {
       statusClass = 'status-warning';
-      statusText = '⚠️ Cảnh báo';
+      statusText = ' Cảnh báo';
       tr.classList.add('stock-warning');
     }
 
@@ -221,7 +243,7 @@ function displayProducts(filter = '') {
         <button class="btn-import-row btn-edit-product" data-id="${product.id}">Cập nhật</button>
       </td>
     `;
-    
+
     tbody.appendChild(tr);
   });
 
@@ -239,7 +261,7 @@ function displayProducts(filter = '') {
       });
       tbodyEl._hasEditHandler = true;
     }
-  } catch(e) { console.warn('Failed to attach edit handler', e); }
+  } catch (e) { console.warn('Failed to attach edit handler', e); }
 }
 
 // Lưu cập nhật sản phẩm
@@ -376,7 +398,7 @@ function setupInputListeners() {
           statusClass = 'status-warning';
           statusText = '⚠️ Cảnh báo';
         }
-        
+
         statusBadge.className = `status-badge ${statusClass}`;
         statusBadge.textContent = statusText;
       }
@@ -458,7 +480,7 @@ function exportToExcel(filter = '') {
     // Lọc sản phẩm nếu có filter
     let filteredData = productsData;
     if (filter) {
-      filteredData = productsData.filter(p => 
+      filteredData = productsData.filter(p =>
         p.name.toLowerCase().includes(filter.toLowerCase())
       );
     }
@@ -593,21 +615,21 @@ function setupExportButton() {
 function showAddProductModal() {
   const modal = document.getElementById('addProductModal');
   const form = document.getElementById('addProductForm');
-  
+
   // Reset form
   form.reset();
-  
+
   // Reset edit ID
   modal._editProductId = null;
-  
+
   // Reset title và button
   const modalHeader = modal.querySelector('.modal-header h3');
   modalHeader.textContent = '➕ Thêm sản phẩm mới';
   const submitBtn = modal.querySelector('form button[type="submit"]');
   submitBtn.textContent = '✅ Thêm sản phẩm';
-  
+
   modal.style.display = 'block';
-  
+
   // Focus vào input tên sản phẩm
   setTimeout(() => {
     document.getElementById('newProductName').focus();
@@ -621,22 +643,22 @@ function showAddProductModal() {
 // Xử lý thêm sản phẩm mới
 async function handleAddProduct(event) {
   event.preventDefault();
-  
+
   const modal = document.getElementById('addProductModal');
   const editProductId = modal._editProductId;
   const submitBtn = modal.querySelector('form button[type="submit"]');
   const origSubmitText = submitBtn ? submitBtn.textContent : null;
   if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '⏳ Đang xử lý...'; }
-  
+
   const name = document.getElementById('newProductName').value.trim();
   const category = document.getElementById('newProductCategory').value;
   const quantity = parseInt(document.getElementById('newProductQuantity').value) || 0;
-  
+
   if (!name) {
     alert('❌ Vui lòng nhập tên sản phẩm');
     return;
   }
-  
+
   try {
     if (editProductId) {
       // Cập nhật sản phẩm đã tồn tại
@@ -645,11 +667,11 @@ async function handleAddProduct(event) {
         alert('❌ Không tìm thấy sản phẩm');
         return;
       }
-      
+
       product.name = name;
       product.category = category || 'uncategorized';
       product.quantity = quantity;
-      
+
       // Cập nhật Firestore
       if (window.firebase && window.__FIREBASE_INITIALIZED__) {
         const db = firebase.firestore();
@@ -660,7 +682,7 @@ async function handleAddProduct(event) {
           const res = await uploadProductImage(imgFile);
           if (res.error) {
             console.warn('Image upload failed:', res.error);
-            alert('Không thể upload ảnh (CORS/permission). Ảnh sẽ không được cập nhật.\nXem hướng dẫn: CORS_README.md');
+            alert('Lỗi khi upload ảnh lên ImgBB: ' + res.error + '\nẢnh sẽ không được cập nhật.');
           } else {
             imageUrl = res.url;
           }
@@ -669,7 +691,7 @@ async function handleAddProduct(event) {
         if (imageUrl) updateData.image = imageUrl;
         await db.collection('products').doc(editProductId).update(updateData);
       }
-      
+
       alert(`✅ Đã cập nhật sản phẩm "${name}" thành công!`);
     } else {
       // Thêm sản phẩm mới
@@ -678,7 +700,7 @@ async function handleAddProduct(event) {
         alert('❌ Sản phẩm với tên này đã tồn tại');
         return;
       }
-      
+
       const newProduct = {
         id: generateProductId(name),
         name: name,
@@ -687,7 +709,7 @@ async function handleAddProduct(event) {
         threshold: 5 // Default threshold
       };
       productsData.unshift(newProduct);
-      
+
       // Lưu vào Firestore
       if (window.firebase && window.__FIREBASE_INITIALIZED__) {
         const imgFile = document.getElementById('newProductImage')?.files?.[0];
@@ -695,7 +717,7 @@ async function handleAddProduct(event) {
           const res = await uploadProductImage(imgFile);
           if (res.error) {
             console.warn('Image upload failed:', res.error);
-            alert('Không thể upload ảnh (CORS/permission). Sản phẩm sẽ được tạo mà không có ảnh.\nXem hướng dẫn: CORS_README.md');
+            alert('Lỗi khi upload ảnh lên ImgBB: ' + res.error + '\nSản phẩm sẽ được tạo mà không có ảnh.');
           } else {
             newProduct.image = res.url;
           }
@@ -703,10 +725,10 @@ async function handleAddProduct(event) {
         const db = firebase.firestore();
         await db.collection('products').doc(newProduct.id).set(newProduct);
       }
-      
+
       alert(`✅ Đã thêm sản phẩm "${name}" thành công!`);
     }
-    
+
     // Đóng modal, reset và refresh bảng
     modal.style.display = 'none';
     modal._editProductId = null;
@@ -716,7 +738,7 @@ async function handleAddProduct(event) {
     const submitBtn = modal.querySelector('form button[type="submit"]');
     submitBtn.textContent = '✅ Thêm sản phẩm';
     displayProducts();
-    
+
   } catch (error) {
     console.error('Lỗi xử lý sản phẩm:', error);
     alert('❌ Có lỗi xảy ra. Vui lòng thử lại.');
@@ -730,7 +752,7 @@ function showExportOptions() {
   // Tạo dropdown menu tạm thời
   const exportBtn = document.getElementById('exportBtn');
   const rect = exportBtn.getBoundingClientRect();
-  
+
   // Tạo dropdown element
   const dropdown = document.createElement('div');
   dropdown.id = 'exportDropdown';
@@ -745,7 +767,7 @@ function showExportOptions() {
     z-index: 1001;
     min-width: 150px;
   `;
-  
+
   dropdown.innerHTML = `
     <div style="padding: 10px; cursor: pointer; border-bottom: 1px solid #eee;" onclick="exportToExcel()">
       📊 Xuất Excel
@@ -757,9 +779,9 @@ function showExportOptions() {
       📋 Xuất JSON
     </div>
   `;
-  
+
   document.body.appendChild(dropdown);
-  
+
   // Đóng dropdown khi click outside
   function closeDropdown(event) {
     if (!dropdown.contains(event.target) && event.target !== exportBtn) {
@@ -767,7 +789,7 @@ function showExportOptions() {
       document.removeEventListener('click', closeDropdown);
     }
   }
-  
+
   setTimeout(() => {
     document.addEventListener('click', closeDropdown);
   }, 100);
@@ -778,33 +800,33 @@ function exportToCSV() {
   try {
     const searchInput = document.getElementById('productSearch');
     const filter = searchInput ? searchInput.value : '';
-    
+
     let filteredData = productsData;
     if (filter) {
-      filteredData = productsData.filter(p => 
+      filteredData = productsData.filter(p =>
         p.name.toLowerCase().includes(filter.toLowerCase())
       );
     }
-    
+
     const csvContent = filteredData.map(product => {
       let statusText = 'Còn hàng';
       if (product.quantity <= 0) {
         statusText = 'Hết hàng';
       }
-      
+
       return `"${product.name}","${product.category}","${product.quantity}","${statusText}"`;
     }).join('\n');
-    
+
     const header = '"Tên sản phẩm","Danh mục","Số lượng nhập","Trạng thái"';
     const fullContent = header + '\n' + csvContent;
-    
+
     const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
     const filename = `danh-sach-san-pham-${timestamp}.csv`;
-    
+
     downloadFile(fullContent, filename, 'text/csv');
-    
+
     alert(`✅ Đã xuất file CSV thành công!\n📊 Số sản phẩm: ${filteredData.length}\n📁 Tên file: ${filename}${filter ? '\n🔍 Đã áp dụng bộ lọc: "' + filter + '"' : ''}`);
-    
+
   } catch (error) {
     console.error('Lỗi xuất CSV:', error);
     alert('❌ Có lỗi khi xuất CSV');
@@ -816,23 +838,23 @@ function exportToJSON() {
   try {
     const searchInput = document.getElementById('productSearch');
     const filter = searchInput ? searchInput.value : '';
-    
+
     let filteredData = productsData;
     if (filter) {
-      filteredData = productsData.filter(p => 
+      filteredData = productsData.filter(p =>
         p.name.toLowerCase().includes(filter.toLowerCase())
       );
     }
-    
+
     const jsonContent = JSON.stringify(filteredData, null, 2);
-    
+
     const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
     const filename = `danh-sach-san-pham-${timestamp}.json`;
-    
+
     downloadFile(jsonContent, filename, 'application/json');
-    
+
     alert(`✅ Đã xuất file JSON thành công!\n📊 Số sản phẩm: ${filteredData.length}\n📁 Tên file: ${filename}${filter ? '\n🔍 Đã áp dụng bộ lọc: "' + filter + '"' : ''}`);
-    
+
   } catch (error) {
     console.error('Lỗi xuất JSON:', error);
     alert('❌ Có lỗi khi xuất JSON');
@@ -843,14 +865,14 @@ function exportToJSON() {
 function downloadFile(content, filename, mimeType) {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
-  
+
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-  
+
   URL.revokeObjectURL(url);
 }
 
@@ -861,7 +883,7 @@ function importProductRow(productId) {
     alert('❌ Không tìm thấy sản phẩm');
     return;
   }
-  
+
   // Hiển thị modal với dữ liệu sản phẩm
   const modal = document.getElementById('addProductModal');
   if (!modal) { console.error('addProductModal not found in DOM'); return; }
@@ -869,18 +891,18 @@ function importProductRow(productId) {
   const catEl = document.getElementById('newProductCategory'); if (catEl) catEl.value = product.category || '';
   const qtyEl = document.getElementById('newProductQuantity'); if (qtyEl) qtyEl.value = product.quantity || 0;
   const thrEl = document.getElementById('newProductThreshold'); if (thrEl) thrEl.value = product.threshold || 0;
-  
+
   // Thay đổi tiêu đề modal
   const modalHeader = modal.querySelector('.modal-header h3');
   modalHeader.textContent = `✏️ Cập nhật: ${product.name}`;
-  
+
   // Thay đổi button
   const submitBtn = modal.querySelector('form button[type="submit"]');
   submitBtn.textContent = '💾 Cập nhật sản phẩm';
-  
+
   // Gán product ID để xử lý trong submit
   modal._editProductId = productId;
-  
+
   // Set image preview if available
   const previewImg = document.getElementById('newProductImagePreviewImg');
   const fileInput = document.getElementById('newProductImage');
@@ -903,19 +925,19 @@ function exportProductRow(productId) {
     alert('❌ Không tìm thấy sản phẩm');
     return;
   }
-  
+
   let statusText = 'Còn hàng';
   if (product.quantity <= 0) {
     statusText = 'Hết hàng';
   } else if (product.quantity <= product.threshold) {
     statusText = 'Sắp hết';
   }
-  
+
   const csvContent = `"Tên sản phẩm","Danh mục","Số lượng nhập","Trạng thái"\n"${product.name}","${product.category}","${product.quantity}","${statusText}"`;
-  
+
   const filename = `${product.name.replace(/\s+/g, '-')}.csv`;
   downloadFile(csvContent, filename, 'text/csv');
-  
+
   alert(`✅ Đã xuất sản phẩm "${product.name}" thành CSV`);
 }
 
@@ -926,14 +948,14 @@ function exportProductRowExcel(productId) {
     alert('❌ Không tìm thấy sản phẩm');
     return;
   }
-  
+
   let statusText = 'Còn hàng';
   if (product.quantity <= 0) {
     statusText = 'Hết hàng';
   } else if (product.quantity <= product.threshold) {
     statusText = 'Sắp hết';
   }
-  
+
   const data = [{
     'Tên sản phẩm': product.name,
     'Danh mục': product.category,
@@ -942,7 +964,7 @@ function exportProductRowExcel(productId) {
     'Trạng thái': statusText,
     'Ngày xuất': new Date().toLocaleString('vi-VN')
   }];
-  
+
   const ws = XLSX.utils.json_to_sheet(data);
   const colWidths = [
     { wch: 25 },
@@ -953,13 +975,13 @@ function exportProductRowExcel(productId) {
     { wch: 20 }
   ];
   ws['!cols'] = colWidths;
-  
+
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Sản phẩm');
-  
+
   const filename = `${product.name.replace(/\s+/g, '-')}.xlsx`;
   XLSX.writeFile(wb, filename);
-  
+
   alert(`✅ Đã xuất sản phẩm "${product.name}" thành Excel`);
 }
 
@@ -967,51 +989,51 @@ function exportProductRowExcel(productId) {
 function handleFileSelect(event) {
   const file = event.target.files[0];
   if (!file) return;
-  
-  const allowedTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
-                       'application/vnd.ms-excel', 
-                       'text/csv'];
-  
+
+  const allowedTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-excel',
+    'text/csv'];
+
   if (!allowedTypes.includes(file.type) && !file.name.endsWith('.xlsx') && !file.name.endsWith('.xls') && !file.name.endsWith('.csv')) {
     alert('❌ Chỉ chấp nhận file Excel (.xlsx, .xls) hoặc CSV (.csv)');
     return;
   }
-  
+
   importFromExcel(file);
 }
 
 // Đọc file Excel
 function importFromExcel(file) {
   const reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     try {
       const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, {type: 'array'});
-      
+      const workbook = XLSX.read(data, { type: 'array' });
+
       // Lấy sheet đầu tiên
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      
+
       // Chuyển thành JSON
-      const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
-      
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
       if (jsonData.length < 2) {
         alert('❌ File không có dữ liệu hoặc định dạng không đúng');
         return;
       }
-      
+
       // Xử lý dữ liệu
       const headers = jsonData[0];
       const rows = jsonData.slice(1);
-      
+
       processImportData(headers, rows);
-      
+
     } catch (error) {
       console.error('Lỗi đọc file:', error);
       alert('❌ Có lỗi khi đọc file. Vui lòng kiểm tra định dạng file.');
     }
   };
-  
+
   reader.readAsArrayBuffer(file);
 }
 
@@ -1019,7 +1041,7 @@ function importFromExcel(file) {
 function processImportData(headers, rows) {
   const importData = [];
   const errors = [];
-  
+
   // Mapping các cột có thể có
   const columnMapping = {
     'Tên sản phẩm': ['tên sản phẩm', 'ten san pham', 'name', 'product name'],
@@ -1027,7 +1049,7 @@ function processImportData(headers, rows) {
     'Số lượng hiện tại': ['số lượng hiện tại', 'so luong', 'quantity', 'số lượng'],
     /* ngưỡng cảnh báo removed */
   };
-  
+
   // Tìm vị trí các cột
   const columnIndex = {};
   headers.forEach((header, index) => {
@@ -1039,39 +1061,39 @@ function processImportData(headers, rows) {
       }
     }
   });
-  
+
   // Kiểm tra cột bắt buộc
   if (!columnIndex['Tên sản phẩm']) {
     alert('❌ File phải có cột "Tên sản phẩm"');
     return;
   }
-  
+
   rows.forEach((row, rowIndex) => {
     const productName = row[columnIndex['Tên sản phẩm']];
     if (!productName || productName.toString().trim() === '') {
       errors.push(`Dòng ${rowIndex + 2}: Thiếu tên sản phẩm`);
       return;
     }
-    
+
     const product = {
       name: productName.toString().trim(),
       category: columnIndex['Danh mục'] !== undefined ? (row[columnIndex['Danh mục']] || '').toString().trim() : '',
       quantity: columnIndex['Số lượng hiện tại'] !== undefined ? parseInt(row[columnIndex['Số lượng hiện tại']]) || 0 : 0
     };
-    
+
     importData.push(product);
   });
-  
+
   if (errors.length > 0) {
     alert(`❌ Có lỗi trong dữ liệu:\n${errors.join('\n')}`);
     return;
   }
-  
+
   if (importData.length === 0) {
     alert('❌ Không có dữ liệu hợp lệ để nhập');
     return;
   }
-  
+
   showImportPreview(importData);
 }
 
@@ -1079,18 +1101,18 @@ function processImportData(headers, rows) {
 function showImportPreview(importData) {
   const modal = document.getElementById('importModal');
   const previewDiv = document.getElementById('importPreview');
-  
+
   let html = `<p><strong>Tổng số sản phẩm sẽ được xử lý: ${importData.length}</strong></p>`;
   html += '<table>';
   html += '<thead><tr><th>Tên sản phẩm</th><th>Danh mục</th><th>Số lượng</th><th>Trạng thái</th></tr></thead>';
   html += '<tbody>';
-  
+
   importData.forEach(product => {
     // Kiểm tra sản phẩm đã tồn tại
     const existingProduct = productsData.find(p => p.name.toLowerCase() === product.name.toLowerCase());
     const status = existingProduct ? 'Cập nhật' : 'Thêm mới';
     const statusColor = existingProduct ? '#ffc107' : '#28a745';
-    
+
     html += `<tr>
       <td>${product.name}</td>
       <td>${product.category || 'Chưa phân loại'}</td>
@@ -1098,13 +1120,13 @@ function showImportPreview(importData) {
       <td style="color: ${statusColor}; font-weight: bold;">${status}</td>
     </tr>`;
   });
-  
+
   html += '</tbody></table>';
   html += '<p style="color: #666; font-size: 12px; margin-top: 10px;">* Sản phẩm có tên trùng sẽ được cập nhật thông tin</p>';
-  
+
   previewDiv.innerHTML = html;
   modal.style.display = 'block';
-  
+
   // Store import data for confirmation
   modal._importData = importData;
 }
@@ -1113,24 +1135,24 @@ function showImportPreview(importData) {
 async function confirmImport() {
   const modal = document.getElementById('importModal');
   const importData = modal._importData;
-  
+
   if (!importData) return;
-  
+
   try {
     let updatedCount = 0;
     let addedCount = 0;
-    
+
     for (const product of importData) {
       // Tìm sản phẩm đã tồn tại
       const existingIndex = productsData.findIndex(p => p.name.toLowerCase() === product.name.toLowerCase());
-      
+
       if (existingIndex >= 0) {
         // Cập nhật sản phẩm hiện có
         const existingProduct = productsData[existingIndex];
         existingProduct.quantity = product.quantity;
         existingProduct.threshold = product.threshold;
         if (product.category) existingProduct.category = product.category;
-        
+
         // Cập nhật Firestore
         if (window.firebase && window.__FIREBASE_INITIALIZED__) {
           const db = firebase.firestore();
@@ -1140,7 +1162,7 @@ async function confirmImport() {
             category: existingProduct.category
           });
         }
-        
+
         updatedCount++;
       } else {
         // Thêm sản phẩm mới
@@ -1151,34 +1173,34 @@ async function confirmImport() {
           quantity: product.quantity,
           threshold: product.threshold
         };
-        
+
         productsData.push(newProduct);
-        
+
         // Thêm vào Firestore
         if (window.firebase && window.__FIREBASE_INITIALIZED__) {
           const db = firebase.firestore();
           await db.collection('products').doc(newProduct.id).set(newProduct);
         }
-        
+
         addedCount++;
       }
     }
-    
+
     // Đóng modal
     modal.style.display = 'none';
-    
+
     // Refresh bảng
     displayProducts();
-    
+
     // Reset file input
     const fileInput = document.getElementById('importFileInput');
     if (fileInput) fileInput.value = '';
-    
-    alert(`✅ Nhập dữ liệu thành công!\n📊 Đã thêm: ${addedCount} sản phẩm\n🔄 Đã cập nhật: ${updatedCount} sản phẩm`);
-    
+
+    alert(` Nhập dữ liệu thành công!\n Đã thêm: ${addedCount} sản phẩm\n Đã cập nhật: ${updatedCount} sản phẩm`);
+
   } catch (error) {
     console.error('Lỗi import:', error);
-    alert('❌ Có lỗi xảy ra khi nhập dữ liệu. Vui lòng thử lại.');
+    alert(' Có lỗi xảy ra khi nhập dữ liệu. Vui lòng thử lại.');
   }
 }
 
@@ -1188,39 +1210,64 @@ function generateProductId(productName) {
     .replace(/[^a-z0-9]/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
-  
+
   let id = baseId;
   let counter = 1;
-  
+
   while (productsData.some(p => p.id === id)) {
     id = `${baseId}-${counter}`;
     counter++;
   }
-  
+
   return id;
 }
 
-// Upload product image to Firebase Storage. Returns { url, error }.
+// Upload product image to ImgBB. Returns { url, error }.
 async function uploadProductImage(file) {
   if (!file) return { url: '', error: null };
-  if (!(window.firebase && window.__FIREBASE_INITIALIZED__ && firebase.storage)) {
-    return { url: '', error: 'Firebase Storage not available' };
-  }
+
+  const IMGBB_API_KEY = 'f4aa1fb9ca9ce4192217c04064bf809c';
 
   try {
-    const storageRef = firebase.storage().ref();
-    const safeName = file.name.replace(/[^a-z0-9\.\-\_]/gi, '_');
-    const path = 'product-images/' + Date.now() + '_' + safeName;
-    const ref = storageRef.child(path);
-    const snapshot = await ref.put(file);
-    const url = await snapshot.ref.getDownloadURL();
-    return { url, error: null };
+    // FIX: Chuyển đổi file ảnh sang chuỗi Base64 trước khi upload
+    // Tránh lỗi trình duyệt không gửi đúng định dạng binary của FormData
+    const base64Image = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // Lấy phần dữ liệu base64 (bỏ qua tiền tố 'data:image/jpeg;base64,')
+        const result = reader.result.split(',')[1];
+        resolve(result);
+      };
+      reader.onerror = error => reject(error);
+    });
+
+    const formData = new FormData();
+    formData.append('image', base64Image); // Sửa lỗi FormData.append is not a function
+
+    const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      console.log(' Upload ảnh thành công:', data.data.url);
+      return { url: data.data.url, error: null };
+    } else {
+      console.error(' ImgBB từ chối:', data.error.message);
+      return { url: '', error: data.error.message || 'Lỗi từ chối upload của ImgBB' };
+    }
   } catch (e) {
-    console.warn('Upload product image failed', e && e.message ? e.message : e);
-    return { url: '', error: (e && e.message) || String(e) };
+    console.warn(' Upload ảnh thất bại:', e);
+    // Nếu bị lỗi liên quan đến chặn quảng cáo (AdBlock), thông báo cho người dùng
+    if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError')) {
+      return { url: '', error: 'Lỗi mạng hoặc Trình chặn quảng cáo (Adblock) đang chặn ImgBB. Vui lòng tắt Adblock và thử lại!' };
+    }
+    return { url: '', error: e.message || String(e) };
   }
 }
-
 // Setup modal events
 function setupModalEvents() {
   // Import modal
@@ -1228,43 +1275,43 @@ function setupModalEvents() {
   const importCloseBtn = importModal.querySelector('.close');
   const cancelImportBtn = document.getElementById('cancelImportBtn');
   const confirmImportBtn = document.getElementById('confirmImportBtn');
-  
+
   importCloseBtn.addEventListener('click', () => {
     importModal.style.display = 'none';
   });
-  
+
   cancelImportBtn.addEventListener('click', () => {
     importModal.style.display = 'none';
   });
-  
+
   confirmImportBtn.addEventListener('click', confirmImport);
-  
+
   // Add product modal
   const addProductModal = document.getElementById('addProductModal');
   const addProductCloseBtn = addProductModal.querySelector('.close');
   const cancelAddProductBtn = document.getElementById('cancelAddProductBtn');
   const addProductForm = document.getElementById('addProductForm');
-  
+
   addProductCloseBtn.addEventListener('click', () => {
     addProductModal.style.display = 'none';
     addProductModal._editProductId = null;
     addProductForm.reset();
     const modalHeader = addProductModal.querySelector('.modal-header h3');
-    modalHeader.textContent = '➕ Thêm sản phẩm mới';
+    modalHeader.textContent = ' Thêm sản phẩm mới';
     const submitBtn = addProductModal.querySelector('form button[type="submit"]');
-    submitBtn.textContent = '✅ Thêm sản phẩm';
+    submitBtn.textContent = ' Thêm sản phẩm';
   });
-  
+
   cancelAddProductBtn.addEventListener('click', () => {
     addProductModal.style.display = 'none';
     addProductModal._editProductId = null;
     addProductForm.reset();
     const modalHeader = addProductModal.querySelector('.modal-header h3');
-    modalHeader.textContent = '➕ Thêm sản phẩm mới';
+    modalHeader.textContent = ' Thêm sản phẩm mới';
     const submitBtn = addProductModal.querySelector('form button[type="submit"]');
-    submitBtn.textContent = '✅ Thêm sản phẩm';
+    submitBtn.textContent = ' Thêm sản phẩm';
   });
-  
+
   addProductForm.addEventListener('submit', handleAddProduct);
 
   // Image preview and upload handling in add product modal
@@ -1284,8 +1331,8 @@ function setupModalEvents() {
         }
       });
     }
-  } catch(e) { console.warn('Image preview init failed', e); }
-  
+  } catch (e) { console.warn('Image preview init failed', e); }
+
   // Đóng modal khi click outside
   window.addEventListener('click', (event) => {
     if (event.target === importModal) {
@@ -1296,9 +1343,9 @@ function setupModalEvents() {
       addProductModal._editProductId = null;
       addProductForm.reset();
       const modalHeader = addProductModal.querySelector('.modal-header h3');
-      modalHeader.textContent = '➕ Thêm sản phẩm mới';
+      modalHeader.textContent = ' Thêm sản phẩm mới';
       const submitBtn = addProductModal.querySelector('form button[type="submit"]');
-      submitBtn.textContent = '✅ Thêm sản phẩm';
+      submitBtn.textContent = ' Thêm sản phẩm';
     }
   });
 }
@@ -1375,39 +1422,39 @@ function exportToExcelBeautiful() {
   a.download = `DanhSachSanPham_${timestamp}.xls`;
   a.click();
   URL.revokeObjectURL(url);
-  alert('✅ Đã xuất file Excel thành công!');
+  alert(' Đã xuất file Excel thành công!');
 }
 
 // Debug function: Kiểm tra auth state và token claims tự động
 async function debugAuthState() {
-  console.log('🔐 === DEBUGGING AUTH STATE ===');
+  console.log(' === DEBUGGING AUTH STATE ===');
   try {
     const user = firebase.auth().currentUser;
     if (!user) {
-      console.warn('❌ Chưa đăng nhập! Vui lòng đăng nhập trước.');
+      console.warn('Chưa đăng nhập! Vui lòng đăng nhập trước.');
       return;
     }
-    console.log('✅ User đã đăng nhập:', user.email);
+    console.log(' User đã đăng nhập:', user.email);
     console.log('   UID:', user.uid);
-    
+
     // Ép refresh token
-    console.log('🔄 Đang refresh token...');
+    console.log(' Đang refresh token...');
     await user.getIdToken(true);
-    
+
     // Lấy token result + claims
     const tokenResult = await user.getIdTokenResult();
-    console.log('✅ Token refreshed. Claims:', tokenResult.claims);
-    
+    console.log(' Token refreshed. Claims:', tokenResult.claims);
+
     if (tokenResult.claims?.admin === true) {
-      console.log('✨ ADMIN CLAIM FOUND! admin = true');
+      console.log(' ADMIN CLAIM FOUND! admin = true');
     } else {
-      console.warn('⚠️  NO ADMIN CLAIM! admin claim is missing or false');
+      console.warn('  NO ADMIN CLAIM! admin claim is missing or false');
       console.warn('   Upload sẽ bị FAIL vì rules chỉ cho admin ghi.');
     }
   } catch (err) {
-    console.error('❌ Error debugging auth:', err.message);
+    console.error(' Error debugging auth:', err.message);
   }
-  console.log('🔐 === END DEBUG ===\n');
+  console.log(' === END DEBUG ===\n');
 }
 
 // Khởi tạo ngay hoặc khi document ready
