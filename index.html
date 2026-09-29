@@ -441,7 +441,7 @@
             logoutBtn.style.opacity = '1';
             logoutBtn.style.pointerEvents = 'auto';
             logoutBtn.classList.remove('logout-hidden');
-            console.log('✅ Logout button shown for user:', loggedUser.email);
+            console.log(' Logout button shown for user:', loggedUser.email);
             console.log('Button computed style:', window.getComputedStyle(logoutBtn).display);
             console.log('Button size:', logoutBtn.offsetHeight, 'x', logoutBtn.offsetWidth);
         } else {
@@ -453,21 +453,21 @@
             
             // Hide logout button
             logoutBtn.style.display = 'none';
-            console.log('❌ Logout button hidden - not logged in');
+            console.log(' Logout button hidden - not logged in');
         }
         
         // Attach click handler
         console.log('Now attaching click handler to button...');
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('🔴 Logout button clicked');
+            console.log(' Logout button clicked');
             if (confirm('Bạn chắc chắn muốn đăng xuất?')) {
-                console.log('✅ Confirmed logout, calling logout()');
+                console.log(' Confirmed logout, calling logout()');
                 console.log('logout function exists?', typeof logout);
                 if (typeof logout === 'function') {
                     logout();
                 } else {
-                    console.error('❌ logout is not a function');
+                    console.error(' logout is not a function');
                     // Fallback: manually clear and redirect
                     localStorage.removeItem('authToken');
                     localStorage.removeItem('loggedUser');
@@ -475,10 +475,10 @@
                     window.location.href = 'login.html';
                 }
             } else {
-                console.log('❌ Logout cancelled');
+                console.log(' Logout cancelled');
             }
         });
-        console.log('✅ Logout button click handler attached successfully');
+        console.log(' Logout button click handler attached successfully');
         console.log('Button can be clicked?', logoutBtn.onclick, logoutBtn.getEventListeners ? logoutBtn.getEventListeners('click') : 'N/A');
     }
     
@@ -561,7 +561,7 @@
         });
     });
 </script>
-    <!-- Firebase initialization -->
+    <!--cau hinh script cho firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
