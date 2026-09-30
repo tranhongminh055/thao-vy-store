@@ -1,0 +1,37 @@
+{
+  "Đà Nẵng": {
+    "Hải Châu": ["Thuận Phước", "Thạch Thang", "Hòa Cường Bắc", "Hòa Cường Nam"],
+    "Sơn Trà": ["An Hải Bắc", "An Hải Đông", "Mân Thái"],
+    "Ngũ Hành Sơn": ["Khuê Mỹ", "Mỹ An"]
+  },
+  "Hà Nội": {
+    "Ba Đình": ["Phúc Xá","Trúc Bạch","Vĩnh Phúc"],
+    "Hoàn Kiếm": ["Hàng Trống","Hàng Bạc","Hàng Bồ"],
+    "Hai Bà Trưng": ["Bạch Mai","Cầu Dền","Thanh Lương"]
+  },
+  "Hồ Chí Minh": {
+    "Quận 1": ["Bến Nghé","Bến Thành","Phạm Ngũ Lão"],
+    "Quận 3": ["Võ Thị Sáu","Phường 6","Phường 7"],
+    "Quận 10": ["Phường 1","Phường 2","Phường 3"]
+  },
+  "Hải Phòng": {
+    "Ngô Quyền": ["Đằng Giang","Đông Khê","Máy Tơ"],
+    "Lê Chân": ["Hà An","Trại Chuối","Vĩnh Niệm"]
+  },
+  "Bình Dương": {
+    "Thủ Dầu Một": ["Phú Cường","Hiệp An","Chánh Nghĩa"],
+    "Dĩ An": ["Dĩ An","An Bình"]
+  },
+  "Đồng Nai": {
+    "Biên Hòa": ["Tân Phong","Trảng Dài","Long Bình"],
+    "Nhơn Trạch": ["Phú Hội","Long Tân"]
+  },
+  "Khánh Hòa": {
+    "Nha Trang": ["Vĩnh Phước","Vĩnh Thọ","Vạn Thắng"],
+    "Cam Ranh": ["Cam Phúc Bắc","Cam Phúc Nam"]
+  },
+  "Cần Thơ": {
+    "Ninh Kiều": ["An Hòa","An Nghiệp","An Cư"],
+    "Bình Thủy": ["Bùi Hữu Nghĩa","Long Tuyền"]
+  }
+}

@@ -1,0 +1,15 @@
+2026-09-30T04:14:16.646Z\nError: {"error":{"code":503,"message":"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.","status":"UNAVAILABLE"}}\nStack: ApiError: {"error":{"code":503,"message":"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.","status":"UNAVAILABLE"}}
+    at throwErrorIfNotOK (F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:14060:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:13722:13
+    at async Models.generateContent (F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:15191:24)
+    at async F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:7619:30
+    at async Chat.sendMessage (F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:7635:9)
+    at async F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\support-proxy.js:54:22\n\n2026-09-30T04:16:21.167Z\nError: {"error":{"code":503,"message":"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.","status":"UNAVAILABLE"}}\nStack: ApiError: {"error":{"code":503,"message":"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.","status":"UNAVAILABLE"}}
+    at throwErrorIfNotOK (F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:14060:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:13722:13
+    at async Models.generateContent (F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:15191:24)
+    at async F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:7619:30
+    at async Chat.sendMessage (F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\node_modules\@google\genai\dist\node\index.cjs:7635:9)
+    at async F:\WebApp ThaoVyStore\WebApp\ThaoVyStore\server\support-proxy.js:54:22\n\n

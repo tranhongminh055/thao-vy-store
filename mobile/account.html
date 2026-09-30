@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hồ Sơ Của Tôi - ThaoVyStore</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="account.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- shared header (giống index.html) -->
+    <header id="header">
+        <div class="header-top">
+            <div class="container flex-between">
+                <div class="logo">
+                    <a href="index.html"><img src="Logo/màu kem hồng minh họa thức ăn Sticker tròn.png" alt="Logo bánh"
+                            style="border-radius: 50%; width: 150px; height: 150px; object-fit: cover;"></a>
+                </div>
+                <div class="header-search">
+                    <input type="text" id="search-input" placeholder="Bạn muốn tìm gì?">
+                    <button><i class="fas fa-search"></i></button>
+                    <ul id="search-suggestions" class="suggestions-list"></ul>
+                </div>
+                <div class="header-hotline">
+                    <i class="fas fa-phone-volume"></i> <span>Hotline: 1800 2097</span>
+                </div>
+                <div class="header-account">
+                    <a href="account.html">
+                        <i class="fas fa-user"></i>
+                        <span id="userEmail"></span>
+                    </a>
+                </div>
+                <!-- Thông báo -->
+                <div id="notification-icon" class="notification-icon" onclick="toggleNotificationDropdown()">
+                    <i class="fas fa-bell"></i>
+                    <span id="notification-badge" class="notification-badge" style="display: none;">0</span>
+                </div>
+                <div id="notification-dropdown" class="notification-dropdown" style="display: none;">
+                    <div class="notification-header">
+                        <h3>Thông báo</h3>
+                        <div class="notification-actions">
+                            <button onclick="markAllAsRead()" title="Đánh dấu tất cả là đã đọc" class="btn-mark-all">
+                                <i class="fas fa-check-double"></i>
+                            </button>
+                            <button onclick="clearAllNotifications()" title="Xóa tất cả" class="btn-clear-all">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="notificationsList" class="notifications-list"></div>
+                </div>
+                <!-- Giỏ hàng -->
+                <div id="cart-icon" class="cart-icon">
+                    <a href="cart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <nav class="header-nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+                    <li><a href="#promo"><i class="fas fa-tags"></i> Khuyến mãi</a></li>
+                    <li><a href="#news"><i class="fas fa-newspaper"></i> Tin tức</a></li>
+                    <li><a href="stores.html"><i class="fas fa-store"></i> Hệ thống cửa hàng</a></li>
+                    <li><a href="orders.html"><i class="fas fa-history"></i> Lịch sử đơn hàng</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="account-container">
+
+        <!-- MENU TRÁI -->
+        <div class="account-menu">
+            <div class="avatar-box">
+                <img id="avatarPreview" src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
+                <input type="file" id="avatarUpload" accept="image/*">
+            </div>
+
+            <h3 id="displayName">User</h3>
+
+            <ul>
+                <li class="active" data-section="profileSection">Hồ Sơ</li>
+                <li data-section="bankSection">Ngân Hàng</li>
+                <li data-section="addressSection">Địa Chỉ</li>
+                <li data-section="passwordSection">Đổi Mật Khẩu</li>
+            </ul>
+
+            <button id="logoutBtn">Đăng Xuất</button>
+        </div>
+
+        <!-- BÊN PHẢI -->
+        <div class="account-content">
+
+            <!-- Hồ sơ -->
+            <div id="profileSection" class="content-box">
+                <h2>Hồ sơ của tôi</h2>
+                <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+
+                <table class="profile-table">
+                    <tbody>
+                        <tr>
+                            <td class="profile-label">Họ và Tên:</td>
+                            <td class="profile-value">
+                                <input type="text" id="fullName" placeholder="Nhập họ và tên">
+                            </td>
+                            <td class="profile-avatar-cell" rowspan="5">
+                                <img id="avatarLarge" src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                                    alt="Avatar">
+                                <label for="avatarUpload2" class="avatar-change-text">Thay đổi Avatar</label>
+                                <input type="file" id="avatarUpload2" accept="image/*" style="display:none;">
+                                <span class="avatar-size-hint">(Kích thước tốt nhất là cao 155px, rộng 147px)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Email:</td>
+                            <td class="profile-value">
+                                <input type="email" id="email" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Giới tính:</td>
+                            <td class="profile-value">
+                                <select id="gender">
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Ngày sinh:</td>
+                            <td class="profile-value">
+                                <input type="date" id="birthday">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Số điện thoại:</td>
+                            <td class="profile-value">
+                                <input type="text" id="phone" placeholder="Nhập số điện thoại">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="save-btn-wrapper">
+                    <button class="save-btn" id="saveProfile">CẬP NHẬT</button>
+                </div>
+            </div>
+
+            <!-- Ngân hàng -->
+            <div id="bankSection" class="content-box hidden">
+                <h2>Ngân hàng</h2>
+                <p>Quản lý thông tin ngân hàng của bạn</p>
+
+                <table class="profile-table">
+                    <tbody>
+                        <tr>
+                            <td class="profile-label">Tên ngân hàng:</td>
+                            <td class="profile-value">
+                                <select id="bankName">
+                                    <option value="">Chọn ngân hàng</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Số tài khoản:</td>
+                            <td class="profile-value">
+                                <input type="text" id="bankNumber" placeholder="Nhập số tài khoản">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="save-btn-wrapper">
+                    <button class="save-btn" id="saveBank">CẬP NHẬT</button>
+                </div>
+            </div>
+
+            <!-- Địa chỉ -->
+            <div id="addressSection" class="content-box hidden">
+                <h2>Địa chỉ nhận hàng</h2>
+                <p>Quản lý địa chỉ giao hàng của bạn</p>
+
+                <table class="profile-table">
+                    <tbody>
+                        <tr>
+                            <td class="profile-label">Tỉnh/Thành phố:</td>
+                            <td class="profile-value">
+                                <select id="city"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Quận/Huyện:</td>
+                            <td class="profile-value">
+                                <select id="district"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Phường/Xã:</td>
+                            <td class="profile-value">
+                                <select id="ward"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Địa chỉ chi tiết:</td>
+                            <td class="profile-value">
+                                <input type="text" id="addressDetail" placeholder="Số nhà, tên đường, thôn/xóm">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="save-btn-wrapper">
+                    <button class="save-btn" id="saveAddress">CẬP NHẬT</button>
+                </div>
+            </div>
+
+            <!-- Đổi mật khẩu -->
+            <div id="passwordSection" class="content-box hidden">
+                <h2>Đổi mật khẩu</h2>
+                <p>Đổi mật khẩu để bảo mật tài khoản</p>
+
+                <table class="profile-table">
+                    <tbody>
+                        <tr>
+                            <td class="profile-label">Mật khẩu cũ:</td>
+                            <td class="profile-value">
+                                <input type="password" id="oldPass" placeholder="Nhập mật khẩu hiện tại">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Mật khẩu mới:</td>
+                            <td class="profile-value">
+                                <input type="password" id="newPass" placeholder="Tối thiểu 6 ký tự">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="profile-label">Xác nhận:</td>
+                            <td class="profile-value">
+                                <input type="password" id="confirmPass" placeholder="Nhập lại mật khẩu mới">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="save-btn-wrapper">
+                    <button class="save-btn" id="changePass">ĐỔI MẬT KHẨU</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Firebase initialization -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="firebaseInit.js"></script>
+    <script>
+        // Initialize Firebase
+        initializeFirebase();
+    </script>
+    <script src="firestore-sync.js"></script>
+    <!-- notifications -->
+    <script src="notification.js"></script>
+    <script src="notification-helper.js"></script>
+    <script src="account.js"></script>
+    <script src="voucher.js"></script>
+
+    <script>
+        // Sync large avatar with sidebar avatar
+        document.addEventListener('DOMContentLoaded', function () {
+            const avatarPreview = document.getElementById('avatarPreview');
+            const avatarLarge = document.getElementById('avatarLarge');
+            const avatarUpload2 = document.getElementById('avatarUpload2');
+            const avatarUpload = document.getElementById('avatarUpload');
+
+            // Sync avatar images
+            if (avatarPreview && avatarLarge) {
+                const observer = new MutationObserver(function () {
+                    avatarLarge.src = avatarPreview.src;
+                });
+                observer.observe(avatarPreview, { attributes: true, attributeFilter: ['src'] });
+            }
+
+            // Handle second avatar upload button
+            if (avatarUpload2) {
+                avatarUpload2.addEventListener('change', function (e) {
+                    if (avatarUpload) {
+                        // Copy files to the original upload input and trigger change
+                        const dt = new DataTransfer();
+                        for (let file of e.target.files) {
+                            dt.items.add(file);
+                        }
+                        avatarUpload.files = dt.files;
+                        avatarUpload.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sitemap Diagram</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCRC91XW3F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-NCRC91XW3F');
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    h1 {
+      margin-bottom: 4px;
+    }
+
+    p {
+      margin-top: 0;
+      color: #555;
+    }
+
+    .tree {
+      display: flex;
+      justify-content: center;
+      padding: 24px 0;
+      overflow-x: auto;
+    }
+
+    .tree ul {
+      padding-top: 20px;
+      position: relative;
+      transition: all 0.5s;
+      white-space: nowrap;
+    }
+
+    .tree li {
+      display: inline-block;
+      vertical-align: top;
+      text-align: center;
+      list-style-type: none;
+      padding: 20px 10px 0 10px;
+      position: relative;
+    }
+
+    .tree li::before,
+    .tree li::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 50%;
+      border-top: 1px solid #bbb;
+      width: 50%;
+      height: 20px;
+    }
+
+    .tree li::after {
+      right: auto;
+      left: 50%;
+      border-left: 1px solid #bbb;
+    }
+
+    .tree li:only-child::after,
+    .tree li:only-child::before {
+      display: none;
+    }
+
+    .tree li:only-child {
+      padding-top: 0;
+    }
+
+    .tree li:first-child::before,
+    .tree li:last-child::after {
+      border: 0 none;
+    }
+
+    .tree li span {
+      border: 1px solid #bbb;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: inline-block;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      font-size: 0.95rem;
+      max-width: 180px;
+      word-break: break-word;
+    }
+
+    .tree li ul {
+      padding-top: 20px;
+    }
+
+    .tree li ul::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      border-left: 1px solid #bbb;
+      width: 0;
+      height: 20px;
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Sitemap Diagram</h1>
+  <p>Hiển thị cây sitemap thành sơ đồ.</p>
+  <div class="tree">
+    <ul>
+      <li><span>ROOT</span>
+        <ul>
+          <li><span>about.html</span></li>
+          <li><span>account.html</span></li>
+          <li><span>admin.html</span></li>
+          <li><span>admin_temp.html</span></li>
+          <li><span>all-orders.html</span></li>
+          <li><span>banh-2010.html</span></li>
+          <li><span>banh-cupcake.html</span></li>
+          <li><span>banh-gato.html</span></li>
+          <li><span>banh-sinh-nhat.html</span></li>
+          <li><span>banh-tiramisu.html</span></li>
+          <li><span>cart.html</span></li>
+          <li><span>checkout.html</span></li>
+          <li><span>create-admin.html</span></li>
+          <li><span>faq.html</span></li>
+          <li><span>google741028989076b2f8.html</span></li>
+          <li><span>hoadonxacnhan.html</span></li>
+          <li><span>huong-dan-mua-hang.html</span></li>
+          <li><span>ingredients.disabled.html</span></li>
+          <li><span>invoice.html</span></li>
+          <li><span>login.html</span></li>
+          <li><span>orders.html</span></li>
+          <li><span>privacy.html</span></li>
+          <li><span>product-detail.html</span></li>
+          <li><span>recruitment.html</span></li>
+          <li><span>register.html</span></li>
+          <li><span>revenue.html</span></li>
+          <li><span>sitemap-local.html</span></li>
+          <li><span>sitemap.html</span></li>
+          <li><span>stores.html</span></li>
+          <li><span>test-google-login.html</span></li>
+          <li><span>vnpay-return.html</span></li>
+          <li><span>warranty.html</span></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="footer">Mở file này trong trình duyệt để xem sơ đồ sitemap.</div>
+</body>
+
+</html>

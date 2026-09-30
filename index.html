@@ -288,7 +288,6 @@
                 <button class="add-to-cart">Mua ngay</button>
             </div>
 
-
     </section>
     <!-- Khuyến mãi -->
     <section id="promo" class="promo container">
@@ -518,10 +517,14 @@
             item.addEventListener('click', function() {
 
 
-                // xu ly chuyen trang
+                // xu ly chuyen trang voi hieu ung muot ma
                 const page = this.getAttribute('data-page');
                 if (page) {
-                    window.location.href = page;
+                    if (window.ThaoVyTransitions) {
+                        window.ThaoVyTransitions.navigate(page);
+                    } else {
+                        window.location.href = page;
+                    }
                 }
             });
         });
@@ -555,8 +558,12 @@
             // Lưu vào sessionStorage
             sessionStorage.setItem('selectedProduct', JSON.stringify(product));
 
-            // Chuyển hướng tới trang chi tiết sản phẩm
-            window.location.href = 'product-detail.html';
+            // Chuyển hướng tới trang chi tiết sản phẩm với hiệu ứng chuyển trang
+            if (window.ThaoVyTransitions) {
+                window.ThaoVyTransitions.navigate('product-detail.html');
+            } else {
+                window.location.href = 'product-detail.html';
+            }
           });
         });
     });
@@ -577,6 +584,7 @@
     <script src="cart-count.js"></script>
     <script src="index.js"></script>
     <script src="auth.js"></script>
+    <script src="transitions.js"></script>
     <script src="chat.js"></script>
     
 

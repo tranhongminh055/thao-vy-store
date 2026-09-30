@@ -1,0 +1,48 @@
+/* ==========================================================================
+   THẢO VY STORE - ONLY PAGE TRANSITIONS
+   ========================================================================== */
+
+/* Top Loading Progress Bar */
+#page-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, #ff416c, #b92222, #ff4b2b, #ffd700);
+    background-size: 200% 100%;
+    animation: gradientShift 2s linear infinite;
+    z-index: 9999999;
+    pointer-events: none;
+    transition: width 0.25s cubic-bezier(0.1, 0.9, 0.2, 1), opacity 0.3s ease;
+    box-shadow: 0 0 10px rgba(185, 34, 34, 0.7), 0 0 5px rgba(255, 75, 43, 0.5);
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Page Entry & Exit States */
+body {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    animation: autoRevealBody 0.9s ease 0.9s forwards;
+}
+
+body.page-loaded {
+    opacity: 1 !important;
+    animation: none !important;
+}
+
+body.page-exiting {
+    opacity: 0 !important;
+    transition: opacity 0.7s ease-in-out !important;
+    pointer-events: none;
+    animation: none !important;
+}
+
+/* Fallback */
+@keyframes autoRevealBody {
+    to { opacity: 1; }
+}

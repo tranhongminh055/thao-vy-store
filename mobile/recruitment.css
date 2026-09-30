@@ -1,0 +1,22 @@
+/* Recruitment page styles */
+.recruitment-main { padding: 28px 0; }
+.recruitment-hero { background:#fff; padding:18px; border-radius:8px; margin-bottom:18px; text-align:center; box-shadow:var(--shadow); }
+.jobs-grid { display:flex; gap:20px; align-items:flex-start; }
+.jobs-list { width:360px; }
+.panel { background:#fff; padding:16px; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.06); }
+.jobs-list .job-card { border:1px solid #eee; padding:12px; border-radius:8px; margin-bottom:10px; cursor:pointer; }
+.jobs-list .job-card:hover { box-shadow:0 8px 30px rgba(0,0,0,0.06); transform:translateY(-2px); }
+.job-title { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.job-title h4 { margin:0; }
+.job-meta { color:var(--gray); font-size:0.95rem; }
+.jobs-detail { flex:1; }
+.apply-wrap label { display:block; margin-bottom:8px; }
+.apply-wrap input, .apply-wrap textarea { width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px; outline:none; }
+.form-actions { margin-top:10px; display:flex; gap:8px; }
+.btn-primary { background:var(--red); color:#fff; border:none; padding:8px 14px; border-radius:6px; cursor:pointer; }
+.btn-ghost { background:#f6f6f6; color:#333; border:1px solid #ddd; padding:8px 12px; border-radius:6px; cursor:pointer; }
+.hidden { display:none; }
+.apps-list { margin-top:10px; }
+.apps-list .app-item { border-bottom:1px dashed #eee; padding:8px 0; }
+
+@media (max-width:900px){ .jobs-grid{ flex-direction:column; } .jobs-list{ width:100%; } }

@@ -13,13 +13,19 @@
     "rules": "storage.rules"
   },
   "hosting": {
+    "site": "thao-vy-store",
     "public": ".",
     "ignore": [
       "firebase.json",
       ".firebaserc",
       "**/.*",
       "**/node_modules/**",
-      "ngrok/**"
+      "**/ngrok/**",
+      "**/server/**",
+      "**/functions/**",
+      "**/*.exe",
+      "**/*.sh",
+      "**/*.bat"
     ]
     ,
     "rewrites": [

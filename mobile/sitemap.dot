@@ -1,0 +1,20 @@
+digraph Sitemap {
+  node [shape=box, style=rounded, color="#333333"];
+  k9sq06ypcak_ROOT [label="ROOT"];
+  867dx9uv3in_index_html [label="index.html"];
+  k9sq06ypcak_ROOT -> 867dx9uv3in_index_html;
+  f97dccmi5f_about_html [label="about.html"];
+  k9sq06ypcak_ROOT -> f97dccmi5f_about_html;
+  pp4svarrptm_login_html [label="login.html"];
+  k9sq06ypcak_ROOT -> pp4svarrptm_login_html;
+  hx1ielnjc9r_register_html [label="register.html"];
+  k9sq06ypcak_ROOT -> hx1ielnjc9r_register_html;
+  bsnen694ia_stores_html [label="stores.html"];
+  k9sq06ypcak_ROOT -> bsnen694ia_stores_html;
+  sttq71hzco_support_html [label="support.html"];
+  k9sq06ypcak_ROOT -> sttq71hzco_support_html;
+  8020l7t4v2_checkout_html [label="checkout.html"];
+  k9sq06ypcak_ROOT -> 8020l7t4v2_checkout_html;
+  8owxr3wwk5y_giay_nike_html [label="giay-nike.html"];
+  k9sq06ypcak_ROOT -> 8owxr3wwk5y_giay_nike_html;
+}
