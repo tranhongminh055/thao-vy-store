@@ -95,4 +95,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', models: MODELS, env: { port: PORT, gemini_key_set: !!GEMINI_KEY } });
 });
 
-app.listen(PORT, () => console.log(`✅ Support proxy listening on http://localhost:${PORT} | Models: ${MODELS.join(', ')}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`✅ Support proxy listening on http://localhost:${PORT} | Models: ${MODELS.join(', ')}`));
+}
+module.exports = app;

@@ -64,8 +64,8 @@ async function initializeDemoUser() {
   }
 }
 
-// Call initialization
-initializeDemoUser();
+// Call initialization only when needed (not at global scope to prevent deployment timeouts)
+// initializeDemoUser();
 
 // Quick Admin Creation endpoint (for emergency setup)
 exports.createAdminQuick = onRequest({ cors: true }, async (req, res) => {
