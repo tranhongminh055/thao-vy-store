@@ -158,8 +158,8 @@ Bạn phải đóng vai một nhân viên CSKH hoàn hảo, kết hợp khéo l�
     chatBox.appendChild(loadingDiv);
 
     try {
-      // Gọi qua server proxy đang chạy ở port 3000
-      const PROXY_URL = 'http://localhost:3000/api/support';
+      // Gọi qua server proxy trên Render
+      const PROXY_URL = 'https://thao-vy-store.onrender.com/api/support';
 
       const response = await fetch(PROXY_URL, {
         method: 'POST',
